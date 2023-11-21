@@ -1,0 +1,25 @@
+:root {
+    --neon-blue: #00FFFF;
+    --neon-green: #00FF00;
+    --neon-pink: #FF1493;
+    --neon-orange: #FFA500;
+    --neon-purple: #BA55D3;
+    --neon-yellow: #FFD700;
+    
+    --hacker-green: #24f29c;
+    --glitch-green: #1eff00;
+    --jet-black: #000000;
+    --dark-grey: #1E1E1E;
+}
+
+@font-face {
+    font-family: 'SpaceGrotesk';
+    src: url('./SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+}
+
+body {
+    background-color: var(--dark-grey);
+    font-family: 'SpaceGrotesk', cursive;
+    color: var(--neon-yellow);
+}
+  
