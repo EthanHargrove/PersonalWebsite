@@ -1,9 +1,24 @@
+/* :root {
+  --neon-blue: #00FFFF;
+  --neon-green: #00FF00;
+  --neon-pink: #FF1493;
+  --neon-orange: #FFA500;
+  --neon-purple: #BA55D3;
+  --neon-yellow: #FFD700;
+  
+  --hacker-green: #24f29c;
+  --glitch-green: #1eff00;
+  --jet-black: #000000;
+  --dark-grey: #1E1E1E;
+} */
+
 .card {
     display: flex;
     flex-direction: column;
     /* align-items: center; */
     justify-content: center;
-    background-color: bisque;
+    background-color: var(--dark-grey);
+    /* box-shadow: 0 0 10px 5px var(--neon-purple); */
     width: 16rem;
     height: fit-content;
     padding: 0 2rem 2rem 2rem;

@@ -18,7 +18,7 @@
 }
 
 body {
-    background-color: var(--dark-grey);
+    background-color: var(--jet-black);
     font-family: 'SpaceGrotesk', cursive;
     color: var(--neon-yellow);
 }
