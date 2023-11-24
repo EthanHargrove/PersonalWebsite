@@ -1,0 +1,54 @@
+:root {
+    --neon-blue: #00FFFF;
+    --neon-green: #00FF00;
+    --neon-pink: #FF1493;
+    --neon-orange: #FFA500;
+    --neon-purple: #BA55D3;
+    --neon-yellow: #FFD700;
+    
+    --hacker-green: #24f29c;
+    --glitch-green: #1eff00;
+    --jet-black: #000000;
+    --dark-grey: #1E1E1E;
+}
+
+@font-face {
+    font-family: 'SpaceGrotesk';
+    src: url('./SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+}
+
+body {
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(0,0,0,0.5);
+    background-image: url(../assets/image-2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100vw;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    font-family: 'SpaceGrotesk', cursive;
+    color: var(--neon-yellow);
+    z-index: 1;
+}
+
+.btn-glitch {
+    /* set text styles */
+    font-family: 'SpaceGrotesk', cursive;
+    color: #ffffff;
+    text-transform: uppercase;
+    /* set border styles */
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+    border-image-slice: 1;
+    
+    background: transparent;
+    cursor: pointer;
+}
+
+.btn-glitch:hover,
+.btn-glitch:focus {
+    background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+}
