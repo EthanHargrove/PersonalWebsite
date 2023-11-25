@@ -1,13 +1,22 @@
+.reset-btn {
+    position: absolute;
+    top: 83vh;
+    left: 50%;
+    transform: translate(-50%, -0%);
+}
+
 .values-btn {
     position: absolute;
     top: 83vh;
-    right: 55vw;
+    right: 50%;
+    transform: translate(-75%, -0%);
     z-index: 1;
 }
 
 .ai-move-btn {
     position: absolute;
     top: 83vh;
-    left: 55vw;
+    left: 50%;
+    transform: translate(75%, -0%);
     z-index: 1;
 }

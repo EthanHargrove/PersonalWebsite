@@ -30,6 +30,11 @@ function TicTacToeGame() {
     const rowYText = [-1.35, 0.05, 1.35]
     const colXText = [-1.35, 0, 1.35]
 
+    const resetGame = () => {
+        setBoard([[0,0,0],[0,0,0],[0,0,0]]);
+        setCurrentPlayer(1);
+    };
+
     return (
         <div className='content'>
             <Canvas>
@@ -49,8 +54,11 @@ function TicTacToeGame() {
                     ))}
                 </group>
             </Canvas>
+            <button className='btn-glitch reset-btn' onClick={resetGame}>
+                Reset Game
+            </button>
             <button className='btn-glitch values-btn' onClick={() => setShowVals(!showVals)}>
-                Show Values
+                Show Q-Values
             </button>
             <button className='btn-glitch ai-move-btn'>
                 Make AI Move
