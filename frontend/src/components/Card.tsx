@@ -10,30 +10,27 @@ interface CardProps {
 function Card(props: CardProps) {
   const [show, setShown] = useState(false);
 
-  const props3 = useSpring({
-    opacity: 1,
-    transform: show ? "scale(1.05)" : "scale(1)",
-    boxShadow: show
+  const style = useSpring({
+    from: { 
+      opacity: 0.5,
+      transform: "scale(0.5)", 
+      boxShadow: show
       ? `0 0 20px 10px ${props.colour}`
       : `0 0 10px 5px ${props.colour}`,
-    // from: { 
-    //   opacity: 0.5,
-    //   transform: "scale(3.5)", 
-    //   boxShadow: "0 0 20px 10px var(--neon-orange)",
-    // },
-    // to: { 
-    //   opacity: 1,
-    //   transform: show ? "scale(1.05)" : "scale(1)",
-    //   boxShadow: show
-    //   ? "0 0 20px 10px var(--neon-purple)"
-    //   : "0 0 10px 5px var(--neon-purple)",
-    // },
+    },
+    to: { 
+      opacity: 1,
+      transform: show ? "scale(1.05)" : "scale(1)",
+      boxShadow: show
+      ? `0 0 20px 10px ${props.colour}`
+      : `0 0 10px 5px ${props.colour}`,
+    },
   });
 
   return (
     <animated.div
       className="card"
-      style={props3}
+      style={style}
       onMouseEnter={() => setShown(true)}
       onMouseLeave={() => setShown(false)}
     >

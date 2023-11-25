@@ -50,16 +50,19 @@ function Projects() {
     }
   ];
   return (
-    <div className="">
-      <Carousel3D
-        cards={cards}
-        height="100vh"
-        width="100%"
-        margin="0 auto"
-        offset={200}
-        showArrows={false}
-      />
-    </div>
+    <>
+      <div className="cyberpunk-background"></div>
+      <div className="content">
+        <Carousel3D
+          cards={cards}
+          height="100vh"
+          width="90%"
+          margin="0 auto"
+          offset={200}
+          showArrows={false}
+        />
+      </div>
+    </>
   );
 }
 
