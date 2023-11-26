@@ -20,3 +20,10 @@
     transform: translate(75%, -0%);
     z-index: 1;
 }
+
+.q-table-slider {
+    position: absolute;
+    top: 88vh;
+    left: 50%;
+    transform: translate(-50%, -0%);
+}

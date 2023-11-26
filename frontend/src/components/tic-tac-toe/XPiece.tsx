@@ -1,5 +1,6 @@
 import React from 'react';
 import { Shape } from 'three';
+import { useSpring, animated } from '@react-spring/three';
 
 
 interface XPieceProps {
@@ -38,9 +39,9 @@ const XPiece: React.FC<XPieceProps> = (props) => {
     };
 
     return (
-        <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
+        <mesh rotation={[0, 0, 0]} scale={0.006} >
             <extrudeGeometry args={[XShape, extrudeSettings]} />
-            <meshStandardMaterial color="#FF1493" wireframe={false} />
+            <meshStandardMaterial color="#FF1493" wireframe={true} />
         </mesh>
     );
 };

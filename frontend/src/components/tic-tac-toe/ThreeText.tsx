@@ -13,9 +13,8 @@ const ThreeText: React.FC<ThreeTextProps> = ({ x, y, z, value }) => {
     return (
         <Text
             position={[x, y, z]}
-            fontSize={0.35}
+            fontSize={0.25}
             textAlign='center'
-            font=''
         >
             { value }
         </Text>
