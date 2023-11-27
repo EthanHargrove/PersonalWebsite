@@ -9,6 +9,8 @@ interface EmptySquareProps {
     depth: number;
     row: number;
     col: number;
+    visible: boolean;
+    colour: string;
     board: number[][];
     setBoard: (board: number[][]) => void;
     currentPlayer: number;
@@ -16,7 +18,7 @@ interface EmptySquareProps {
 }
 
 const EmptySquare: React.FC<EmptySquareProps> = (props) => {
-    let { x, y, gridArmLength, depth, row, col, board, setBoard, currentPlayer, setCurrentPlayer } = props;
+    let { x, y, gridArmLength, depth, row, col, visible, colour, board, setBoard, currentPlayer, setCurrentPlayer } = props;
     const [ hovered, setHovered ] = useState(false);
 
     useEffect(() => {
@@ -52,7 +54,7 @@ const EmptySquare: React.FC<EmptySquareProps> = (props) => {
     return (
         <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]} onPointerOver={() => setHovered(true)} onPointerOut={() => setHovered(false)} onClick={placePiece}>
             <extrudeGeometry args={[squareShape, extrudeSettings]}/>
-            <meshStandardMaterial color="#00FFFF" wireframe={false} visible={false} />
+            <meshStandardMaterial color={colour} wireframe={false} visible={visible} />
         </mesh>
     );
 };

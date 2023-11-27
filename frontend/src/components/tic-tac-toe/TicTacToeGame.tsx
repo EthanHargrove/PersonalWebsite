@@ -1,7 +1,7 @@
 // External imports
 import React, { useState } from 'react';
 import { Canvas } from '@react-three/fiber'; 
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 import Slider from '@mui/material-next/Slider';
 // Internal imports
 import "../../styles/main.css";
@@ -22,7 +22,7 @@ import qTable10000000 from '../../assets/ttt_q_table10000000.json';
 
 function TicTacToeGame() {
     let gridCenterX = 0;
-    let gridCenterY = 0;
+    let gridCenterY = 50;
     let gridDepth = 60;
     let gridArmLength = 200;
     let gridArmWidth = 20;
@@ -39,8 +39,8 @@ function TicTacToeGame() {
     const [currentPlayer, setCurrentPlayer] = useState<number>(1);
     const rowYVals = [gridCenterY+squareDist, gridCenterY, gridCenterY-squareDist];
     const colXVals = [gridCenterX-squareDist, gridCenterX, gridCenterX+squareDist];
-    const rowYText = [1.35, 0.05, -1.35];
-    const colXText = [-1.35, 0, 1.35];
+    // const rowYText = [1.35, 0.05, -1.35];
+    // const colXText = [-1.35, 0, 1.35];
 
     const marks = [
         { value: 1, label: '10'},
@@ -51,6 +51,25 @@ function TicTacToeGame() {
         { value: 6, label: '1M' },
         { value: 7, label: '10M' },
     ];
+
+    const CustomSliderStyles = {
+        '& .MuiSlider-thumb': {
+            background: 'radial-gradient(circle, #00FFFF, #FF1493)',
+        },
+        '& .MuiSlider-track': {
+            background: 'linear-gradient(22deg, #FF1493, #00FFFF)',
+        },
+        '& .MuiSlider-rail': {
+            color: "transparent"
+        },
+        '& .MuiSlider-markLabel': {
+            color: '#ffffff', // Customize the color of the tick labels
+            fontSize: 12,  // Customize the font size of the tick labels
+          },
+        '& .MuiSlider-active': {
+            color: "transparent"
+        },
+    };
 
     const resetGame = () => {
         setBoard([[0, 0, 0],[0, 0, 0],[0, 0, 0]]);
@@ -69,6 +88,24 @@ function TicTacToeGame() {
         }
     };
 
+    const handleTableChange = (event: any, newValue: number) => {
+        if (newValue === 1) {
+            setQTable(qTable10);
+        } else if (newValue === 2) {
+            setQTable(qTable100);
+        } else if (newValue === 3) {
+            setQTable(qTable1000);
+        } else if (newValue === 4) {
+            setQTable(qTable10000);
+        } else if (newValue === 5) {
+            setQTable(qTable100000);
+        } else if (newValue === 6) {
+            setQTable(qTable1000000);
+        } else if (newValue === 7) {
+            setQTable(qTable10000000);
+        }
+    };
+
     return (
         <div className='content'>
             <Canvas>
@@ -82,8 +119,8 @@ function TicTacToeGame() {
                         row.map((piece, colIndex: number) => (
                             piece === 1 ? (<XPiece x={colXVals[colIndex]} y={rowYVals[rowIndex]} armLength={xArmLength} armWidth={xArmWidth} depth={pieceDepth} />)
                             : piece === -1 ? (<OPiece x={colXVals[colIndex]} y={rowYVals[rowIndex]} radius={xArmLength} width={xArmWidth} depth={pieceDepth} />)
-                            : showVals ? (<ThreeText x={colXText[colIndex]} y={rowYText[rowIndex]} z={0.175} value={getQValue(rowIndex, colIndex)} />)
-                            : (<EmptySquare x={colXVals[colIndex]} y={rowYVals[rowIndex]} gridArmLength={gridArmLength} depth={pieceDepth} row={rowIndex} col={colIndex} board={board} setBoard={setBoard} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer}/>)
+                            : showVals ? (<ThreeText x={0.006*colXVals[colIndex]} y={0.006*rowYVals[rowIndex]} z={0.175} value={getQValue(rowIndex, colIndex)} gridArmLength={gridArmLength} depth={pieceDepth} row={rowIndex} col={colIndex} board={board} setBoard={setBoard} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer}/>)
+                            : (<EmptySquare x={colXVals[colIndex]} y={rowYVals[rowIndex]} gridArmLength={gridArmLength} depth={pieceDepth} row={rowIndex} col={colIndex} visible={false} colour={'#ffffff'} board={board} setBoard={setBoard} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer}/>)
                         ))
                     ))}
                 </group>
@@ -106,8 +143,10 @@ function TicTacToeGame() {
                     max={7}
                     defaultValue={7}
                     step={1}
-                    marks={marks} 
-                    valueLabelDisplay="on"
+                    marks={marks}
+                    sx={CustomSliderStyles}
+                    onChange={handleTableChange}
+                    valueLabelDisplay="off"
                     valueLabelFormat={(value:any) => marks.find(mark => mark.value === value)?.label || ''}
                 />
             </div>
