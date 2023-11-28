@@ -7,10 +7,11 @@ interface TicTacToeGridProps {
     armLength: number;
     armWidth: number;
     depth: number;
+    vertColour: string;
+    horiColour: string;
 }
 
-const TicTacToeGrid: React.FC<TicTacToeGridProps> = ({ x, y, armLength, armWidth, depth }) => {
-    let colour = '#FFFFFF';
+const TicTacToeGrid: React.FC<TicTacToeGridProps> = ({ x, y, armLength, armWidth, depth, vertColour, horiColour }) => {
     x = x-armLength/2; 
     y = y+armLength/2;
 
@@ -61,19 +62,19 @@ const TicTacToeGrid: React.FC<TicTacToeGridProps> = ({ x, y, armLength, armWidth
         <>
             <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
                 <extrudeGeometry args={[topArm, extrudeSettings]} />
-                <meshStandardMaterial color={colour} wireframe={true} />
+                <meshStandardMaterial color={horiColour} wireframe={true} />
             </mesh>
             <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
                 <extrudeGeometry args={[bottomArm, extrudeSettings]} />
-                <meshStandardMaterial color={colour} wireframe={true} />
+                <meshStandardMaterial color={horiColour} wireframe={true} />
             </mesh>
             <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
                 <extrudeGeometry args={[leftArm, extrudeSettings]} />
-                <meshStandardMaterial color={colour} wireframe={true} />
+                <meshStandardMaterial color={vertColour} wireframe={true} />
             </mesh>
             <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
                 <extrudeGeometry args={[rightArm, extrudeSettings]} />
-                <meshStandardMaterial color={colour} wireframe={true} />
+                <meshStandardMaterial color={vertColour} wireframe={true} />
             </mesh>
         </>
     );

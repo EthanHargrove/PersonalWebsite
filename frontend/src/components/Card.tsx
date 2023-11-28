@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
+import { useGlitch, GlitchHandle } from "react-powerglitch";
 import '../styles/card.css';
 
 interface CardProps {
@@ -27,9 +28,12 @@ function Card(props: CardProps) {
     },
   });
 
+  const glitch: GlitchHandle = useGlitch({ playMode: 'hover', glitchTimeSpan: false });
+
   return (
     <animated.div
       className="card"
+      ref={glitch.ref}
       style={style}
       onMouseEnter={() => setShown(true)}
       onMouseLeave={() => setShown(false)}

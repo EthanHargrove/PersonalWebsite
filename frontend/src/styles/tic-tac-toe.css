@@ -23,7 +23,14 @@
 
 .q-table-slider {
     position: absolute;
-    top: 83vh;
+    top: 85vh;
+    left: 50%;
+    transform: translate(-50%, -0%);
+}
+
+.game-result {
+    position: absolute;
+    top: 9vh;
     left: 50%;
     transform: translate(-50%, -0%);
 }

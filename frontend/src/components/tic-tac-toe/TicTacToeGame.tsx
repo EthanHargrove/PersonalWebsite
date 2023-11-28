@@ -1,7 +1,7 @@
 // External imports
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Canvas } from '@react-three/fiber'; 
-import { Stack, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import Slider from '@mui/material-next/Slider';
 // Internal imports
 import "../../styles/main.css";
@@ -21,8 +21,14 @@ import qTable1000000 from '../../assets/ttt_q_table1000000.json';
 import qTable10000000 from '../../assets/ttt_q_table10000000.json';
 
 function TicTacToeGame() {
+    const fontStyle =  {
+        fontFamily: 'SpaceGrotesk',
+        color: '#ffffff',
+        marginBottom: '-4px',
+    };
+
     let gridCenterX = 0;
-    let gridCenterY = 50;
+    let gridCenterY = 60;
     let gridDepth = 60;
     let gridArmLength = 200;
     let gridArmWidth = 20;
@@ -31,7 +37,10 @@ function TicTacToeGame() {
     let pieceDepth = 32;
     let xArmLength = 40;
     let xArmWidth = 10;
-
+    let vertGridColour = '#FFFFFF';
+    let horiGridColour = '#FFFFFF';
+    
+    const [resultText, setResultText] = useState<string>("");
     const [qTable, setQTable] = useState<{[key: string]: number}>(qTable10000000);
     const [showVals, setShowVals] = useState(false);
     const actions = [[0,1,2],[3,4,5],[6,7,8]];
@@ -39,8 +48,6 @@ function TicTacToeGame() {
     const [currentPlayer, setCurrentPlayer] = useState<number>(1);
     const rowYVals = [gridCenterY+squareDist, gridCenterY, gridCenterY-squareDist];
     const colXVals = [gridCenterX-squareDist, gridCenterX, gridCenterX+squareDist];
-    // const rowYText = [1.35, 0.05, -1.35];
-    // const colXText = [-1.35, 0, 1.35];
 
     const marks = [
         { value: 1, label: '10'},
@@ -74,7 +81,36 @@ function TicTacToeGame() {
     const resetGame = () => {
         setBoard([[0, 0, 0],[0, 0, 0],[0, 0, 0]]);
         setCurrentPlayer(1);
+        setResultText("");
     };
+
+    useLayoutEffect(() => {
+        for (let i=0; i < 3; i++){
+            // Check each row, and column
+            const rowSum = board[i].reduce((acc, current) => acc + current, 0)
+            const colSum = board.map(row => row[i]).reduce((acc, current) => acc + current, 0)
+            if ((rowSum === 3) || (colSum === 3)){
+                setResultText("Player ‘X' Wins!");
+                return;
+            } else if ((rowSum === -3) || (colSum === -3)) {
+                setResultText("Player ‘O' Wins!");
+                return;
+            }
+        }
+        let diagSum = board.map((row, index) => row[index]).reduce((prev, current) => prev + current);
+        if (diagSum === 3){
+            setResultText("Player ‘X' Wins!");
+            return;
+        } else if (diagSum === -3){
+            setResultText("Player ‘O' Wins!");
+            return;
+        }
+        if (board.some(row => row.includes(0))){
+            setResultText("");
+            return;
+        }
+        setResultText("It's a Draw!");
+    }, [board]);
 
     const getQValue = (rowIndex: number, colIndex: number) => {
         console.log(qTable);
@@ -108,11 +144,12 @@ function TicTacToeGame() {
 
     return (
         <div className='content'>
+            <h3 className='game-result'>{resultText}</h3>
             <Canvas>
                 <ambientLight intensity={1}/>
                 <spotLight position={[-10, 10, 10]} angle={15} penumbra={1} intensity={300} castShadow />
                 <group>
-                    <TicTacToeGrid x={gridCenterX} y={gridCenterY} armLength={gridArmLength} armWidth={gridArmWidth} depth={gridDepth} />
+                    <TicTacToeGrid x={gridCenterX} y={gridCenterY} armLength={gridArmLength} armWidth={gridArmWidth} depth={gridDepth} vertColour={vertGridColour} horiColour={horiGridColour} />
                     {/* loop over each row */}
                     {board.map((row, rowIndex: number) => (
                         // loop over each column in the row
@@ -128,14 +165,22 @@ function TicTacToeGame() {
             <button className='btn-glitch reset-btn' onClick={resetGame}>
                 Reset Game
             </button>
-            <button className='btn-glitch values-btn' onClick={() => setShowVals(!showVals)}>
-                Show Q-Values
-            </button>
+            {showVals ? (
+                <button className='btn-glitch values-btn' onClick={() => setShowVals(!showVals)}>
+                    Hide Q-Values
+                </button>
+            ) : (
+                <button className='btn-glitch values-btn' onClick={() => setShowVals(!showVals)}>
+                    Show Q-Values
+                </button>
+            )}
             <button className='btn-glitch ai-move-btn'>
                 Make AI Move
             </button>
             <div className='q-table-slider'>
-                <Typography>
+                <Typography 
+                    style={fontStyle}
+                >
                     Number of episodes (games) trained:
                 </Typography>
                 <Slider 

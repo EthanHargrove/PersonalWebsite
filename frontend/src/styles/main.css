@@ -21,8 +21,8 @@ body {
     overflow: hidden;
     position: relative;
     background-color: var(--jet-black);
-    font-family: 'SpaceGrotesk', monospace;
-    color: var(--neon-yellow);
+    font-family: 'SpaceGrotesk';
+    color: #ffffff;
     z-index: 1;
 }
 
