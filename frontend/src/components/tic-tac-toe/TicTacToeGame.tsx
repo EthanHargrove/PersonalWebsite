@@ -12,13 +12,13 @@ import OPiece from './OPiece';
 import ThreeText from './ThreeText';
 import EmptySquare from './EmptySquare';
 // Import q-tables
-import qTable10 from '../../assets/ttt_q_table10.json';
-import qTable100 from '../../assets/ttt_q_table100.json';
-import qTable1000 from '../../assets/ttt_q_table1000.json';
-import qTable10000 from '../../assets/ttt_q_table10000.json';
-import qTable100000 from '../../assets/ttt_q_table100000.json';
-import qTable1000000 from '../../assets/ttt_q_table1000000.json';
-import qTable10000000 from '../../assets/ttt_q_table10000000.json';
+import qTable5000 from '../../assets/ttt_q_table5000_rand_sched.json';
+import qTable10000 from '../../assets/ttt_q_table10000_rand_sched.json';
+import qTable50000 from '../../assets/ttt_q_table50000_rand_sched.json';
+import qTable100000 from '../../assets/ttt_q_table100000_rand_sched.json';
+import qTable500000 from '../../assets/ttt_q_table500000_rand_sched.json';
+import qTable1000000 from '../../assets/ttt_q_table1000000_rand_sched.json';
+import qTable5000000 from '../../assets/ttt_q_table5000000_rand_sched.json';
 
 function TicTacToeGame() {
     const fontStyle =  {
@@ -41,7 +41,7 @@ function TicTacToeGame() {
     let horiGridColour = '#FFFFFF';
     
     const [resultText, setResultText] = useState<string>("");
-    const [qTable, setQTable] = useState<{[key: string]: number}>(qTable10000000);
+    const [qTable, setQTable] = useState<{[key: string]: number}>(qTable5000000);
     const [showVals, setShowVals] = useState(false);
     const actions = [[0,1,2],[3,4,5],[6,7,8]];
     const [board, setBoard] = useState<number[][]>([[0, 0, 0],[0, 0, 0],[0, 0, 0]]);
@@ -50,13 +50,13 @@ function TicTacToeGame() {
     const colXVals = [gridCenterX-squareDist, gridCenterX, gridCenterX+squareDist];
 
     const marks = [
-        { value: 1, label: '10'},
-        { value: 2, label: '100' },
-        { value: 3, label: '1K' },
+        { value: 3, label: '5K' },
         { value: 4, label: '10K' },
-        { value: 5, label: '100K' },
-        { value: 6, label: '1M' },
-        { value: 7, label: '10M' },
+        { value: 5, label: '50K' },
+        { value: 6, label: '100K' },
+        { value: 7, label: '500K' },
+        { value: 8, label: '1M' },
+        { value: 9, label: '5M' },
     ];
 
     const CustomSliderStyles = {
@@ -98,10 +98,11 @@ function TicTacToeGame() {
             }
         }
         let diagSum = board.map((row, index) => row[index]).reduce((prev, current) => prev + current);
-        if (diagSum === 3){
+        const antiDiagSum = board.map((row, index) => row[row.length - 1 - index]).reduce((prev, current) => prev + current);
+        if ((diagSum === 3) || (antiDiagSum === 3)){
             setResultText("Player ‘X' Wins!");
             return;
-        } else if (diagSum === -3){
+        } else if ((diagSum === -3) || (antiDiagSum === -3)){
             setResultText("Player ‘O' Wins!");
             return;
         }
@@ -113,32 +114,68 @@ function TicTacToeGame() {
     }, [board]);
 
     const getQValue = (rowIndex: number, colIndex: number) => {
-        console.log(qTable);
         let action = actions[rowIndex][colIndex];
         let key = `((${board.flat().join(', ')}), ${action})`;
-        console.log(key);
         if (qTable.hasOwnProperty(key)) {
             return qTable[key].toFixed(5);
+        } else if (resultText !== "") {
+            return "";
         } else {
             return "?";
         }
     };
 
+    const makeAIMove = () => {
+        const flatBoard: number[] = board.flat();
+        const emptySquares: number[] = [];
+
+        flatBoard.forEach((value, index) => {
+            if (value === 0) {
+                emptySquares.push(index);
+            }
+        });
+
+        let bestValue: number = -2;
+        let bestMove: number = 10;
+
+        emptySquares.forEach((action, index) => {
+            let value: number;
+            let key = `((${board.flat().join(', ')}), ${action})`;
+            if (qTable.hasOwnProperty(key)) {
+                value = qTable[key];
+            } else {
+                value = 0
+            }
+            if (index === 0 || value > bestValue) {
+                bestValue = value;
+                bestMove = action;
+            }
+        });
+        if (emptySquares.length !== 0) {
+            const row = Math.floor(bestMove / 3)
+            const col = bestMove % 3;
+            const newBoard = [...board];
+            newBoard[row][col] = currentPlayer;
+            setBoard(newBoard);
+            setCurrentPlayer(currentPlayer*-1);
+        }
+    }
+
     const handleTableChange = (event: any, newValue: number) => {
-        if (newValue === 1) {
-            setQTable(qTable10);
-        } else if (newValue === 2) {
-            setQTable(qTable100);
-        } else if (newValue === 3) {
-            setQTable(qTable1000);
+        if (newValue === 3) {
+            setQTable(qTable5000);
         } else if (newValue === 4) {
             setQTable(qTable10000);
         } else if (newValue === 5) {
-            setQTable(qTable100000);
+            setQTable(qTable50000);
         } else if (newValue === 6) {
-            setQTable(qTable1000000);
+            setQTable(qTable100000);
         } else if (newValue === 7) {
-            setQTable(qTable10000000);
+            setQTable(qTable500000);
+        } else if (newValue === 8) {
+            setQTable(qTable1000000);
+        } else if (newValue === 9) {
+            setQTable(qTable5000000);
         }
     };
 
@@ -174,7 +211,7 @@ function TicTacToeGame() {
                     Show Q-Values
                 </button>
             )}
-            <button className='btn-glitch ai-move-btn'>
+            <button className='btn-glitch ai-move-btn' onClick={makeAIMove}>
                 Make AI Move
             </button>
             <div className='q-table-slider'>
@@ -184,9 +221,9 @@ function TicTacToeGame() {
                     Number of episodes (games) trained:
                 </Typography>
                 <Slider 
-                    min={1}
-                    max={7}
-                    defaultValue={7}
+                    min={3}
+                    max={9}
+                    defaultValue={9}
                     step={1}
                     marks={marks}
                     sx={CustomSliderStyles}
