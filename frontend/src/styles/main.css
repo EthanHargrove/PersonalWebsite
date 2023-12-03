@@ -22,6 +22,7 @@ body {
     position: relative;
     background-color: var(--jet-black);
     font-family: 'SpaceGrotesk';
+    font-size: 28px;
     color: #ffffff;
     z-index: 1;
 }
@@ -68,7 +69,15 @@ body {
 }
 
 .navbar-btn {
+    font-size: 24px;
     z-index: 2;
     color: var(--neon-blue);
     margin-top: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
+
+/* .responsive-img {
+    width: 100%; 
+    height: auto; 
+  } */
