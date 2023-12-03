@@ -66,3 +66,9 @@ body {
 .btn-glitch:focus {
     background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
 }
+
+.navbar-btn {
+    z-index: 2;
+    color: var(--neon-blue);
+    margin-top: 5px;
+}

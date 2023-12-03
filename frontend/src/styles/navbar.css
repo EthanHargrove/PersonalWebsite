@@ -1,0 +1,20 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3rem;
+
+    background: transparent;
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+    border-bottom: 5px solid var(--neon-pink);
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar:hover {
+    border-bottom: 5px solid var(--neon-blue);
+}

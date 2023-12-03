@@ -1,5 +1,6 @@
 import Card from "../components/Card";
 import Carousel3D from "../components/Carousel3D";
+import Navbar from "../components/Navbar";
 
 function Projects() {
   let cards = [
@@ -52,6 +53,7 @@ function Projects() {
   return (
     <>
       <div className="cyberpunk-background"></div>
+      <Navbar />
       <div className="content">
         <Carousel3D
           cards={cards}
