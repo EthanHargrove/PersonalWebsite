@@ -15,6 +15,7 @@ interface NavbarProps {
 const Navbar = (props: NavbarProps) => {
     return (
         <div className="navbar">
+
             {/* LinkedIn button */}
             <GlitchComponent>
                 <FontAwesomeIcon
@@ -22,13 +23,17 @@ const Navbar = (props: NavbarProps) => {
                     className='navbar-btn fa-btn'
                 />
             </GlitchComponent>
+
+            {/* CV Button */}
+
             {/* Home button */}
             <GlitchComponent>
                 <HomeSharpIcon
                     fontSize='inherit'
-                    className='navbar-btn'
+                    className={`navbar-btn ${props.active === 'home' ? 'active' : ''}`}
                 />
             </GlitchComponent>
+
             {/* Projects button */}
             <GlitchComponent>
                 <ConstructionSharpIcon 
@@ -36,6 +41,7 @@ const Navbar = (props: NavbarProps) => {
                     className={`navbar-btn ${props.active === 'projects' ? 'active' : ''}`}
                 />
             </GlitchComponent>
+
             {/* Github button */}
             <GlitchComponent>
                 <FontAwesomeIcon

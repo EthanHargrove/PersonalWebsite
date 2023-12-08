@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
-import { useGlitch, GlitchHandle } from "react-powerglitch";
 import '../styles/card.css';
 
 interface CardProps {

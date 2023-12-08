@@ -4,25 +4,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles/main.css';
 import Projects from './pages/Projects';
 import TicTacToe from './pages/TicTacToe';
+import Home from './pages/Home';
 
 
 const router = createBrowserRouter([
-  // {
-  //   path: "/",
-  //   element: <h1>hi</h1>
-  // },
+  {
+    path: "/",
+    element: <Home />
+  },
   {
     path: "/projects",
     element: <Projects />
   },
   {
-    path: "/",
+    path: "/tic-tac-toe",
     element: <TicTacToe />
   },
-  // {
-  //   path: "/tic-tac-toe",
-  //   element: <TicTacToe />
-  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

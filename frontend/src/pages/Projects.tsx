@@ -9,7 +9,7 @@ function Projects() {
       content: (
         <Card 
           colour="var(--neon-orange)"
-          imagen="https://github.com/EthanHargrove/PersonalWebsite/blob/main/frontend/src/assets/tic-tac-toe.png" 
+          imagen="https://github.com/EthanHargrove/PersonalWebsite/blob/910c510984986f0f48f628e912af5e3fd66fe635/frontend/src/assets/tic-tac-toe.png" 
           title="Q-Learning: Tic-Tac-Toe"
           description="First card."
         />
