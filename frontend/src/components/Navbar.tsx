@@ -8,31 +8,39 @@ import { faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import GlitchComponent from './GlitchComponent';
 import '../styles/navbar.css';
 
-const Navbar = () => {
+interface NavbarProps {
+    active: string;
+}
+
+const Navbar = (props: NavbarProps) => {
     return (
         <div className="navbar">
+            {/* LinkedIn button */}
             <GlitchComponent>
-                <ConstructionSharpIcon 
-                    fontSize='inherit'
-                    className='navbar-btn'
+                <FontAwesomeIcon
+                    icon={faLinkedin}
+                    className='navbar-btn fa-btn'
                 />
             </GlitchComponent>
+            {/* Home button */}
             <GlitchComponent>
                 <HomeSharpIcon
                     fontSize='inherit'
                     className='navbar-btn'
                 />
             </GlitchComponent>
+            {/* Projects button */}
             <GlitchComponent>
-                <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className='navbar-btn'
+                <ConstructionSharpIcon 
+                    fontSize='inherit'
+                    className={`navbar-btn ${props.active === 'projects' ? 'active' : ''}`}
                 />
             </GlitchComponent>
+            {/* Github button */}
             <GlitchComponent>
                 <FontAwesomeIcon
                     icon={faGithub}
-                    className='navbar-btn'
+                    className='navbar-btn fa-btn'
                 />
             </GlitchComponent>
         </div>

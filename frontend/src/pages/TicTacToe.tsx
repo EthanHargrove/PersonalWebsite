@@ -10,7 +10,7 @@ function TicTacToe() {
     return (
         <>
             <div className='cyberpunk-background'></div>
-            <Navbar />
+            <Navbar active=""/>
             <TicTacToeGame />
         </>
     )

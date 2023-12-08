@@ -9,7 +9,9 @@ function Projects() {
       content: (
         <Card 
           colour="var(--neon-orange)"
-          imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/convertplus_thumbnail.jpg" 
+          imagen="https://github.com/EthanHargrove/PersonalWebsite/blob/main/frontend/src/assets/tic-tac-toe.png" 
+          title="Q-Learning: Tic-Tac-Toe"
+          description="First card."
         />
       ),
     },
@@ -19,6 +21,8 @@ function Projects() {
         <Card 
           colour="var(--neon-purple)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/acf_pro.png" 
+          title="Card 2"
+          description="Second card."
         />
       ),
     },
@@ -28,6 +32,8 @@ function Projects() {
         <Card 
           colour="var(--neon-green)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png" 
+          title="Card 3"
+          description="Third card."
         />
       ),
     },
@@ -37,6 +43,8 @@ function Projects() {
         <Card
           colour="var(--neon-pink)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2016/08/slider_revolution-1.png" 
+          title="Card 4"
+          description="Fourth card."
         />
       ),
     },
@@ -46,6 +54,8 @@ function Projects() {
         <Card 
           colour="var(--neon-blue)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2019/01/pwa_880_660.jpg" 
+          title="Card 5"
+          description="Fifth card."
         />
       ),
     }
@@ -53,8 +63,9 @@ function Projects() {
   return (
     <>
       <div className="cyberpunk-background"></div>
-      <Navbar />
+      <Navbar active="projects"/>
       <div className="content">
+        {/* <h1>Projects</h1> */}
         <Carousel3D
           cards={cards}
           height="100vh"

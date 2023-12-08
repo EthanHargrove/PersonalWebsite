@@ -58,7 +58,6 @@ body {
     border-style: solid;
     border-image: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
     border-image-slice: 1;
-    
     background: transparent;
     cursor: pointer;
 }
@@ -68,7 +67,7 @@ body {
     background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
 }
 
-.navbar-btn {
+/* .navbar-btn {
     font-size: 24px;
     z-index: 2;
     color: var(--neon-blue);
@@ -76,6 +75,12 @@ body {
     margin-left: 3px;
     margin-right: 3px;
 }
+
+.fa-btn {
+    margin-bottom: 2px;
+    margin-right: 7px;
+    margin-left: 6px;
+} */
 
 /* .responsive-img {
     width: 100%; 

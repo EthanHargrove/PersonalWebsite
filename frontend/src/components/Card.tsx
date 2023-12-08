@@ -6,6 +6,8 @@ import '../styles/card.css';
 interface CardProps {
   colour: string;
   imagen: string;
+  title: string;
+  description: string
 }
 
 function Card(props: CardProps) {
@@ -28,22 +30,17 @@ function Card(props: CardProps) {
     },
   });
 
-  const glitch: GlitchHandle = useGlitch({ playMode: 'hover', glitchTimeSpan: false });
-
   return (
     <animated.div
       className="card"
-      ref={glitch.ref}
       style={style}
       onMouseEnter={() => setShown(true)}
       onMouseLeave={() => setShown(false)}
     >
       <img src={props.imagen} alt="" />
-      <h2>Title</h2>
+      <h2>{props.title}</h2>
       <p>
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-        nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-        volutpat.
+        {props.description} 
       </p>
     </animated.div>
   );
