@@ -1,18 +1,27 @@
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
+import { Link } from 'react-router-dom';
+import { Stack } from "@mui/material";
+
 import '../styles/card.css';
 
 interface CardProps {
+  slide: number;
   colour: string;
   imagen: string;
+  page: string;
   title: string;
-  description: string
+  description: string;
+  button1Title: string;
+  button1Link: string;
+  button2Title: string;
+  button2Link: string;
 }
 
 function Card(props: CardProps) {
   const [show, setShown] = useState(false);
 
-  const style = useSpring({
+  const cardStyle = useSpring({
     from: { 
       opacity: 0.5,
       transform: "scale(0.5)", 
@@ -29,19 +38,40 @@ function Card(props: CardProps) {
     },
   });
 
+  const imgStyle = {
+    boxShadow: show 
+    ? `0 0 8px 4px ${props.colour}`
+    : `0 0 4px 2px ${props.colour}`,
+    // border: `2px solid ${props.colour}`,
+  }
+
   return (
-    <animated.div
-      className="card"
-      style={style}
-      onMouseEnter={() => setShown(true)}
-      onMouseLeave={() => setShown(false)}
-    >
-      <img src={props.imagen} alt="" />
-      <h2>{props.title}</h2>
-      <p>
-        {props.description} 
-      </p>
-    </animated.div>
+      <animated.div
+        className="card"
+        style={cardStyle}
+        onMouseEnter={() => setShown(true)}
+        onMouseLeave={() => setShown(false)}
+      >
+        <img src={props.imagen} style={imgStyle} alt="Project" />
+        <h2 className="text-center">{props.title}</h2>
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent="space-evenly"
+        >
+          <Link to={props.button1Link} className="link">
+            <button className='btn-glitch'>
+              {props.button1Title}
+            </button>
+          </Link>
+          <Link to={props.button2Link} className="link">
+            <button className='btn-glitch'>
+              {props.button2Title}
+            </button>
+          </Link>
+        </Stack>
+      </animated.div>
+
   );
 }
 

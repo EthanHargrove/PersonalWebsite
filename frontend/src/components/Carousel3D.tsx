@@ -12,31 +12,35 @@ interface Carousel3DProps {
 }
 
 export default function Carousel3D(props: Carousel3DProps) {
-    const table = props.cards.map((element:any, index: number) => {
-        return { ...element, onClick: () => setGoToSlide(index) };
-      });
-    
-      const [offsetRadius, setOffsetRadius] = useState(4);
-      const [showArrows, setShowArrows] = useState(false);
-      const [goToSlide, setGoToSlide] = useState<number|undefined>(undefined);
-      const [cards] = useState(table);
-    
-      useEffect(() => {
-        setOffsetRadius(props.offset);
-        setShowArrows(props.showArrows);
-      }, [props.offset, props.showArrows]);
-    
-      return (
-        <div
-          style={{ width: props.width, height: props.height, margin: props.margin }}
-        >
-          <Carousel
-            slides={cards}
-            goToSlide={goToSlide}
-            offsetRadius={offsetRadius}
-            showNavigation={showArrows}
-            animationConfig={config.gentle}
-          />
-        </div>
-      );
+  const table = props.cards.map((element:any, index: number) => {
+    return { ...element, onClick: () => handleClick(index) };
+  });
+
+  const [offsetRadius, setOffsetRadius] = useState(4);
+  const [showArrows, setShowArrows] = useState(false);
+  const [goToSlide, setGoToSlide] = useState<number|undefined>(0);
+  const [cards] = useState(table);
+
+  useEffect(() => {
+    setOffsetRadius(props.offset);
+    setShowArrows(props.showArrows);
+  }, [props.offset, props.showArrows]);
+
+  const handleClick = (index: number) => {
+    setGoToSlide(index);
+  }
+
+  return (
+    <div
+      style={{ width: props.width, height: props.height, margin: props.margin }}
+    >
+      <Carousel
+        slides={cards}
+        goToSlide={goToSlide}
+        offsetRadius={offsetRadius}
+        showNavigation={showArrows}
+        animationConfig={config.gentle}
+      />
+    </div>
+  );
 }

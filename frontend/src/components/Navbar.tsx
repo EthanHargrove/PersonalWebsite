@@ -1,5 +1,6 @@
 // External imports
 import React from 'react';
+import { Link } from 'react-router-dom';
 // Internal imports
 import HomeSharpIcon from '@mui/icons-material/HomeSharp';
 import ConstructionSharpIcon from '@mui/icons-material/ConstructionSharp';
@@ -17,38 +18,46 @@ const Navbar = (props: NavbarProps) => {
         <div className="navbar">
 
             {/* LinkedIn button */}
-            <GlitchComponent>
-                <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className='navbar-btn fa-btn'
-                />
-            </GlitchComponent>
+            <a href="https://www.linkedin.com/in/ethan-hargrove" className='link' target="_blank" rel="noopener noreferrer">
+                <GlitchComponent>
+                    <FontAwesomeIcon
+                        icon={faLinkedin}
+                        className='navbar-btn fa-btn'
+                    />
+                </GlitchComponent>
+            </a>
 
             {/* CV Button */}
 
             {/* Home button */}
-            <GlitchComponent>
-                <HomeSharpIcon
-                    fontSize='inherit'
-                    className={`navbar-btn ${props.active === 'home' ? 'active' : ''}`}
-                />
-            </GlitchComponent>
+            <Link to="/">
+                <GlitchComponent>
+                    <HomeSharpIcon
+                        fontSize='inherit'
+                        className={`navbar-btn ${props.active === 'home' ? 'active' : ''}`}
+                    />
+                </GlitchComponent>
+            </Link>
 
             {/* Projects button */}
-            <GlitchComponent>
-                <ConstructionSharpIcon 
-                    fontSize='inherit'
-                    className={`navbar-btn ${props.active === 'projects' ? 'active' : ''}`}
-                />
-            </GlitchComponent>
+            <Link to="/projects">
+                <GlitchComponent>
+                    <ConstructionSharpIcon 
+                        fontSize='inherit'
+                        className={`navbar-btn ${props.active === 'projects' ? 'active' : ''}`}
+                    />
+                </GlitchComponent>
+            </Link>
 
             {/* Github button */}
-            <GlitchComponent>
-                <FontAwesomeIcon
-                    icon={faGithub}
-                    className='navbar-btn fa-btn'
-                />
-            </GlitchComponent>
+            <a href="https://github.com/EthanHargrove" className='link' target="_blank" rel="noopener noreferrer">
+                <GlitchComponent>
+                    <FontAwesomeIcon
+                        icon={faGithub}
+                        className='navbar-btn fa-btn'
+                    />
+                </GlitchComponent>
+            </a>
         </div>
     );
 }

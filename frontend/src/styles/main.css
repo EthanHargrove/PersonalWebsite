@@ -67,6 +67,11 @@ body {
     background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
 }
 
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* .navbar-btn {
     font-size: 24px;
     z-index: 2;

@@ -42,7 +42,7 @@ function TicTacToeGame() {
     
     const [resultText, setResultText] = useState<string>("");
     const [qTable, setQTable] = useState<{[key: string]: number}>(qTable5000000);
-    const [showVals, setShowVals] = useState(false);
+    const [showVals, setShowVals] = useState(true);
     const actions = [[0,1,2],[3,4,5],[6,7,8]];
     const [board, setBoard] = useState<number[][]>([[0, 0, 0],[0, 0, 0],[0, 0, 0]]);
     const [currentPlayer, setCurrentPlayer] = useState<number>(1);
