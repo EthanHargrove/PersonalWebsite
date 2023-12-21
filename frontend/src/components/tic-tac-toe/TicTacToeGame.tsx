@@ -1,5 +1,6 @@
 // External imports
 import React, { useState, useLayoutEffect } from 'react';
+import { useSpring, animated } from "react-spring";
 import { Canvas } from '@react-three/fiber'; 
 import { Typography } from '@mui/material';
 import Slider from '@mui/material-next/Slider';
@@ -179,8 +180,17 @@ function TicTacToeGame() {
         }
     };
 
+    const style = useSpring({
+        from: { 
+          opacity: 0.1,
+        },
+        to: { 
+          opacity: 1,
+        },
+      });
+
     return (
-        <div className='content'>
+        <animated.div className='content' style={style}>
             <h3 className='game-result'>{resultText}</h3>
             <Canvas>
                 <ambientLight intensity={1}/>
@@ -232,7 +242,7 @@ function TicTacToeGame() {
                     valueLabelFormat={(value:any) => marks.find(mark => mark.value === value)?.label || ''}
                 />
             </div>
-        </div>
+        </animated.div>
     )
 }
 
