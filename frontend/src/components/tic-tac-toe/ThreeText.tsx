@@ -22,10 +22,10 @@ const ThreeText: React.FC<ThreeTextProps> = (props) => {
 
     return (
         <>
-            <EmptySquare x={x/0.006} y={y/0.006} gridArmLength={gridArmLength} depth={depth} row={row} col={col} visible={false} colour={"#ffffff"} board={board} setBoard={setBoard} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer}/>
+            <EmptySquare x={x/0.007} y={y/0.007} gridArmLength={gridArmLength} depth={depth} row={row} col={col} visible={false} colour={"#ffffff"} board={board} setBoard={setBoard} currentPlayer={currentPlayer} setCurrentPlayer={setCurrentPlayer}/>
             <Text
                 position={[x, y, z]}
-                fontSize={0.25}
+                fontSize={0.275}
                 textAlign='center'
             >
                 { value }

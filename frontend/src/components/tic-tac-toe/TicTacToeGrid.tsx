@@ -60,19 +60,19 @@ const TicTacToeGrid: React.FC<TicTacToeGridProps> = ({ x, y, armLength, armWidth
 
     return (
         <>
-            <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
+            <mesh rotation={[0, 0, 0]} scale={[0.007, 0.007, 0.007]}>
                 <extrudeGeometry args={[topArm, extrudeSettings]} />
                 <meshStandardMaterial color={horiColour} wireframe={true} />
             </mesh>
-            <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
+            <mesh rotation={[0, 0, 0]} scale={[0.007, 0.007, 0.007]}>
                 <extrudeGeometry args={[bottomArm, extrudeSettings]} />
                 <meshStandardMaterial color={horiColour} wireframe={true} />
             </mesh>
-            <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
+            <mesh rotation={[0, 0, 0]} scale={[0.007, 0.007, 0.007]}>
                 <extrudeGeometry args={[leftArm, extrudeSettings]} />
                 <meshStandardMaterial color={vertColour} wireframe={true} />
             </mesh>
-            <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
+            <mesh rotation={[0, 0, 0]} scale={[0.007, 0.007, 0.007]}>
                 <extrudeGeometry args={[rightArm, extrudeSettings]} />
                 <meshStandardMaterial color={vertColour} wireframe={true} />
             </mesh>

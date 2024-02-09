@@ -50,11 +50,11 @@ function Projects() {
           colour="var(--neon-purple)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png"
           page="/tic-tac-toe" 
-          title="Sudoku Solver"
+          title="Explainable AI: Sudoku Solver"
           description="Third card."
-          button1Title=''
-          button1Link=''
-          button2Title=''
+          button1Title='Try It Out'
+          button1Link='/sudoku'
+          button2Title='How It Works'
           button2Link=''
         />
       ),

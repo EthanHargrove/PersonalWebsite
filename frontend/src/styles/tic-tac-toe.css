@@ -1,13 +1,13 @@
 .reset-btn {
     position: absolute;
-    top: 78vh;
+    top: 72vh;
     left: 50%;
     transform: translate(-50%, -0%);
 }
 
 .values-btn {
     position: absolute;
-    top: 78vh;
+    top: 72vh;
     right: 50%;
     transform: translate(-75%, -0%);
     z-index: 1;
@@ -15,7 +15,7 @@
 
 .ai-move-btn {
     position: absolute;
-    top: 78vh;
+    top: 72vh;
     left: 50%;
     transform: translate(75%, -0%);
     z-index: 1;
@@ -23,14 +23,14 @@
 
 .q-table-slider {
     position: absolute;
-    top: 85vh;
+    top: 78vh;
     left: 50%;
     transform: translate(-50%, -0%);
 }
 
 .game-result {
     position: absolute;
-    top: 6vh;
+    top: 0vh;
     left: 50%;
     transform: translate(-50%, -0%);
 }

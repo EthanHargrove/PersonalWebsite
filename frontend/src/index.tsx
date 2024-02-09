@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './styles/main.css';
+import Home from './pages/Home';
 import Projects from './pages/Projects';
 import TicTacToe from './pages/TicTacToe';
-import Home from './pages/Home';
+// import Sudoku from './pages/Sudoku';
 
 
 const router = createBrowserRouter([
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     path: "/tic-tac-toe",
     element: <TicTacToe />
   },
+  // {
+  //   path: "/sudoku",
+  //   element: <Sudoku />
+  // },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(

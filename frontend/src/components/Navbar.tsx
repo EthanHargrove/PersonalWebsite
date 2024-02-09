@@ -19,7 +19,7 @@ const Navbar = (props: NavbarProps) => {
 
             {/* LinkedIn button */}
             <a href="https://www.linkedin.com/in/ethan-hargrove" className='link' target="_blank" rel="noopener noreferrer">
-                <GlitchComponent playMode='hover' glitchTimeSpan={false}>
+                <GlitchComponent>
                     <FontAwesomeIcon
                         icon={faLinkedin}
                         className='navbar-btn fa-btn'

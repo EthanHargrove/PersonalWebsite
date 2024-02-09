@@ -28,7 +28,7 @@ const OPiece: React.FC<OPieceProps> = (props) => {
     };
 
     return (
-        <mesh rotation={[0, 0, 0]} scale={[0.006, 0.006, 0.006]}>
+        <mesh rotation={[0, 0, 0]} scale={[0.007, 0.007, 0.007]}>
             <extrudeGeometry args={[oShape, extrudeSettings]} />
             <meshStandardMaterial color="#00FFFF" wireframe={true} />
         </mesh>

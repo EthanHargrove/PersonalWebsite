@@ -39,7 +39,7 @@ const XPiece: React.FC<XPieceProps> = (props) => {
     };
 
     return (
-        <mesh rotation={[0, 0, 0]} scale={0.006} >
+        <mesh rotation={[0, 0, 0]} scale={0.007} >
             <extrudeGeometry args={[XShape, extrudeSettings]} />
             <meshStandardMaterial color="#FF1493" wireframe={true} />
         </mesh>
