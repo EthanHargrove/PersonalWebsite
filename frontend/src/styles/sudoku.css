@@ -1,0 +1,5 @@
+.sudokuBoard {
+    position: absolute;
+    top: 11vh;
+    z-index: 1;
+}

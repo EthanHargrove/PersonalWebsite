@@ -1,15 +1,20 @@
-// // External imports
-// import React, { useState, useLayoutEffect } from 'react';
-// import { useSpring, animated } from "react-spring";
-// import { Canvas } from '@react-three/fiber'; 
-// import { Typography } from '@mui/material';
-// import Slider from '@mui/material-next/Slider';
-// // Internal imports
-// import "../../styles/main.css";
-// import { group } from 'console';
+// External imports
+import React, { useState, useLayoutEffect } from 'react';
+
+// Internal imports
+import "../../styles/main.css";
+import SudokuBoard from './SudokuBoard';
 
 
-// function SudokuGame() {
+function SudokuGame() {
+    return (
+        <div className='content'>
+            <SudokuBoard />
+        </div>
+    )
+}
+
+export default SudokuGame;
 
 //     const [board, setBoard] = useState<number[][]>(Array.from({ length: 9 }, () => Array(9).fill(0)))
 //     const [notes, setNotes] = useState<number[][][]>(Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => Array(9).fill(1))))
@@ -355,4 +360,4 @@
 
 // export default SudokuGame;
 
-export {}
+// export {}
