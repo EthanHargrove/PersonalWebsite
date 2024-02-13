@@ -120,7 +120,7 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
                 <Grid container item key={rowIndex} spacing={0} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 {row.map((cell, colIndex) => (
                     <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='noteCell'>
-                        <SudokuCell position={positions[rowIndex][colIndex]} notes={[["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]} />
+                        <SudokuCell position={positions[rowIndex][colIndex]} number={"1"} notes={[["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]} starting={rowIndex === colIndex}/>
                     </Grid>
                 ))}
                 </Grid>
