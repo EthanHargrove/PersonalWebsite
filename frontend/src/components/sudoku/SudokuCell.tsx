@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material';
 
 interface SudokuCellProps {
   position: string,
-  number: string,
+  number: number,
   notes: string[][],
   starting: boolean,
 }
@@ -121,7 +121,7 @@ const SudokuCell: React.FC<SudokuCellProps> = (props) => {
 
   return (
     <Grid container spacing={0} style={borderStyle} className='sudokuCell'>
-      {number !== "0" ? <Grid item style={{ display: 'flex', width: width, height: height, justifyContent: 'center', alignItems: 'center' }}><Typography style={numberFontStyle}>{number}</Typography></Grid> : notes.map((row, rowIndex) => (
+      {number !== 0 ? <Grid item style={{ display: 'flex', width: width, height: height, justifyContent: 'center', alignItems: 'center' }}><Typography style={numberFontStyle}>{number}</Typography></Grid> : notes.map((row, rowIndex) => (
         <Grid container item key={rowIndex} spacing={1.25} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {row.map((note, colIndex) => (
             <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='noteCell'>

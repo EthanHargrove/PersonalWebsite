@@ -3,13 +3,36 @@ import React, { useState, useLayoutEffect } from 'react';
 
 // Internal imports
 import "../../styles/main.css";
+import "../../styles/sudoku.css";
 import SudokuBoard from './SudokuBoard';
 
 
 function SudokuGame() {
+
+    const [puzzle, setPuzzle] = useState(Array.from({ length: 3 }, () => Array(3).fill(0)));
+
+    const generateSudoku = async () => {
+        try {
+            const response = await fetch('/api/generate_sudoku');
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch Sudoku puzzle');
+            }
+
+            const data = await response.json();
+            console.log(data.puzzle)
+            setPuzzle(data.puzzle);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     return (
         <div className='content'>
-            <SudokuBoard />
+            <SudokuBoard puzzle={puzzle}/>
+            <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
+                Random Puzzle
+            </button>
         </div>
     )
 }

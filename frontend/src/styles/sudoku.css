@@ -7,3 +7,11 @@
     width: 483px;
     box-shadow: 0 0 20px #FFD700; */
 }
+
+.puzzle-btn {
+    position: absolute;
+    top: 72vh;
+    right: 50%;
+    transform: translate(-75%, -0%);
+    z-index: 1;
+}

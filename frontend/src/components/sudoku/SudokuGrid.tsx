@@ -11,12 +11,13 @@ import SudokuCell from './SudokuCell';
 
 
 interface SudokuGridProps {
-    position: string,
-  }
+  position: string,
+  puzzle: number[][],
+}
 
 const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
-    let {position} = props;
-    let board: string[][] = Array.from({ length: 3 }, () => Array(3).fill(""));
+    let {position, puzzle} = props;
+    // let board: string[][] = Array.from({ length: 3 }, () => Array(3).fill(""));
 
     const width: string = '161px';
     const height: string = '161px';
@@ -116,11 +117,11 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
 
     return (
         <Grid container spacing={0} style={borderStyle}>
-            {board.map((row, rowIndex) => (
+            {puzzle.map((row, rowIndex) => (
                 <Grid container item key={rowIndex} spacing={0} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 {row.map((cell, colIndex) => (
                     <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='noteCell'>
-                        <SudokuCell position={positions[rowIndex][colIndex]} number={"1"} notes={[["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]} starting={rowIndex === colIndex}/>
+                        <SudokuCell position={positions[rowIndex][colIndex]} number={cell} notes={[["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]} starting={rowIndex === colIndex}/>
                     </Grid>
                 ))}
                 </Grid>
