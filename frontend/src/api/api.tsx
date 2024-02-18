@@ -1,16 +1,21 @@
 
 
-export async function apiCall(endpoint: string): Promise<any> {
+export async function apiCall(endpoint: string, method: string = 'GET', body: any = null): Promise<any> {
     try {
-        const response = await fetch('/api/' + endpoint);
+        const params = {
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: body !== null ? JSON.stringify(body) : null,
+        }
+        const response = await fetch('/api/' + endpoint, params);
 
         if (!response.ok) {
             throw new Error(`Failed to fetch from endpoint ${'/api/' + endpoint}`)
         }
 
         const data = await response.json();
-        console.log("api call")
-        console.log(data)
         return data
     } catch (error) {
         console.error('Error:', error)
@@ -19,7 +24,9 @@ export async function apiCall(endpoint: string): Promise<any> {
 }
 
 export function getPuzzle(response: any) {
-    console.log("getting puzzle")
-    console.log(response.puzzle)
     return response.puzzle;
+}
+
+export function getNotes(response: any) {
+    return response.notes;
 }

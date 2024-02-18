@@ -14,10 +14,11 @@ interface SudokuGridProps {
   position: string,
   grid: number[][],
   startingGrid: number[][],
+  notes: number[][][],
 }
 
 const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
-    let {position, grid, startingGrid} = props;
+    let {position, grid, startingGrid, notes} = props;
 
     const width: string = '161px';
     const height: string = '161px';
@@ -124,7 +125,7 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
                         <SudokuCell 
                           position={positions[rowIndex][colIndex]}
                           number={cell}
-                          notes={[["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]}
+                          notes={notes[rowIndex][colIndex]}
                           starting={cell === startingGrid[rowIndex][colIndex]}/>
                     </Grid>
                 ))}

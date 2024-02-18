@@ -4,11 +4,13 @@ import { Grid, Typography } from '@mui/material';
 interface SudokuCellProps {
   position: string,
   number: number,
-  notes: string[][],
+  notes: number[],
   starting: boolean,
 }
 const SudokuCell: React.FC<SudokuCellProps> = (props) => {
   let { position, number, notes, starting } = props;
+
+  const grid = Array.from({ length: 3 }, () => Array(3).fill(0));
 
   const noteFontStyle = {
     fontFamily: 'SpaceGrotesk',
@@ -121,11 +123,13 @@ const SudokuCell: React.FC<SudokuCellProps> = (props) => {
 
   return (
     <Grid container spacing={0} style={borderStyle} className='sudokuCell'>
-      {number !== 0 ? <Grid item style={{ display: 'flex', width: width, height: height, justifyContent: 'center', alignItems: 'center' }}><Typography style={numberFontStyle}>{number}</Typography></Grid> : notes.map((row, rowIndex) => (
+      {number !== 0 ? <Grid item style={{ display: 'flex', width: width, height: height, justifyContent: 'center', alignItems: 'center' }}><Typography style={numberFontStyle}>{number}</Typography></Grid> : grid.map((row, rowIndex) => (
         <Grid container item key={rowIndex} spacing={1.25} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {row.map((note, colIndex) => (
             <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='noteCell'>
-              <Typography style={noteFontStyle}>{note}</Typography>
+              <Typography style={noteFontStyle}>
+                {notes[3*rowIndex+colIndex] == 1 ? 3*rowIndex + colIndex + 1: ""}
+              </Typography>
             </Grid>
           ))}
         </Grid>

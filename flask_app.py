@@ -1,6 +1,5 @@
-from flask import Flask, render_template, jsonify
-import numpy as np
-from sudoku import Sudoku
+from flask import Flask, jsonify, render_template, request
+from api import generate_sudoku, update_notes
 
 app = Flask(
     __name__,
@@ -9,18 +8,22 @@ app = Flask(
     static_url_path="/",
 )
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
 
-@app.route("/api/generate_sudoku")
-def generate_sudoku():
-    difficulty = np.random.rand()*0.5 + 0.25
-    seed = np.random.randint(10_000)
-    puzzle = Sudoku(3, seed=seed).difficulty(difficulty).board
-    puzzle = [[cell if cell is not None else 0 for cell in row] for row in puzzle]
+@app.route("/api/sudoku/generate", methods=["GET"])
+def api_generate_sudoku():
+    puzzle = generate_sudoku()
     return jsonify({"puzzle": puzzle})
+
+@app.route("/api/sudoku/update_notes", methods=["POST"])
+def api_update_notes():
+    data = request.get_json()
+    puzzle = data["puzzle"]
+    notes = data["notes"]
+    notes = update_notes(puzzle, notes).tolist()
+    return jsonify({"notes": notes})
 
 if __name__ == "__main__":
     app.run(debug=True)

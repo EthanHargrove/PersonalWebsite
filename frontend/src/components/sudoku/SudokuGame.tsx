@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import "../../styles/main.css";
 import "../../styles/sudoku.css";
 import SudokuBoard from './SudokuBoard';
-import { apiCall, getPuzzle } from '../../api/api';
+import { apiCall, getPuzzle, getNotes } from '../../api/api';
 
 
 function SudokuGame() {
@@ -13,8 +13,15 @@ function SudokuGame() {
     const [startingPuzzle, setStartingPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
     const [puzzle, setPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
 
+    const initialNotes: number[][][] = Array.from({ length: 9 }, () =>
+        Array.from({ length: 9 }, () =>
+            Array.from({ length: 9 }, () => 1)
+        )
+    );
+    const [notes, setNotes] = useState(initialNotes);
+
     useEffect(() => {
-        apiCall('generate_sudoku').then((response: any) => {
+        apiCall('sudoku/generate').then((response: any) => {
             if (response) {
                 setStartingPuzzle(getPuzzle(response));
                 setPuzzle(getPuzzle(response));
@@ -25,10 +32,25 @@ function SudokuGame() {
     }, []);
 
     const generateSudoku = () => {
-        apiCall('generate_sudoku').then((response: any) => {
+        apiCall('sudoku/generate').then((response: any) => {
             if (response) {
                 setStartingPuzzle(getPuzzle(response));
                 setPuzzle(getPuzzle(response));
+                setNotes(initialNotes);
+            } else {
+                console.log("no response");
+            }
+        });
+    };
+
+    const updateNotes = () => {
+        const body = {
+            "puzzle": puzzle,
+            "notes": notes,
+        }
+        apiCall('sudoku/update_notes', 'POST', body).then((response: any) => {
+            if (response) {
+                setNotes(getNotes(response));
             } else {
                 console.log("no response");
             }
@@ -37,10 +59,15 @@ function SudokuGame() {
 
     return (
         <div className='content'>
-            <SudokuBoard puzzle={puzzle} startingPuzzle={startingPuzzle}/>
-            <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
-                Random Puzzle
-            </button>
+            <SudokuBoard puzzle={puzzle} startingPuzzle={startingPuzzle} notes={notes}/>
+            <div className='d-flex justify-content-center align-items-center'>
+                <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
+                    Random Puzzle
+                </button>
+                <button className='btn-glitch step-btn' onClick={updateNotes}>
+                    Next Step
+                </button>
+            </div>
         </div>
     )
 }

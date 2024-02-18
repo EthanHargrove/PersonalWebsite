@@ -12,6 +12,14 @@
     position: absolute;
     top: 82vh;
     right: 50%;
-    transform: translate(-75%, -0%);
+    transform: translate(-67%, -0%);
+    z-index: 1;
+}
+
+.step-btn {
+    position: absolute;
+    top: 82vh;
+    left: 50%;
+    transform: translate(67%, -0%);
     z-index: 1;
 }

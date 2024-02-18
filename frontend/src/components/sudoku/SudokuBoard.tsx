@@ -12,10 +12,11 @@ import SudokuGrid from './SudokuGrid';
 interface SudokuBoardProps {
     puzzle: number[][],
     startingPuzzle: number[][],
+    notes: number[][][],
 }
 
 const SudokuBoard: React.FC<SudokuBoardProps> = (props) => {
-    let {puzzle, startingPuzzle} = props;
+    let {puzzle, startingPuzzle, notes} = props;
     const grid = Array.from({ length: 3 }, () => Array(3).fill(0));
 
     const positions = [["topLeft", "topMiddle", "topRight"], ["middleLeft", "middleMiddle", "middleRight"], ["bottomLeft", "bottomMiddle", "bottomRight"]];
@@ -30,6 +31,7 @@ const SudokuBoard: React.FC<SudokuBoardProps> = (props) => {
                             position={positions[rowIndex][colIndex]}
                             grid={puzzle.slice(rowIndex * 3, rowIndex * 3 + 3).map(gridRow => gridRow.slice(colIndex * 3, colIndex * 3 + 3))}
                             startingGrid={startingPuzzle.slice(rowIndex * 3, rowIndex * 3 + 3).map(startGridRow => startGridRow.slice(colIndex * 3, colIndex * 3 + 3))}
+                            notes={notes.slice(rowIndex * 3, rowIndex * 3 + 3).map(notesRow => notesRow.slice(colIndex * 3, colIndex * 3 + 3))}
                         />
                     </Grid>
                 ))}
