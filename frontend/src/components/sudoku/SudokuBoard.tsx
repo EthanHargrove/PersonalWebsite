@@ -11,21 +11,26 @@ import SudokuGrid from './SudokuGrid';
 
 interface SudokuBoardProps {
     puzzle: number[][],
+    startingPuzzle: number[][],
 }
 
 const SudokuBoard: React.FC<SudokuBoardProps> = (props) => {
-    let {puzzle} = props;
-    // const grid = Array.from({ length: 3 }, () => Array(3).fill(0));
+    let {puzzle, startingPuzzle} = props;
+    const grid = Array.from({ length: 3 }, () => Array(3).fill(0));
 
     const positions = [["topLeft", "topMiddle", "topRight"], ["middleLeft", "middleMiddle", "middleRight"], ["bottomLeft", "bottomMiddle", "bottomRight"]];
 
     return (
         <Grid container spacing={0} className="sudokuBoard">
-            {puzzle.map((row, rowIndex) => (
+            {grid.map((row, rowIndex) => (
                 <Grid container item key={rowIndex} spacing={0} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 {row.map((col, colIndex) => (
                     <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                        <SudokuGrid position={positions[rowIndex][colIndex]} puzzle={puzzle}/>
+                        <SudokuGrid 
+                            position={positions[rowIndex][colIndex]}
+                            grid={puzzle.slice(rowIndex * 3, rowIndex * 3 + 3).map(gridRow => gridRow.slice(colIndex * 3, colIndex * 3 + 3))}
+                            startingGrid={startingPuzzle.slice(rowIndex * 3, rowIndex * 3 + 3).map(startGridRow => startGridRow.slice(colIndex * 3, colIndex * 3 + 3))}
+                        />
                     </Grid>
                 ))}
                 </Grid>

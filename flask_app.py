@@ -17,7 +17,8 @@ def index():
 @app.route("/api/generate_sudoku")
 def generate_sudoku():
     difficulty = np.random.rand()*0.5 + 0.25
-    puzzle = Sudoku(3).difficulty(difficulty).board
+    seed = np.random.randint(10_000)
+    puzzle = Sudoku(3, seed=seed).difficulty(difficulty).board
     puzzle = [[cell if cell is not None else 0 for cell in row] for row in puzzle]
     return jsonify({"puzzle": puzzle})
 

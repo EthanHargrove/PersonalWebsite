@@ -1,36 +1,46 @@
 // External imports
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Internal imports
 import "../../styles/main.css";
 import "../../styles/sudoku.css";
 import SudokuBoard from './SudokuBoard';
-import { apiCall } from '../../api/api';
+import { apiCall, getPuzzle } from '../../api/api';
 
 
 function SudokuGame() {
 
+    const [startingPuzzle, setStartingPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    const [puzzle, setPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
 
-    const [puzzle, setPuzzle] = useState(Array.from({ length: 3 }, () => Array(3).fill(0)));
+    useEffect(() => {
+        apiCall('generate_sudoku').then((response: any) => {
+            if (response) {
+                setStartingPuzzle(getPuzzle(response));
+                setPuzzle(getPuzzle(response));
+            } else {
+                console.log("no response");
+            }
+        });
+    }, []);
 
-    // const generateSudoku = async () => {
-    //     setPuzzle(await apiCall('generate_sudoku'));
-    //     // try {
-    //     //     const data = await apiCall('generate_sudoku');
-    //     //     console.log(data.puzzle)
-    //     //     setPuzzle2(data.puzzle);
-    //     //     console.log(puzzle2);
-    //     // } catch (error) {
-    //     //     console.error('Error:', error);
-    //     // }
-    // };
+    const generateSudoku = () => {
+        apiCall('generate_sudoku').then((response: any) => {
+            if (response) {
+                setStartingPuzzle(getPuzzle(response));
+                setPuzzle(getPuzzle(response));
+            } else {
+                console.log("no response");
+            }
+        });
+    };
 
     return (
         <div className='content'>
-            <SudokuBoard puzzle={puzzle}/>
-            {/* <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
+            <SudokuBoard puzzle={puzzle} startingPuzzle={startingPuzzle}/>
+            <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
                 Random Puzzle
-            </button> */}
+            </button>
         </div>
     )
 }

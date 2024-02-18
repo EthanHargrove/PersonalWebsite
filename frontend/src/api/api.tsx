@@ -1,6 +1,6 @@
 
 
-export async function apiCall(endpoint: string) {
+export async function apiCall(endpoint: string): Promise<any> {
     try {
         const response = await fetch('/api/' + endpoint);
 
@@ -9,8 +9,17 @@ export async function apiCall(endpoint: string) {
         }
 
         const data = await response.json();
-        return data.puzzle
+        console.log("api call")
+        console.log(data)
+        return data
     } catch (error) {
         console.error('Error:', error)
+        return null;
     }
+}
+
+export function getPuzzle(response: any) {
+    console.log("getting puzzle")
+    console.log(response.puzzle)
+    return response.puzzle;
 }

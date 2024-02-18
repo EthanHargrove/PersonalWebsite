@@ -12,13 +12,12 @@ import SudokuCell from './SudokuCell';
 
 interface SudokuGridProps {
   position: string,
-  puzzle: number[][],
+  grid: number[][],
+  startingGrid: number[][],
 }
 
 const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
-    let {position, puzzle} = props;
-    // const [startRow, setStartRow] = useState(0);
-    // const [startCol, setStartCol] = useState(0);
+    let {position, grid, startingGrid} = props;
 
     const width: string = '161px';
     const height: string = '161px';
@@ -26,8 +25,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
 
     const getBorderStyle = () => {
         if (position === "topLeft"){
-          // setStartRow(0);
-          // setStartCol(0);
           return {
             width: width,
             height: height,
@@ -36,8 +33,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "topMiddle"){
-          // setStartRow(0);
-          // setStartCol(3);
           return {
             width: width,
             height: height,
@@ -47,8 +42,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "topRight"){
-          // setStartRow(0);
-          // setStartCol(6);
           return {
             width: width,
             height: height,
@@ -57,8 +50,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "middleLeft"){
-          // setStartRow(3);
-          // setStartCol(0);
           return {
             width: width,
             height: height,
@@ -68,8 +59,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "middleMiddle"){
-          // setStartRow(3);
-          // setStartCol(3);
           return {
               width: width,
               height: height,
@@ -80,8 +69,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
               padding: '0px', 
           };
         } else if (position === "middleRight"){
-          // setStartRow(3);
-          // setStartCol(6);
           return {
             width: width,
             height: height,
@@ -91,8 +78,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "bottomLeft"){
-          // setStartRow(6);
-          // setStartCol(0);
           return {
             width: width,
             height: height,
@@ -101,8 +86,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "bottomMiddle"){
-          // setStartRow(6);
-          // setStartCol(3);
           return {
             width: width,
             height: height,
@@ -112,8 +95,6 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "bottomRight"){
-          // setStartRow(6);
-          // setStartCol(6);
           return {
             width: width,
             height: height,
@@ -136,11 +117,15 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
 
     return (
         <Grid container spacing={0} style={borderStyle}>
-            {puzzle.map((row, rowIndex) => (
+            {grid.map((row, rowIndex) => (
                 <Grid container item key={rowIndex} spacing={0} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 {row.map((cell, colIndex) => (
                     <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='noteCell'>
-                        <SudokuCell position={positions[rowIndex][colIndex]} number={cell} notes={[["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]} starting={rowIndex === colIndex}/>
+                        <SudokuCell 
+                          position={positions[rowIndex][colIndex]}
+                          number={cell}
+                          notes={[["1", "2", "3"], ["4", "5", "6"], ["7", "8", "9"]]}
+                          starting={cell === startingGrid[rowIndex][colIndex]}/>
                     </Grid>
                 ))}
                 </Grid>

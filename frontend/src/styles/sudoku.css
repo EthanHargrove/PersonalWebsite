@@ -10,7 +10,7 @@
 
 .puzzle-btn {
     position: absolute;
-    top: 72vh;
+    top: 82vh;
     right: 50%;
     transform: translate(-75%, -0%);
     z-index: 1;
