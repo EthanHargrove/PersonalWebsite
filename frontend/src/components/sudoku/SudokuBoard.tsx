@@ -15,7 +15,7 @@ interface SudokuBoardProps {
 
 const SudokuBoard: React.FC<SudokuBoardProps> = (props) => {
     let {puzzle} = props;
-    // let board: string[][] = Array.from({ length: 3 }, () => Array(3).fill(""));
+    // const grid = Array.from({ length: 3 }, () => Array(3).fill(0));
 
     const positions = [["topLeft", "topMiddle", "topRight"], ["middleLeft", "middleMiddle", "middleRight"], ["bottomLeft", "bottomMiddle", "bottomRight"]];
 
@@ -23,7 +23,7 @@ const SudokuBoard: React.FC<SudokuBoardProps> = (props) => {
         <Grid container spacing={0} className="sudokuBoard">
             {puzzle.map((row, rowIndex) => (
                 <Grid container item key={rowIndex} spacing={0} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                {row.map((cell, colIndex) => (
+                {row.map((col, colIndex) => (
                     <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <SudokuGrid position={positions[rowIndex][colIndex]} puzzle={puzzle}/>
                     </Grid>

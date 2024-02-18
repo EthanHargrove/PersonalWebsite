@@ -5,34 +5,32 @@ import React, { useState, useLayoutEffect } from 'react';
 import "../../styles/main.css";
 import "../../styles/sudoku.css";
 import SudokuBoard from './SudokuBoard';
+import { apiCall } from '../../api/api';
 
 
 function SudokuGame() {
 
+
     const [puzzle, setPuzzle] = useState(Array.from({ length: 3 }, () => Array(3).fill(0)));
 
-    const generateSudoku = async () => {
-        try {
-            const response = await fetch('/api/generate_sudoku');
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch Sudoku puzzle');
-            }
-
-            const data = await response.json();
-            console.log(data.puzzle)
-            setPuzzle(data.puzzle);
-        } catch (error) {
-            console.error('Error:', error);
-        }
-    };
+    // const generateSudoku = async () => {
+    //     setPuzzle(await apiCall('generate_sudoku'));
+    //     // try {
+    //     //     const data = await apiCall('generate_sudoku');
+    //     //     console.log(data.puzzle)
+    //     //     setPuzzle2(data.puzzle);
+    //     //     console.log(puzzle2);
+    //     // } catch (error) {
+    //     //     console.error('Error:', error);
+    //     // }
+    // };
 
     return (
         <div className='content'>
             <SudokuBoard puzzle={puzzle}/>
-            <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
+            {/* <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
                 Random Puzzle
-            </button>
+            </button> */}
         </div>
     )
 }

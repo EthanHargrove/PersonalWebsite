@@ -17,7 +17,8 @@ interface SudokuGridProps {
 
 const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
     let {position, puzzle} = props;
-    // let board: string[][] = Array.from({ length: 3 }, () => Array(3).fill(""));
+    // const [startRow, setStartRow] = useState(0);
+    // const [startCol, setStartCol] = useState(0);
 
     const width: string = '161px';
     const height: string = '161px';
@@ -25,6 +26,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
 
     const getBorderStyle = () => {
         if (position === "topLeft"){
+          // setStartRow(0);
+          // setStartCol(0);
           return {
             width: width,
             height: height,
@@ -33,6 +36,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "topMiddle"){
+          // setStartRow(0);
+          // setStartCol(3);
           return {
             width: width,
             height: height,
@@ -42,6 +47,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "topRight"){
+          // setStartRow(0);
+          // setStartCol(6);
           return {
             width: width,
             height: height,
@@ -50,6 +57,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "middleLeft"){
+          // setStartRow(3);
+          // setStartCol(0);
           return {
             width: width,
             height: height,
@@ -59,6 +68,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "middleMiddle"){
+          // setStartRow(3);
+          // setStartCol(3);
           return {
               width: width,
               height: height,
@@ -69,6 +80,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
               padding: '0px', 
           };
         } else if (position === "middleRight"){
+          // setStartRow(3);
+          // setStartCol(6);
           return {
             width: width,
             height: height,
@@ -78,6 +91,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "bottomLeft"){
+          // setStartRow(6);
+          // setStartCol(0);
           return {
             width: width,
             height: height,
@@ -86,6 +101,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "bottomMiddle"){
+          // setStartRow(6);
+          // setStartCol(3);
           return {
             width: width,
             height: height,
@@ -95,6 +112,8 @@ const SudokuGrid: React.FC<SudokuGridProps> = (props) => {
             padding: '0px', 
           };
         } else if (position === "bottomRight"){
+          // setStartRow(6);
+          // setStartCol(6);
           return {
             width: width,
             height: height,
