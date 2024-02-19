@@ -1,13 +1,5 @@
 import numpy as np
 import polars as pl
-# from sudoku import Sudoku
-
-# def generate_sudoku():
-#     difficulty = np.random.rand()*0.5 + 0.25
-#     seed = np.random.randint(10_000)
-#     puzzle = Sudoku(3, seed=seed).difficulty(difficulty).board
-#     puzzle = [[cell if cell is not None else 0 for cell in row] for row in puzzle]
-#     return puzzle
 
 def generate_sudoku():
     df = pl.read_csv("sudoku.csv", dtypes={'quizzes': str})
