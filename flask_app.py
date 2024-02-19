@@ -14,7 +14,7 @@ def index():
 
 @app.route("/api/sudoku/generate", methods=["GET"])
 def api_generate_sudoku():
-    puzzle = generate_sudoku()
+    puzzle = generate_sudoku().tolist()
     return jsonify({"puzzle": puzzle})
 
 @app.route("/api/sudoku/update_notes", methods=["POST"])
