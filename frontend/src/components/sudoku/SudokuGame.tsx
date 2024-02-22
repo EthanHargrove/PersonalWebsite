@@ -5,20 +5,30 @@ import React, { useState, useEffect } from 'react';
 import "../../styles/main.css";
 import "../../styles/sudoku.css";
 import SudokuBoard from './SudokuBoard';
-import { apiCall, getPuzzle, getNotes } from '../../api/api';
+import { apiCall, getPuzzle, getNewNotes, getNotesChanges } from '../../api/api';
 
 
 function SudokuGame() {
 
     const [startingPuzzle, setStartingPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
     const [puzzle, setPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
+    const [toNote, setToNote] = useState<boolean>(false);
 
     const initialNotes: number[][][] = Array.from({ length: 9 }, () =>
         Array.from({ length: 9 }, () =>
             Array.from({ length: 9 }, () => 1)
         )
     );
+
+    const initialNotesChanges: number[][][] = Array.from({ length: 9 }, () =>
+        Array.from({ length: 9 }, () =>
+            Array.from({ length: 9 }, () => 0)
+        )
+    );
+
     const [notes, setNotes] = useState(initialNotes);
+    const [newNotes, setNewNotes] = useState(initialNotes);
+    const [notesChanges, setNotesChanges] = useState(initialNotesChanges);
 
     useEffect(() => {
         apiCall('sudoku/generate').then((response: any) => {
@@ -37,6 +47,8 @@ function SudokuGame() {
                 setStartingPuzzle(getPuzzle(response));
                 setPuzzle(getPuzzle(response));
                 setNotes(initialNotes);
+                setNotesChanges(initialNotesChanges);
+                setToNote(false);
             } else {
                 console.log("no response");
             }
@@ -48,18 +60,26 @@ function SudokuGame() {
             "puzzle": puzzle,
             "notes": notes,
         }
-        apiCall('sudoku/update_notes', 'POST', body).then((response: any) => {
-            if (response) {
-                setNotes(getNotes(response));
-            } else {
-                console.log("no response");
-            }
-        });
+        if (toNote){
+            setNotes(newNotes);
+            setNotesChanges(initialNotesChanges);
+            setToNote(false);
+        } else {
+            apiCall('sudoku/update_notes', 'POST', body).then((response: any) => {
+                if (response) {
+                    setNewNotes(getNewNotes(response));
+                    setNotesChanges(getNotesChanges(response));
+                    setToNote(true);
+                } else {
+                    console.log("no response");
+                }
+            });
+        }
     };
 
     return (
         <div className='content'>
-            <SudokuBoard puzzle={puzzle} startingPuzzle={startingPuzzle} notes={notes}/>
+            <SudokuBoard puzzle={puzzle} startingPuzzle={startingPuzzle} notes={notes} notesChanges={notesChanges}/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
                     Random Puzzle

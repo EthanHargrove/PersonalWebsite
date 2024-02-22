@@ -5,20 +5,33 @@ interface SudokuCellProps {
   position: string,
   number: number,
   notes: number[],
+  notesChanges: number[],
   starting: boolean,
 }
 const SudokuCell: React.FC<SudokuCellProps> = (props) => {
-  let { position, number, notes, starting } = props;
+  let { position, number, notes, notesChanges, starting } = props;
 
   const grid = Array.from({ length: 3 }, () => Array(3).fill(0));
 
-  const noteFontStyle = {
-    fontFamily: 'SpaceGrotesk',
-    color: '#b7b7b7',
-    fontSize: '10px',
-    marginBottom: '-4px',
-    marginTop: '-4px',
-  };
+  const getNoteFontStyle = (noteChaged: number) => {
+    if (noteChaged === 1){
+      return {
+        fontFamily: 'SpaceGrotesk',
+        color: '#FF0000',
+        fontSize: '10px',
+        marginBottom: '-4px',
+        marginTop: '-4px',
+      };
+    } else {
+      return {
+        fontFamily: 'SpaceGrotesk',
+        color: '#b7b7b7',
+        fontSize: '10px',
+        marginBottom: '-4px',
+        marginTop: '-4px',
+      };
+    }
+  }
   
   const getNumberFontStyle = () => {
     if (starting){
@@ -127,8 +140,8 @@ const SudokuCell: React.FC<SudokuCellProps> = (props) => {
         <Grid container item key={rowIndex} spacing={1.25} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           {row.map((note, colIndex) => (
             <Grid item key={colIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='noteCell'>
-              <Typography style={noteFontStyle}>
-                {notes[3*rowIndex+colIndex] == 1 ? 3*rowIndex + colIndex + 1: ""}
+              <Typography style={getNoteFontStyle(notesChanges[3*rowIndex+colIndex])}>
+                {notes[3*rowIndex+colIndex] === 1 ? 3*rowIndex + colIndex + 1: ""}
               </Typography>
             </Grid>
           ))}
