@@ -5,14 +5,20 @@ import React, { useState, useEffect } from 'react';
 import "../../styles/main.css";
 import "../../styles/sudoku.css";
 import SudokuBoard from './SudokuBoard';
-import { apiCall, getPuzzle, getNewNotes, getNotesChanges } from '../../api/api';
+import { apiCall } from '../../api/api';
 
 
 function SudokuGame() {
 
+    const [toNote, setToNote] = useState<boolean>(false);
+    const [toUpdate, setToUpdate] = useState<boolean>(false);
+
     const [startingPuzzle, setStartingPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
     const [puzzle, setPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
-    const [toNote, setToNote] = useState<boolean>(false);
+    const [newPuzzle, setNewPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
+
+    // const initialPuzzleChanges: number[][][] = Array.from({ length: 9 }, () => Array(9).fill(0));
+    // const [puzzleChanges, setPuzzleChanges] = useState(initialPuzzleChanges);
 
     const initialNotes: number[][][] = Array.from({ length: 9 }, () =>
         Array.from({ length: 9 }, () =>
@@ -33,8 +39,8 @@ function SudokuGame() {
     useEffect(() => {
         apiCall('sudoku/generate').then((response: any) => {
             if (response) {
-                setStartingPuzzle(getPuzzle(response));
-                setPuzzle(getPuzzle(response));
+                setStartingPuzzle(response.puzzle);
+                setPuzzle(response.puzzle);
             } else {
                 console.log("no response");
             }
@@ -44,8 +50,8 @@ function SudokuGame() {
     const generateSudoku = () => {
         apiCall('sudoku/generate').then((response: any) => {
             if (response) {
-                setStartingPuzzle(getPuzzle(response));
-                setPuzzle(getPuzzle(response));
+                setStartingPuzzle(response.puzzle);
+                setPuzzle(response.puzzle);
                 setNotes(initialNotes);
                 setNotesChanges(initialNotesChanges);
                 setToNote(false);
@@ -56,26 +62,78 @@ function SudokuGame() {
     };
 
     const updateNotes = () => {
+        setNotes(newNotes);
+        setNotesChanges(initialNotesChanges);
+        setToNote(false);
+    }
+
+    const updateCells = () => {
+        setPuzzle(newPuzzle);
+        setNotesChanges(initialNotesChanges);
+        // setPuzzleChanges(initialPuzzleChanges);
+        setToUpdate(false);
+    }
+
+    const getNewNotes = async () => {
         const body = {
             "puzzle": puzzle,
             "notes": notes,
-        }
-        if (toNote){
-            setNotes(newNotes);
-            setNotesChanges(initialNotesChanges);
-            setToNote(false);
-        } else {
-            apiCall('sudoku/update_notes', 'POST', body).then((response: any) => {
-                if (response) {
-                    setNewNotes(getNewNotes(response));
-                    setNotesChanges(getNotesChanges(response));
-                    setToNote(true);
-                } else {
-                    console.log("no response");
-                }
-            });
+        }; 
+    
+        try {
+            const response = await apiCall('sudoku/update_notes', 'POST', body);
+    
+            if (response) {
+                console.log(response.numChanges);
+                setNewNotes(response.notes);
+                setNotesChanges(response.changes);
+                setToNote(response.numChanges > 0);
+                return response.numChanges;
+            } else {
+                console.log("no response");
+            }
+        } catch (error) {
+            console.error("Error in getNewNotes:", error);
         }
     };
+
+    const nakedSingles = () => {
+        const body = {
+            "puzzle": puzzle,
+            "notes": notes
+        }
+        apiCall('sudoku/naked_singles', 'POST', body).then((response: any) => {
+            if (response) {
+                setNewPuzzle(response.puzzle);
+                setNotesChanges(response.changes);
+                // setPuzzleChanges(response.changes);
+                setToUpdate(response.numChanges > 0);
+                return response.numChanges
+            } else {
+                console.log("no response");
+            }
+        });
+    }
+
+    const handleStep = async () => {
+        if (toNote) {
+            console.log("noting")
+            updateNotes();
+        } else if (toUpdate) {
+            console.log("updating")
+            updateCells();
+        } else {
+            console.log("getting new note")
+            getNewNotes().then(result => {
+                if (result === 0){
+                    console.log("no new notes")
+                    console.log("getting naked singles")
+                    nakedSingles();
+                }
+                console.log("")
+            });
+        }
+    }
 
     return (
         <div className='content'>
@@ -84,7 +142,7 @@ function SudokuGame() {
                 <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
                     Random Puzzle
                 </button>
-                <button className='btn-glitch step-btn' onClick={updateNotes}>
+                <button className='btn-glitch step-btn' onClick={handleStep}>
                     Next Step
                 </button>
             </div>

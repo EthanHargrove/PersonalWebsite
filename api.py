@@ -25,8 +25,11 @@ def update_notes(puzzle, notes):
                 new_notes[start_row:start_row+3, start_col:start_col+3, num-1] = 0
     
     changes = notes - new_notes
+    
+    num_changes = np.sum(changes)
+    print(num_changes)
 
-    return new_notes, changes
+    return new_notes, changes, num_changes
 
 def naked_singles(puzzle, notes):
     """
@@ -47,17 +50,19 @@ def naked_singles(puzzle, notes):
     new_puzzle = np.array(puzzle, dtype=int).reshape((9,9))
     notes = np.array(notes, dtype=int).reshape((9,9,9))
     changes = np.zeros((9,9,9), dtype=int)
+    num_changes = 0
 
     try:
-        empty_cells = np.argwhere(puzzle == 0)
         naked_singles = np.argwhere(np.sum(notes, axis=2) == 1)
         for naked_single in naked_singles:
-            if naked_single in empty_cells:
-                row = naked_single[0]
-                col = naked_single[1]
-                num= np.argwhere(notes[row, col] == 1)[0][0]
+            row = naked_single[0]
+            col = naked_single[1]
+            if new_puzzle[row, col] == 0:
+                num = np.argwhere(notes[row, col] == 1)[0][0]
                 new_puzzle[row, col] = num + 1
                 changes[row, col, num] = 1
-
+                num_changes += 1
     except:
-        return new_puzzle, changes
+        pass
+    
+    return new_puzzle, changes, num_changes

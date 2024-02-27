@@ -22,15 +22,3 @@ export async function apiCall(endpoint: string, method: string = 'GET', body: an
         return null;
     }
 }
-
-export function getPuzzle(response: any) {
-    return response.puzzle;
-}
-
-export function getNewNotes(response: any) {
-    return response.notes;
-}
-
-export function getNotesChanges(response: any) {
-    return response.changes;
-}
