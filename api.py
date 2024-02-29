@@ -13,9 +13,13 @@ def update_notes(puzzle, notes):
     puzzle = np.array(puzzle, dtype=int).reshape((9, 9))
     notes = np.array(notes, dtype=int).reshape((9, 9, 9))
     new_notes = notes.copy()
+    num_changes = 0
 
     for i, row in enumerate(puzzle):
         for j, num in enumerate(row):
+            # If cell is filled, remove all notes
+            if puzzle[i, j] != 0:
+                new_notes[i, j, :] = 0
             if 0 < num < 10:
                 # Remove row notes
                 new_notes[i, :, num - 1] = 0
@@ -28,10 +32,9 @@ def update_notes(puzzle, notes):
                     start_row : start_row + 3, start_col : start_col + 3, num - 1
                 ] = 0
 
-    changes = notes - new_notes
+    changes = new_notes - notes
 
-    num_changes = np.sum(changes)
-    print(num_changes)
+    num_changes += -1 * np.sum(changes)
 
     return new_notes, changes, num_changes
 
@@ -60,14 +63,148 @@ def naked_singles(puzzle, notes):
     try:
         naked_singles = np.argwhere(np.sum(notes, axis=2) == 1)
         for naked_single in naked_singles:
-            row = naked_single[0]
-            col = naked_single[1]
-            if new_puzzle[row, col] == 0:
-                num = np.argwhere(notes[row, col] == 1)[0][0]
-                new_puzzle[row, col] = num + 1
-                changes[row, col, num] = 1
+            row_ind = naked_single[0]
+            col_ind = naked_single[1]
+            if new_puzzle[row_ind, col_ind] == 0:
+                num_ind = np.argwhere(notes[row_ind, col_ind] == 1)[0][0]
+                new_puzzle[row_ind, col_ind] = num_ind + 1
+                changes[row_ind, col_ind, num_ind] = 1
                 num_changes += 1
     except:
         pass
 
     return new_puzzle, changes, num_changes
+
+
+def hidden_singles(puzzle, notes):
+    """
+    Checks for hidden singles (one possible cell for a candidate).
+
+    Input
+        puzzle : 9x9 list of ints
+            Current state of sudoku puzzle.
+        notes : 9x9x9 list of boolean integers
+            hello
+
+    Output
+        new_puzzle : 9x9 np array of ints
+            Updated sudoku puzzle.
+        changes : 9x9x9 np array of boolean integers
+            there
+    """
+    new_puzzle = np.array(puzzle, dtype=int).reshape((9, 9))
+    notes = np.array(notes, dtype=int).reshape((9, 9, 9))
+    changes = np.zeros((9, 9, 9), dtype=int)
+    num_changes = 0
+
+    # Check rows
+    for row_ind, row in enumerate(notes):
+        hidden_singles = np.argwhere(np.sum(row, axis=0) == 1)
+
+        if len(hidden_singles) == 0:
+            continue
+
+        for single in hidden_singles:
+            num_ind = single[0]
+            col_ind = np.argwhere(notes[row_ind, :, num_ind] == 1)[0][0]
+            if new_puzzle[row_ind, col_ind] == 0:
+                new_puzzle[row_ind, col_ind] = num_ind + 1
+                changes[row_ind, col_ind, num_ind] = 1
+                num_changes += 1
+
+    # Check cols
+    for col_ind in range(9):
+        hidden_singles = np.argwhere(np.sum(notes[:, col_ind, :], axis=0) == 1)
+
+        if len(hidden_singles) == 0:
+            continue
+
+        for single in hidden_singles:
+            num_ind = single[0]
+            row_ind = np.argwhere(notes[:, col_ind, num_ind] == 1)[0][0]
+            if new_puzzle[row_ind, col_ind] == 0:
+                new_puzzle[row_ind, col_ind] = num_ind + 1
+                changes[row_ind, col_ind, num_ind] = 1
+                num_changes += 1
+
+    # Check boxes
+    for row_start in [0, 3, 6]:
+        for col_start in [0, 3, 6]:
+            for num_ind in range(9):
+                num_poss = np.sum(
+                    notes[row_start : row_start + 3, col_start : col_start + 3, num_ind]
+                )
+                if num_poss != 1:
+                    continue
+
+                inds = np.argwhere(
+                    notes[row_start : row_start + 3, col_start : col_start + 3, num_ind]
+                    == 1
+                )[0]
+                row_ind = row_start + inds[0]
+                col_ind = col_start + inds[1]
+                if new_puzzle[row_ind, col_ind] == 0:
+                    new_puzzle[row_ind, col_ind] = num_ind + 1
+                    changes[row_ind, col_ind, num_ind] = 1
+                    num_changes += 1
+
+    return new_puzzle, changes, num_changes
+
+
+# def naked_pairs(puzzle, notes):
+#     """
+#     Checks for naked pairs (two cells in the same row/column/box with the same two possible candidates).
+
+#     Input
+#         puzzle : 9x9 list of ints
+#             Current state of sudoku puzzle.
+#         notes : 9x9x9 list of boolean integers
+#             hello
+
+#     Output
+#         new_puzzle : 9x9 np array of ints
+#             Updated sudoku puzzle.
+#         changes : 9x9x9 np array of boolean integers
+#             there
+#     """
+#     puzzle = np.array(puzzle, dtype=int).reshape((9, 9))
+#     new_notes = np.array(notes, dtype=int).reshape((9, 9, 9))
+#     changes = np.zeros((9, 9, 9), dtype=int)
+#     num_changes = 0
+
+#     # Check rows
+#     for row_ind, row in enumerate(new_notes):
+#         # Find indices of columns with only two possibilities
+#         col_inds = np.argwhere(np.sum(row, axis=1) == 2).flatten()
+#         # Check if any of them have identical possibilities
+#         if len(col_inds) < 2:
+#             continue
+#         for col_ind1 in col_inds:
+#             for col_ind2 in col_inds:
+#                 if col_ind1 == col_ind2:
+#                     continue
+#                 if new_notes[row_ind, col_ind1, :] == new_notes[row_ind, col_ind2, :]:
+#                     num_inds = np.argwhere(
+#                         new_notes[row_ind, col_ind1, :] == 1
+#                     ).flatten()
+#                     for col_ind in range(9):
+#                         if (
+#                             (col_ind != col_ind1)
+#                             and (col_ind != col_ind2)
+#                             and (
+#                                 (new_notes[row_ind, col_ind, num_inds[0]] == 1)
+#                                 or (new_notes[row_ind, col_ind, num_inds[1]] == 1)
+#                             )
+#                         ):
+#                             new_notes[row_ind, col_ind, num_inds[0]] = 0
+#                             changes[row_ind, col_ind, num_inds[0]] = -1
+
+#                             new_notes[row_ind, col_ind, num_inds[1]] = 0
+#                             changes[row_ind, col_ind, num_inds[1]] = -1
+
+#                             changes[row_ind, col_ind1, num_inds[0]] = 1
+#                             changes[row_ind, col_ind1, num_inds[1]] = 1
+#                             changes[row_ind, col_ind2, num_inds[0]] = 1
+#                             changes[row_ind, col_ind2, num_inds[1]] = 1
+
+#                             num_changes += 1

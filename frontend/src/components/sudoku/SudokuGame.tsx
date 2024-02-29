@@ -1,153 +1,186 @@
 // External imports
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // Internal imports
 import "../../styles/main.css";
 import "../../styles/sudoku.css";
-import SudokuBoard from './SudokuBoard';
-import { apiCall } from '../../api/api';
-
+import SudokuBoard from "./SudokuBoard";
+import { apiCall } from "../../api/api";
 
 function SudokuGame() {
+  const [toNote, setToNote] = useState<boolean>(false);
+  const [toUpdate, setToUpdate] = useState<boolean>(false);
 
-    const [toNote, setToNote] = useState<boolean>(false);
-    const [toUpdate, setToUpdate] = useState<boolean>(false);
+  const [startingPuzzle, setStartingPuzzle] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(0))
+  );
+  const [puzzle, setPuzzle] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(0))
+  );
+  const [newPuzzle, setNewPuzzle] = useState(
+    Array.from({ length: 9 }, () => Array(9).fill(0))
+  );
 
-    const [startingPuzzle, setStartingPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
-    const [puzzle, setPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
-    const [newPuzzle, setNewPuzzle] = useState(Array.from({ length: 9 }, () => Array(9).fill(0)));
+  // const initialPuzzleChanges: number[][][] = Array.from({ length: 9 }, () => Array(9).fill(0));
+  // const [puzzleChanges, setPuzzleChanges] = useState(initialPuzzleChanges);
 
-    // const initialPuzzleChanges: number[][][] = Array.from({ length: 9 }, () => Array(9).fill(0));
-    // const [puzzleChanges, setPuzzleChanges] = useState(initialPuzzleChanges);
+  const initialNotes: number[][][] = Array.from({ length: 9 }, () =>
+    Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => 1))
+  );
 
-    const initialNotes: number[][][] = Array.from({ length: 9 }, () =>
-        Array.from({ length: 9 }, () =>
-            Array.from({ length: 9 }, () => 1)
-        )
-    );
+  const initialNotesChanges: number[][][] = Array.from({ length: 9 }, () =>
+    Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => 0))
+  );
 
-    const initialNotesChanges: number[][][] = Array.from({ length: 9 }, () =>
-        Array.from({ length: 9 }, () =>
-            Array.from({ length: 9 }, () => 0)
-        )
-    );
+  const [notes, setNotes] = useState(initialNotes);
+  const [newNotes, setNewNotes] = useState(initialNotes);
+  const [notesChanges, setNotesChanges] = useState(initialNotesChanges);
 
-    const [notes, setNotes] = useState(initialNotes);
-    const [newNotes, setNewNotes] = useState(initialNotes);
-    const [notesChanges, setNotesChanges] = useState(initialNotesChanges);
+  useEffect(() => {
+    apiCall("sudoku/generate").then((response: any) => {
+      if (response) {
+        setStartingPuzzle(response.puzzle);
+        setPuzzle(response.puzzle);
+      } else {
+        console.log("no response");
+      }
+    });
+  }, []);
 
-    useEffect(() => {
-        apiCall('sudoku/generate').then((response: any) => {
-            if (response) {
-                setStartingPuzzle(response.puzzle);
-                setPuzzle(response.puzzle);
-            } else {
-                console.log("no response");
-            }
-        });
-    }, []);
-
-    const generateSudoku = () => {
-        apiCall('sudoku/generate').then((response: any) => {
-            if (response) {
-                setStartingPuzzle(response.puzzle);
-                setPuzzle(response.puzzle);
-                setNotes(initialNotes);
-                setNotesChanges(initialNotesChanges);
-                setToNote(false);
-            } else {
-                console.log("no response");
-            }
-        });
-    };
-
-    const updateNotes = () => {
-        setNotes(newNotes);
+  const generateSudoku = () => {
+    apiCall("sudoku/generate").then((response: any) => {
+      if (response) {
+        setStartingPuzzle(response.puzzle);
+        setPuzzle(response.puzzle);
+        setNotes(initialNotes);
         setNotesChanges(initialNotesChanges);
         setToNote(false);
-    }
+      } else {
+        console.log("no response");
+      }
+    });
+  };
 
-    const updateCells = () => {
-        setPuzzle(newPuzzle);
-        setNotesChanges(initialNotesChanges);
-        // setPuzzleChanges(initialPuzzleChanges);
-        setToUpdate(false);
-    }
+  const updateNotes = () => {
+    setNotes(newNotes);
+    setNotesChanges(initialNotesChanges);
+    setToNote(false);
+  };
 
-    const getNewNotes = async () => {
-        const body = {
-            "puzzle": puzzle,
-            "notes": notes,
-        }; 
-    
-        try {
-            const response = await apiCall('sudoku/update_notes', 'POST', body);
-    
-            if (response) {
-                console.log(response.numChanges);
-                setNewNotes(response.notes);
-                setNotesChanges(response.changes);
-                setToNote(response.numChanges > 0);
-                return response.numChanges;
-            } else {
-                console.log("no response");
-            }
-        } catch (error) {
-            console.error("Error in getNewNotes:", error);
-        }
+  const updateCells = () => {
+    setPuzzle(newPuzzle);
+    setNotesChanges(initialNotesChanges);
+    // setPuzzleChanges(initialPuzzleChanges);
+    setToUpdate(false);
+  };
+
+  const getNewNotes = async () => {
+    const body = {
+      puzzle: puzzle,
+      notes: notes,
     };
 
-    const nakedSingles = () => {
-        const body = {
-            "puzzle": puzzle,
-            "notes": notes
-        }
-        apiCall('sudoku/naked_singles', 'POST', body).then((response: any) => {
-            if (response) {
-                setNewPuzzle(response.puzzle);
-                setNotesChanges(response.changes);
-                // setPuzzleChanges(response.changes);
-                setToUpdate(response.numChanges > 0);
-                return response.numChanges
-            } else {
-                console.log("no response");
+    try {
+      const response = await apiCall("sudoku/update_notes", "POST", body);
+
+      if (response) {
+        setNewNotes(response.notes);
+        setNotesChanges(response.changes);
+        setToNote(response.numChanges > 0);
+        return response.numChanges;
+      } else {
+        console.log("no response");
+      }
+    } catch (error) {
+      console.error("Error in getNewNotes:", error);
+    }
+  };
+
+  const nakedSingles = async () => {
+    const body = {
+      puzzle: puzzle,
+      notes: notes,
+    };
+    try {
+      const response = await apiCall("sudoku/naked_singles", "POST", body);
+
+      if (response) {
+        setNewPuzzle(response.puzzle);
+        setNotesChanges(response.changes);
+        setToUpdate(response.numChanges > 0);
+        return response.numChanges;
+      } else {
+        console.log("no response");
+      }
+    } catch (error) {
+      console.error("Error in getNewNotes:", error);
+    }
+  };
+
+  const hiddenSingles = async () => {
+    const body = {
+      puzzle: puzzle,
+      notes: notes,
+    };
+    try {
+      const response = await apiCall("sudoku/hidden_singles", "POST", body);
+
+      if (response) {
+        setNewPuzzle(response.puzzle);
+        setNotesChanges(response.changes);
+        setToUpdate(response.numChanges > 0);
+        return response.numChanges;
+      } else {
+        console.log("no response");
+      }
+    } catch (error) {
+      console.error("Error in getNewNotes:", error);
+    }
+  };
+
+  const handleStep = async () => {
+    if (toNote) {
+      console.log("noting");
+      updateNotes();
+    } else if (toUpdate) {
+      console.log("updating");
+      updateCells();
+    } else {
+      console.log("getting new note");
+      getNewNotes().then((result) => {
+        if (result === 0) {
+          console.log("no new notes");
+          console.log("getting naked singles");
+          nakedSingles().then((result) => {
+            if (result === 0) {
+              console.log("no naked singles");
+              console.log("getting hidden singles");
+              hiddenSingles();
             }
-        });
-    }
-
-    const handleStep = async () => {
-        if (toNote) {
-            console.log("noting")
-            updateNotes();
-        } else if (toUpdate) {
-            console.log("updating")
-            updateCells();
-        } else {
-            console.log("getting new note")
-            getNewNotes().then(result => {
-                if (result === 0){
-                    console.log("no new notes")
-                    console.log("getting naked singles")
-                    nakedSingles();
-                }
-                console.log("")
-            });
+          });
         }
+      });
     }
+  };
 
-    return (
-        <div className='content'>
-            <SudokuBoard puzzle={puzzle} startingPuzzle={startingPuzzle} notes={notes} notesChanges={notesChanges}/>
-            <div className='d-flex justify-content-center align-items-center'>
-                <button className='btn-glitch puzzle-btn' onClick={generateSudoku}>
-                    Random Puzzle
-                </button>
-                <button className='btn-glitch step-btn' onClick={handleStep}>
-                    Next Step
-                </button>
-            </div>
-        </div>
-    )
+  return (
+    <div className="content">
+      <SudokuBoard
+        puzzle={puzzle}
+        startingPuzzle={startingPuzzle}
+        notes={notes}
+        notesChanges={notesChanges}
+      />
+      <div className="d-flex justify-content-center align-items-center">
+        <button className="btn-glitch puzzle-btn" onClick={generateSudoku}>
+          Random Puzzle
+        </button>
+        <button className="btn-glitch step-btn" onClick={handleStep}>
+          Next Step
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default SudokuGame;
@@ -191,7 +224,7 @@ export default SudokuGame;
 //             // Check boxes
 //             const boxStartRow = Math.floor(rowStart / 3) * 3
 //             const boxStartCol = Math.floor(colStart / 3) * 3
-            
+
 //             for (let i = boxStartRow; i < boxStartRow + 3; i++){
 //                 for (let j = boxStartCol; i < boxStartCol + 3; j++){
 //                     if (i !== rowStart && j !== colStart){
@@ -204,7 +237,7 @@ export default SudokuGame;
 //                         }
 //                     }
 //                 }
-//             } 
+//             }
 //         }
 
 //         // Return or recursion
@@ -287,7 +320,7 @@ export default SudokuGame;
 //                 }
 //             }
 //         }
-        
+
 //         // No hidden singles
 //         return ["", ""];
 //     }
@@ -401,7 +434,7 @@ export default SudokuGame;
 //             setCurrentNumber(0);
 //             setGroupType("");
 //             return;
-//         } 
+//         }
 
 //         if (toNote){
 //             // Updates notes
@@ -489,7 +522,7 @@ export default SudokuGame;
 
 //     return (
 //         <div className='content'>
-            
+
 //         </div>
 //     )
 // }
