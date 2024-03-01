@@ -15,17 +15,13 @@
     align-items: center;
 }
 
-.navbar:hover {
-    /* border-bottom: 5px solid var(--neon-blue); */
-}
-
 .navbar-btn {
-    font-size: 24px;
+    font-size: 26px;
     z-index: 2;
     color: var(--neon-blue);
-    margin-top: 5px;
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-top: 10px;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .fa-btn {

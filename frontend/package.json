@@ -12,6 +12,7 @@
     "@mui/icons-material": "^5.14.19",
     "@mui/material": "^5.14.18",
     "@mui/material-next": "^6.0.0-alpha.110",
+    "@phosphor-icons/react": "^2.0.15",
     "@react-three/drei": "^9.88.17",
     "@react-three/fiber": "^8.15.11",
     "@testing-library/jest-dom": "^5.17.0",
