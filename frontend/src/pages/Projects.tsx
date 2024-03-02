@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Card from "../components/Card";
+import Card2 from "../components/Card2";
 import Carousel3D from "../components/Carousel3D";
 import Navbar from "../components/Navbar";
 
@@ -9,7 +10,7 @@ function Projects() {
     {
       key: 0,
       content: (
-        <Card
+        <Card2
           slide={0}
           colour="var(--neon-blue)"
           imagen="./images/tic-tac-toe.png"

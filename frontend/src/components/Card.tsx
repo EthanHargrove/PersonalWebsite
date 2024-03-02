@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 
 import "../styles/card.css";
+import EncryptButton from "./EncryptButton";
 
 interface CardProps {
   slide: number;
@@ -42,7 +43,6 @@ function Card(props: CardProps) {
     boxShadow: show
       ? `0 0 8px 4px ${props.colour}`
       : `0 0 4px 2px ${props.colour}`,
-    // border: `2px solid ${props.colour}`,
   };
 
   return (
@@ -56,10 +56,12 @@ function Card(props: CardProps) {
       <h2 className="text-center">{props.title}</h2>
       <Stack direction="row" alignItems="center" justifyContent="space-evenly">
         <Link to={props.button1Link} className="link">
-          <button className="btn-glitch">{props.button1Title}</button>
+          <EncryptButton text={props.button1Title} />
+          {/* <button className="btn-glitch">{props.button1Title}</button> */}
         </Link>
         <Link to={props.button2Link} className="link">
-          <button className="btn-glitch">{props.button2Title}</button>
+          <EncryptButton text={props.button2Title} />
+          {/* <button className="btn-glitch">{props.button2Title}</button> */}
         </Link>
       </Stack>
     </animated.div>
