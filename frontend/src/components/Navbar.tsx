@@ -32,7 +32,7 @@ const Navbar = (props: NavbarProps) => {
       </a>
 
       {/* CV Button */}
-      <Link to="/">
+      <Link to="/CV">
         <GlitchComponent>
           <GraduationCap
             className={`navbar-btn ${props.active === "CV" ? "active" : ""}`}

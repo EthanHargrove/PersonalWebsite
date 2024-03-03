@@ -23,23 +23,6 @@ interface CardProps {
 function Card2(props: CardProps) {
   const [show, setShown] = useState(true);
 
-  //   const cardStyle = useSpring({
-  //     from: {
-  //       opacity: 0.5,
-  //       transform: "scale(0.5)",
-  //       boxShadow: show
-  //         ? `0 0 20px 10px ${props.colour}`
-  //         : `0 0 10px 5px ${props.colour}`,
-  //     },
-  //     to: {
-  //       opacity: 1,
-  //       transform: show ? "scale(1.05)" : "scale(1)",
-  //       boxShadow: show
-  //         ? `0 0 20px 10px ${props.colour}`
-  //         : `0 0 10px 5px ${props.colour}`,
-  //     },
-  //   });
-
   const initialStyle = {
     opacity: 0.5,
     transform: "scale(0)",

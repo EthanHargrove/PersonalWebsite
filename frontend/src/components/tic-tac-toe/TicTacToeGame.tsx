@@ -13,37 +13,37 @@ import OPiece from "./OPiece";
 import ThreeText from "./ThreeText";
 import EmptySquare from "./EmptySquare";
 // Import q-tables
-import qTable5000RandSched from "../../assets/ttt_q_table5000_rand_sched.json";
-import qTable10000RandSched from "../../assets/ttt_q_table10000_rand_sched.json";
-import qTable50000RandSched from "../../assets/ttt_q_table50000_rand_sched.json";
-import qTable100000RandSched from "../../assets/ttt_q_table100000_rand_sched.json";
-import qTable500000RandSched from "../../assets/ttt_q_table500000_rand_sched.json";
-import qTable1000000RandSched from "../../assets/ttt_q_table1000000_rand_sched.json";
-import qTable5000000RandSched from "../../assets/ttt_q_table5000000_rand_sched.json";
+import qTable5000RandSched from "../../assets/q-tables/ttt_q_table5000_rand_sched.json";
+import qTable10000RandSched from "../../assets/q-tables/ttt_q_table10000_rand_sched.json";
+import qTable50000RandSched from "../../assets/q-tables/ttt_q_table50000_rand_sched.json";
+import qTable100000RandSched from "../../assets/q-tables/ttt_q_table100000_rand_sched.json";
+import qTable500000RandSched from "../../assets/q-tables/ttt_q_table500000_rand_sched.json";
+import qTable1000000RandSched from "../../assets/q-tables/ttt_q_table1000000_rand_sched.json";
+import qTable5000000RandSched from "../../assets/q-tables/ttt_q_table5000000_rand_sched.json";
 
-import qTable5000Rand from "../../assets/ttt_q_table5000_rand.json";
-import qTable10000Rand from "../../assets/ttt_q_table10000_rand.json";
-import qTable50000Rand from "../../assets/ttt_q_table50000_rand.json";
-import qTable100000Rand from "../../assets/ttt_q_table100000_rand.json";
-import qTable500000Rand from "../../assets/ttt_q_table500000_rand.json";
-import qTable1000000Rand from "../../assets/ttt_q_table1000000_rand.json";
-import qTable5000000Rand from "../../assets/ttt_q_table5000000_rand.json";
+import qTable5000Rand from "../../assets/q-tables/ttt_q_table5000_rand.json";
+import qTable10000Rand from "../../assets/q-tables/ttt_q_table10000_rand.json";
+import qTable50000Rand from "../../assets/q-tables/ttt_q_table50000_rand.json";
+import qTable100000Rand from "../../assets/q-tables/ttt_q_table100000_rand.json";
+import qTable500000Rand from "../../assets/q-tables/ttt_q_table500000_rand.json";
+import qTable1000000Rand from "../../assets/q-tables/ttt_q_table1000000_rand.json";
+import qTable5000000Rand from "../../assets/q-tables/ttt_q_table5000000_rand.json";
 
-import qTable5000Sched from "../../assets/ttt_q_table5000_sched.json";
-import qTable10000Sched from "../../assets/ttt_q_table10000_sched.json";
-import qTable50000Sched from "../../assets/ttt_q_table50000_sched.json";
-import qTable100000Sched from "../../assets/ttt_q_table100000_sched.json";
-import qTable500000Sched from "../../assets/ttt_q_table500000_sched.json";
-import qTable1000000Sched from "../../assets/ttt_q_table1000000_sched.json";
-import qTable5000000Sched from "../../assets/ttt_q_table5000000_sched.json";
+import qTable5000Sched from "../../assets/q-tables/ttt_q_table5000_sched.json";
+import qTable10000Sched from "../../assets/q-tables/ttt_q_table10000_sched.json";
+import qTable50000Sched from "../../assets/q-tables/ttt_q_table50000_sched.json";
+import qTable100000Sched from "../../assets/q-tables/ttt_q_table100000_sched.json";
+import qTable500000Sched from "../../assets/q-tables/ttt_q_table500000_sched.json";
+import qTable1000000Sched from "../../assets/q-tables/ttt_q_table1000000_sched.json";
+import qTable5000000Sched from "../../assets/q-tables/ttt_q_table5000000_sched.json";
 
-import qTable5000 from "../../assets/ttt_q_table5000.json";
-import qTable10000 from "../../assets/ttt_q_table10000.json";
-import qTable50000 from "../../assets/ttt_q_table50000.json";
-import qTable100000 from "../../assets/ttt_q_table100000.json";
-import qTable500000 from "../../assets/ttt_q_table500000.json";
-import qTable1000000 from "../../assets/ttt_q_table1000000.json";
-import qTable5000000 from "../../assets/ttt_q_table5000000.json";
+import qTable5000 from "../../assets/q-tables/ttt_q_table5000.json";
+import qTable10000 from "../../assets/q-tables/ttt_q_table10000.json";
+import qTable50000 from "../../assets/q-tables/ttt_q_table50000.json";
+import qTable100000 from "../../assets/q-tables/ttt_q_table100000.json";
+import qTable500000 from "../../assets/q-tables/ttt_q_table500000.json";
+import qTable1000000 from "../../assets/q-tables/ttt_q_table1000000.json";
+import qTable5000000 from "../../assets/q-tables/ttt_q_table5000000.json";
 
 function TicTacToeGame() {
   const fontStyle = {
@@ -446,7 +446,7 @@ function TicTacToeGame() {
           <Tooltip
             placement="left"
             title={
-                "Starts from a randomly selected state rather than the beginning of the game for enhanced exploration."
+              "Starts from a randomly selected state rather than the beginning of the game for enhanced exploration."
             }
           >
             <Typography style={tooltipFontStyle}>Exploring starts</Typography>

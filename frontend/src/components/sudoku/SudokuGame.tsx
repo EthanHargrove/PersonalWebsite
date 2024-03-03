@@ -1,5 +1,6 @@
 // External imports
 import React, { useState, useEffect } from "react";
+import { Grid, Stack } from "@mui/material";
 
 // Internal imports
 import "../../styles/main.css";
@@ -20,9 +21,6 @@ function SudokuGame() {
   const [newPuzzle, setNewPuzzle] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
   );
-
-  // const initialPuzzleChanges: number[][][] = Array.from({ length: 9 }, () => Array(9).fill(0));
-  // const [puzzleChanges, setPuzzleChanges] = useState(initialPuzzleChanges);
 
   const initialNotes: number[][][] = Array.from({ length: 9 }, () =>
     Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => 1))
@@ -70,7 +68,6 @@ function SudokuGame() {
   const updateCells = () => {
     setPuzzle(newPuzzle);
     setNotesChanges(initialNotesChanges);
-    // setPuzzleChanges(initialPuzzleChanges);
     setToUpdate(false);
   };
 
@@ -165,20 +162,89 @@ function SudokuGame() {
 
   return (
     <div className="content">
-      <SudokuBoard
-        puzzle={puzzle}
-        startingPuzzle={startingPuzzle}
-        notes={notes}
-        notesChanges={notesChanges}
-      />
-      <div className="d-flex justify-content-center align-items-center">
-        <button className="btn-glitch puzzle-btn" onClick={generateSudoku}>
-          Random Puzzle
-        </button>
-        <button className="btn-glitch step-btn" onClick={handleStep}>
-          Next Step
-        </button>
-      </div>
+      <Grid
+        container
+        spacing={0}
+        style={{
+          marginTop: "10vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Grid item xs={12} md={7} lg={7}>
+          <Stack
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            spacing={2}
+          >
+            <SudokuBoard
+              puzzle={puzzle}
+              startingPuzzle={startingPuzzle}
+              notes={notes}
+              notesChanges={notesChanges}
+            />
+            <Stack direction="row" spacing={5}>
+              <button
+                className="btn-glitch puzzle-btn"
+                onClick={generateSudoku}
+              >
+                Random Puzzle
+              </button>
+              <button className="btn-glitch step-btn" onClick={handleStep}>
+                Next Step
+              </button>
+            </Stack>
+          </Stack>
+        </Grid>
+        <Grid item xs={12} md={4} lg={3}>
+          <ol>
+            <li>Missing Notes</li>
+            <ul>
+              <li>Update</li>
+            </ul>
+            <li>Naked Singles</li>
+            <ul>
+              <li>Update</li>
+            </ul>
+            <li>Hidden Singles</li>
+            <ul>
+              <li>Update</li>
+            </ul>
+          </ol>
+        </Grid>
+      </Grid>
+      {/* <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+        <Stack
+          style={{
+            width: "50vw",
+            marginTop: "10vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <SudokuBoard
+            puzzle={puzzle}
+            startingPuzzle={startingPuzzle}
+            notes={notes}
+            notesChanges={notesChanges}
+          />
+          <div className="d-flex justify-content-center align-items-center">
+            {/* <div> */}
+      {/* <button className="btn-glitch puzzle-btn" onClick={generateSudoku}>
+              Random Puzzle
+            </button>
+            <button className="btn-glitch step-btn" onClick={handleStep}>
+              Next Step
+            </button>
+          </div>
+        </Stack>
+        <h1>Hi</h1>
+      </Stack> */}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 .sudokuBoard {
-    position: absolute;
-    top: 11vh;
+    /* position: absolute; */
+    /* top: 11vh; */
     z-index: 1;
     /* left: 35vw; */
     /* height: 483px;
@@ -9,17 +9,17 @@
 }
 
 .puzzle-btn {
-    position: absolute;
+    /* position: absolute;
     top: 82vh;
     right: 50%;
-    transform: translate(-67%, -0%);
+    transform: translate(-67%, -0%); */
     z-index: 1;
 }
 
 .step-btn {
-    position: absolute;
+    /* position: absolute;
     top: 82vh;
     left: 50%;
-    transform: translate(67%, -0%);
+    transform: translate(67%, -0%); */
     z-index: 1;
 }
