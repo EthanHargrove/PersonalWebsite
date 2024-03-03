@@ -6,15 +6,51 @@ import HorizontalScrollCarousel from "../components/HorizontalScrollCarousel";
 import "../styles/main.css";
 
 function CV() {
+  const certStyle = {
+    height: "67vh",
+  };
+
   const certs = [
-    <h1>"../assets/pdf/AppliedML.pdf"</h1>,
-    <h1>"../assets/pdf/CourseraTF2-1.pdf"</h1>,
-    <h1>"../assets/pdf/CourseraTF2-2.pdf"</h1>,
-    <h1>"../assets/pdf/CourseraBootstrap.pdf"</h1>,
-    <h1>"../assets/pdf/CourseraIOT.pdf"</h1>,
-    <h1>"../assets/pdf/CourseraArduino.pdf"</h1>,
-    <h1>"../assets/pdf/CourseraChineseCharacters1.pdf"</h1>,
-    <h1>"../assets/pdf/BathChineseCharacters.pdf"</h1>,
+    <img
+      src={"./images/CourseraAppliedML.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
+    <img
+      src={"./images/CourseraTF2-1.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
+    <img
+      src={"./images/CourseraTF2-2.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
+    <img
+      src={"./images/CourseraBootstrap.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
+    <img
+      src={"./images/CourseraIOT.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
+    <img
+      src={"./images/CourseraArduino.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
+    <img
+      src={"./images/CourseraChineseCharacters1.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
+    <img
+      src={"./images/BathChineseCharacters.png"}
+      alt="Certificate"
+      style={certStyle}
+    />,
   ];
   return (
     <>
