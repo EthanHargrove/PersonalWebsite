@@ -3,8 +3,8 @@ import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
 
-import "../styles/card.css";
-import EncryptButton from "./EncryptButton";
+import "../../styles/card.css";
+import EncryptButton from "../EncryptButton";
 
 interface CardProps {
   slide: number;

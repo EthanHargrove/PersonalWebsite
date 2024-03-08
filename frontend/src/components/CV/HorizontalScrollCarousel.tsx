@@ -1,7 +1,7 @@
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import { Stack } from "@mui/material";
-import "../styles/horizontal-scroll-carousel.css";
+import "../../styles/horizontal-scroll-carousel.css";
 
 interface HorizontalScrollCarouselProps {
   title: string;
@@ -17,7 +17,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-4100px"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["0px", "-4100px"]);
 
   return (
     <section ref={targetRef} className="scrollSection">

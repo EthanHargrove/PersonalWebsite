@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import Card from "../components/Card";
-import Card2 from "../components/Card2";
-import Carousel3D from "../components/Carousel3D";
+import Card from "../components/projects/Card";
+import Carousel3D from "../components/projects/Carousel3D";
 import Navbar from "../components/Navbar";
 
 function Projects() {

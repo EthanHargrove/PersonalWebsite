@@ -28,6 +28,8 @@ body {
 }
 
 .cyberpunk-background {
+    /* position: fixed;
+    margin-top: -100px; */
     background-image: url(../assets/image-2.png);
     background-size: cover;
     background-repeat: no-repeat;
