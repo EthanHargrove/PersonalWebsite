@@ -23,7 +23,7 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     <section ref={targetRef} className="scrollSection">
       <div className="scroller">
         <Stack>
-          <h1>{title}</h1>
+          <h2>{title}</h2>
           <motion.div style={{ x }} className="scroller2">
             {items.map((item) => {
               return item;

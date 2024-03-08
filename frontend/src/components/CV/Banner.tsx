@@ -42,7 +42,7 @@ function Banner(props: BannerProps) {
         },
       },
       {
-        breakpoint: 780,
+        breakpoint: 600,
         settings: {
           slidesToShow: 2,
         },
@@ -51,7 +51,7 @@ function Banner(props: BannerProps) {
   };
   return (
     <div className="slider-container">
-      <h1>{props.title}</h1>
+      <h2>{props.title}</h2>
       <Slider {...settings}>
         {props.items.map((item) => {
           return item;

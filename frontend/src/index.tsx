@@ -7,6 +7,7 @@ import CV from "./pages/CV";
 import Projects from "./pages/Projects";
 import TicTacToe from "./pages/TicTacToe";
 import Sudoku from "./pages/Sudoku";
+import GraphNeuralNetworks from "./pages/GraphNeuralNetworks";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
   {
     path: "/sudoku",
     element: <Sudoku />,
+  },
+  {
+    path: "/graph-neural-networks",
+    element: <GraphNeuralNetworks />,
   },
 ]);
 

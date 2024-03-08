@@ -103,13 +103,16 @@ function CV() {
 
   return (
     <>
-      <div className="cyberpunk-background" />
+      <div
+        className="cyberpunk-background"
+        style={{ position: "fixed", marginTop: "-30px" }}
+      />
       <Navbar active="CV" />
-      <h1>Hello there</h1>
+      <h1>CV</h1>
       {/* <HorizontalScrollCarousel title="Work Experience" items={certs} />
       <HorizontalScrollCarousel title="Education" items={certs} /> */}
-      <HorizontalScrollCarousel title="Certificates" items={certs} />
       <Banner items={skillsCards} title="Skills" />
+      <HorizontalScrollCarousel title="Certificates" items={certs} />
     </>
   );
 }
