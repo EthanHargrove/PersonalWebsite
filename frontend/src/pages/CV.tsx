@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import HorizontalScrollCarousel from "../components/CV/HorizontalScrollCarousel";
 import "../styles/main.css";
 import SkillsCard from "../components/CV/SkillsCard";
+import Banner from "../components/CV/Banner";
 
 function CV() {
   const certStyle = {
@@ -105,10 +106,10 @@ function CV() {
       <div className="cyberpunk-background" />
       <Navbar active="CV" />
       <h1>Hello there</h1>
-      <HorizontalScrollCarousel title="Work Experience" items={certs} />
-      <HorizontalScrollCarousel title="Education" items={certs} />
+      {/* <HorizontalScrollCarousel title="Work Experience" items={certs} />
+      <HorizontalScrollCarousel title="Education" items={certs} /> */}
       <HorizontalScrollCarousel title="Certificates" items={certs} />
-      <HorizontalScrollCarousel title="Skills" items={skillsCards} />
+      <Banner items={skillsCards} title="Skills" />
     </>
   );
 }

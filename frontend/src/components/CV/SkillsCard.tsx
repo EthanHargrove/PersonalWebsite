@@ -14,6 +14,8 @@ interface SkillsCardProps {
 }
 
 function SkillsCard(props: SkillsCardProps) {
+  const [show, setShown] = useState(false);
+
   const cardStyle = {
     display: "flex",
     justifyContent: "center",
@@ -21,7 +23,12 @@ function SkillsCard(props: SkillsCardProps) {
     borderRadius: "20px",
     height: "250px",
     width: "200px",
-    boxShadow: `0 0 10px 5px ${props.textColour}`,
+    boxShadow: show
+      ? `0 0 15px 7.5px ${props.textColour}`
+      : `0 0 10px 5px ${props.textColour}`,
+    marginTop: "25px",
+    marginBottom: "25px",
+    transform: show ? "scale(1.05)" : "scale(1)",
   };
 
   const imgStyle = {
@@ -40,7 +47,11 @@ function SkillsCard(props: SkillsCardProps) {
   };
 
   return (
-    <div style={cardStyle}>
+    <div
+      style={cardStyle}
+      onMouseEnter={() => setShown(true)}
+      onMouseLeave={() => setShown(false)}
+    >
       <Stack
         alignItems="center"
         justifyContent="center"
