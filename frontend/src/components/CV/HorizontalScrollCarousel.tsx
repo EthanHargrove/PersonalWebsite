@@ -17,7 +17,11 @@ const HorizontalScrollCarousel: React.FC<HorizontalScrollCarouselProps> = ({
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["0px", "-4100px"]);
+  const maxScroll = Math.round(
+    6.60346 * window.innerHeight - 1.02381 * window.innerWidth + 151.383
+  );
+
+  const x = useTransform(scrollYProgress, [0, 1], ["0px", `-${maxScroll}px`]);
 
   return (
     <section ref={targetRef} className="scrollSection">
