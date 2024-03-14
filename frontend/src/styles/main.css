@@ -74,6 +74,17 @@ body {
     color: inherit;
 }
 
+.heading {
+    letter-spacing: 0.5rem;
+    text-transform: uppercase;
+}
+
+.cv-heading {
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 1);
+    margin-left: 25px;
+}
+
 /* .navbar-btn {
     font-size: 24px;
     z-index: 2;

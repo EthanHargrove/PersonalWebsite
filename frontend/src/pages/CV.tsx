@@ -7,6 +7,7 @@ import "../styles/main.css";
 import SkillsCard from "../components/CV/SkillsCard";
 import Banner from "../components/CV/Banner";
 import Education from "../components/CV/Education";
+import WorkExperience from "../components/CV/WorkExperience";
 
 function CV() {
   const certStyle = {
@@ -109,8 +110,8 @@ function CV() {
         style={{ position: "fixed", marginTop: "-30px" }}
       />
       <Navbar active="CV" />
-      <h1>CV</h1>
-      <h3>Work Experience</h3>
+      <h1 className="heading cv-heading">CV</h1>
+      <WorkExperience />
       <Education />
       {/* <HorizontalScrollCarousel title="Work Experience" items={certs} />
       <HorizontalScrollCarousel title="Education" items={certs} /> */}

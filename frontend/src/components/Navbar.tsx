@@ -19,6 +19,8 @@ interface NavbarProps {
 const Navbar = (props: NavbarProps) => {
   return (
     <div className="navbar">
+      <div className="navbar-backdrop" />
+      <div className="navbar-shadow" />
       {/* LinkedIn button */}
       <a
         href="https://www.linkedin.com/in/ethan-hargrove"

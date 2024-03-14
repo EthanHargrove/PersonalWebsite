@@ -4,13 +4,18 @@ import { Stack } from "@mui/material";
 import EducationCard from "./EducationCard";
 
 function Education() {
+  const headingStyle = {
+    letterSpacing: "0.5rem",
+    textTransform: "uppercase" as "uppercase",
+  };
+
   return (
-    <div>
-      <h2>Education</h2>
+    <>
+      <h2 className="heading cv-heading">Education</h2>
       <Stack
-        direction={{ xs: "column", sm: "row" }}
-        spacing={1}
-        alignContent="center"
+        direction={{ md: "column", lg: "row" }}
+        spacing={{ md: 4, lg: 1 }}
+        alignItems="center"
         justifyContent="space-evenly"
       >
         <EducationCard
@@ -28,7 +33,7 @@ function Education() {
           date="09/2018-04/2022"
         />
       </Stack>
-    </div>
+    </>
   );
 }
 export default Education;

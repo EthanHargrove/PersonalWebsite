@@ -12,7 +12,12 @@ interface EducationCardProps {
 function EducationCard(props: EducationCardProps) {
   const cardStyle = {
     height: "250px",
-    width: "500px",
+    width: "450px",
+    backgroundColor: "#181818",
+    boxShadow: "0 0 20px #ffffff",
+    padding: "20px",
+    borderRadius: "10px",
+    backdropFilter: "blur(10px)",
     // background: "#000000",
     // backdropFilter: "blur(10px)", // Apply a blur effect
     // backgroundColor: "rgba(255, 255, 255, 0.5)", // Set a semi-transparent background color
@@ -22,16 +27,21 @@ function EducationCard(props: EducationCardProps) {
 
   const imgStyle = {
     height: "250px",
+    width: "250px",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px #ffffff",
   };
 
   const fontStyle = {
     fontSize: "16px",
+    textShadow: "0 0 15px #ffffff",
   };
 
   return (
     <Stack
-      direction={{ xs: "column", sm: "row" }}
-      spacing={{ xs: 1, sm: 2, md: 4 }}
+      direction="row"
+      spacing={{ xs: 2, md: 4 }}
+      justifyContent="space-evenly"
       style={cardStyle}
     >
       <img src={props.imagen} style={imgStyle} alt="Graduation" />

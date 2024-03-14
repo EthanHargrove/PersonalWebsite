@@ -27,3 +27,27 @@
 .active {
     color: var(--neon-pink);
 }
+
+.navbar-backdrop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 225px;
+    height: 60px;
+    background-color: var(--dark-grey);
+    clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+    z-index: -1;
+  }
+
+.navbar-shadow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 229px;
+    height: 62px;
+    clip-path: polygon(0% 0%, 100% 0%, 90% 100%, 10% 100%);
+    z-index: -2;
+    background-color: rgba(0, 255, 255);
+}
