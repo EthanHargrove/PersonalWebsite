@@ -5,9 +5,22 @@ import "./styles/main.css";
 import Home from "./pages/Home";
 import CV from "./pages/CV";
 import Projects from "./pages/Projects";
-import TicTacToe from "./pages/TicTacToe";
+import XsAndOs from "./pages/XsAndOs";
 import Sudoku from "./pages/Sudoku";
 import GraphNeuralNetworks from "./pages/GraphNeuralNetworks";
+
+function setDefaultTitleAndFavicon() {
+  // Change document title
+  document.title = "Ethan Hargrove";
+
+  // Change favicon
+  // const favicon = document.querySelector('link[rel="icon"]');
+  // if (favicon) {
+  //   favicon.setAttribute('href', '/path/to/default/icon.png'); // Change path to your default favicon
+  // }
+}
+
+document.addEventListener("DOMContentLoaded", setDefaultTitleAndFavicon);
 
 const router = createBrowserRouter([
   {
@@ -23,8 +36,8 @@ const router = createBrowserRouter([
     element: <Projects />,
   },
   {
-    path: "/tic-tac-toe",
-    element: <TicTacToe />,
+    path: "/Xs-and-Os",
+    element: <XsAndOs />,
   },
   {
     path: "/sudoku",

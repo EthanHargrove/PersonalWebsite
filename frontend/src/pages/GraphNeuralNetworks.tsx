@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
 import Navbar from "../components/Navbar";
 import "../styles/gnn.css";
 
 const GraphNeuralNetworks = () => {
+  useEffect(() => {
+    document.title = "Ethan Hargrove - Graph Neural Networks";
+  }, []);
   return (
     <>
       <Navbar active="" />

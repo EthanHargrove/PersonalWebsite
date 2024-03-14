@@ -1,5 +1,5 @@
 // External imports
-import React from "react";
+import React, { useEffect } from "react";
 // Internal imports
 import Navbar from "../components/Navbar";
 import HorizontalScrollCarousel from "../components/CV/HorizontalScrollCarousel";
@@ -10,6 +10,17 @@ import Education from "../components/CV/Education";
 import WorkExperience from "../components/CV/WorkExperience";
 
 function CV() {
+  useEffect(() => {
+    // Change document title
+    document.title = "Ethan Hargrove - CV";
+
+    // Change favicon
+    // const favicon = document.querySelector('link[rel="icon"]');
+    // if (favicon) {
+    //   favicon.href = "/path/to/new/icon.png"; // Change path to your new favicon
+    // }
+  }, []);
+
   const certStyle = {
     height: "67vh",
   };

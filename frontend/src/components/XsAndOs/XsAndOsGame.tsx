@@ -6,8 +6,8 @@ import { Typography, Switch, Stack, Tooltip } from "@mui/material";
 import Slider from "@mui/material-next/Slider";
 // Internal imports
 import "../../styles/main.css";
-import "../../styles/tic-tac-toe.css";
-import TicTacToeGrid from "./TicTacToeGrid";
+import "../../styles/XsAndOs.css";
+import XsAndOsGrid from "./XsAndOsGrid";
 import XPiece from "./XPiece";
 import OPiece from "./OPiece";
 import ThreeText from "./ThreeText";
@@ -45,7 +45,7 @@ import qTable500000 from "../../assets/q-tables/ttt_q_table500000.json";
 import qTable1000000 from "../../assets/q-tables/ttt_q_table1000000.json";
 import qTable5000000 from "../../assets/q-tables/ttt_q_table5000000.json";
 
-function TicTacToeGame() {
+function XsAndOsGame() {
   const fontStyle = {
     fontFamily: "SpaceGrotesk",
     color: "#ffffff",
@@ -325,6 +325,8 @@ function TicTacToeGame() {
     setSched(!sched);
   };
 
+  const scaling = 0.007;
+
   return (
     <div className="content">
       <h3 className="game-result">{resultText}</h3>
@@ -338,7 +340,7 @@ function TicTacToeGame() {
           castShadow
         />
         <group>
-          <TicTacToeGrid
+          <XsAndOsGrid
             x={gridCenterX}
             y={gridCenterY}
             armLength={gridArmLength}
@@ -346,6 +348,7 @@ function TicTacToeGame() {
             depth={gridDepth}
             vertColour={vertGridColour}
             horiColour={horiGridColour}
+            scaling={scaling}
           />
           {/* loop over each row */}
           {board.map((row, rowIndex: number) =>
@@ -358,6 +361,7 @@ function TicTacToeGame() {
                   armLength={xArmLength}
                   armWidth={xArmWidth}
                   depth={pieceDepth}
+                  scaling={scaling}
                 />
               ) : piece === -1 ? (
                 <OPiece
@@ -366,6 +370,7 @@ function TicTacToeGame() {
                   radius={xArmLength}
                   width={xArmWidth}
                   depth={pieceDepth}
+                  scaling={scaling}
                 />
               ) : showVals ? (
                 <ThreeText
@@ -381,6 +386,7 @@ function TicTacToeGame() {
                   setBoard={setBoard}
                   currentPlayer={currentPlayer}
                   setCurrentPlayer={setCurrentPlayer}
+                  scaling={scaling}
                 />
               ) : (
                 <EmptySquare
@@ -396,6 +402,7 @@ function TicTacToeGame() {
                   setBoard={setBoard}
                   currentPlayer={currentPlayer}
                   setCurrentPlayer={setCurrentPlayer}
+                  scaling={scaling}
                 />
               )
             )
@@ -475,4 +482,4 @@ function TicTacToeGame() {
   );
 }
 
-export default TicTacToeGame;
+export default XsAndOsGame;

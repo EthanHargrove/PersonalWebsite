@@ -5,6 +5,9 @@ import Carousel3D from "../components/projects/Carousel3D";
 import Navbar from "../components/Navbar";
 
 function Projects() {
+  useEffect(() => {
+    document.title = "Ethan Hargrove - Projects";
+  }, []);
   let cards = [
     {
       key: 0,
@@ -14,10 +17,10 @@ function Projects() {
           colour="var(--neon-blue)"
           imagen="./images/tic-tac-toe.png"
           page="/tic-tac-toe"
-          title="Q-Learning: Tic-Tac-Toe"
+          title="Q-Learning: Xs and Os"
           description="First card."
           button1Title="Play Against AI"
-          button1Link="/tic-tac-toe"
+          button1Link="/Xs-and-Os"
           button2Title="How it Works"
           button2Link=""
         />

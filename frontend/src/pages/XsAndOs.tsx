@@ -2,18 +2,18 @@
 import React from "react";
 // Internal imports
 import "../styles/main.css";
-import "../styles/tic-tac-toe.css";
-import TicTacToeGame from "../components/tic-tac-toe/TicTacToeGame";
+import "../styles/XsAndOs.css";
+import XsAndOsGame from "../components/XsAndOs/XsAndOsGame";
 import Navbar from "../components/Navbar";
 
-function TicTacToe() {
+function XsAndOs() {
   return (
     <>
       <div className="cyberpunk-background"></div>
       <Navbar active="" />
-      <TicTacToeGame />
+      <XsAndOsGame />
     </>
   );
 }
 
-export default TicTacToe;
+export default XsAndOs;
