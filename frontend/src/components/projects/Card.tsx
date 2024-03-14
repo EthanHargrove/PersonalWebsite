@@ -32,6 +32,7 @@ function Card(props: CardProps) {
     },
     to: {
       opacity: 1,
+      height: "363px",
       transform: show ? "scale(1.05)" : "scale(1)",
       boxShadow: show
         ? `0 0 20px 10px ${props.colour}`
@@ -40,6 +41,8 @@ function Card(props: CardProps) {
   });
 
   const imgStyle = {
+    height: "256px",
+    width: "256px",
     boxShadow: show
       ? `0 0 8px 4px ${props.colour}`
       : `0 0 4px 2px ${props.colour}`,

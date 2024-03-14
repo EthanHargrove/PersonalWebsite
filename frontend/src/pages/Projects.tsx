@@ -34,7 +34,7 @@ function Projects() {
           colour="var(--neon-purple)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png"
           page="/tic-tac-toe"
-          title="Explainable AI: Sudoku Solver"
+          title="Explainable AI: Sudoku"
           description="Third card."
           button1Title="Try It Out"
           button1Link="/sudoku"
@@ -50,13 +50,13 @@ function Projects() {
           slide={2}
           colour="var(--neon-orange)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2016/08/slider_revolution-1.png"
-          page="/tic-tac-toe"
-          title="Card 4"
-          description="Fourth card."
+          page="/graph-neural-networks"
+          title="GNNs Explained"
+          description="Graph Neural Networks."
           button1Title=""
-          button1Link=""
+          button1Link="/graph-neural-networks"
           button2Title=""
-          button2Link=""
+          button2Link="/graph-neural-networks"
         />
       ),
     },
@@ -85,7 +85,7 @@ function Projects() {
           colour="var(--neon-green)"
           imagen="./images/AoC-2023.png"
           page="/tic-tac-toe"
-          title="Advent of Code 2023"
+          title="Haskell: AoC 2023"
           description="Second card."
           button1Title=""
           button1Link=""
