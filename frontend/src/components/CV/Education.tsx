@@ -1,20 +1,21 @@
 import React, { ReactNode } from "react";
 import { Stack } from "@mui/material";
+import { styled } from "@mui/system";
 
 import EducationCard from "./EducationCard";
 
 function Education() {
-  const headingStyle = {
-    letterSpacing: "0.5rem",
-    textTransform: "uppercase" as "uppercase",
-  };
-
   return (
     <>
-      <h2 className="heading cv-heading">Education</h2>
+      <h2
+        className="heading cv-heading"
+        style={{ marginTop: "30px", marginBottom: "15px" }}
+      >
+        Education
+      </h2>
       <Stack
-        direction={{ md: "column", lg: "row" }}
-        spacing={{ md: 4, lg: 1 }}
+        direction={{ xs: "column", md: "row" }}
+        spacing={{ xs: 4, md: 1 }}
         alignItems="center"
         justifyContent="space-evenly"
       >

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
-import { Stack } from "@mui/material";
+import { Stack, Box } from "@mui/material";
+import { styled } from "@mui/system";
 
 import "../../styles/card.css";
 
@@ -16,7 +17,7 @@ interface SkillsCardProps {
 function SkillsCard(props: SkillsCardProps) {
   const [show, setShown] = useState(false);
 
-  const cardStyle = {
+  const CardContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     background: props.background,
@@ -29,14 +30,22 @@ function SkillsCard(props: SkillsCardProps) {
     marginTop: "25px",
     marginBottom: "25px",
     transform: show ? "scale(1.05)" : "scale(1)",
-  };
+    [theme.breakpoints.down("sm")]: {
+      width: "75%",
+      height: "auto",
+    },
+  }));
 
-  const imgStyle = {
+  const ImageContainer = styled("img")(({ theme }) => ({
     maxHeight: "150px",
     maxWidth: "150px",
-  };
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "85%",
+      maxHeight: "85%",
+    },
+  }));
 
-  const imgBackground = {
+  const ImageBackground = styled("div")(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -44,11 +53,21 @@ function SkillsCard(props: SkillsCardProps) {
     width: "170px",
     backgroundColor: props.imgBackground,
     borderRadius: "50%",
-  };
+    [theme.breakpoints.down("sm")]: {
+      width: "8rem",
+      height: "8rem",
+    },
+  }));
+
+  const TitleContainer = styled("h3")(({ theme }) => ({
+    color: props.textColour,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.5rem",
+    },
+  }));
 
   return (
-    <div
-      style={cardStyle}
+    <CardContainer
       onMouseEnter={() => setShown(true)}
       onMouseLeave={() => setShown(false)}
     >
@@ -58,16 +77,12 @@ function SkillsCard(props: SkillsCardProps) {
         direction="column"
         spacing={2}
       >
-        <div style={imgBackground}>
-          <img
-            src={props.imagen}
-            style={imgStyle}
-            alt={`${props.title} Logo`}
-          />
-        </div>
-        <h3 style={{ color: props.textColour }}>{props.title}</h3>
+        <ImageBackground>
+          <ImageContainer src={props.imagen} alt={`${props.title} Logo`} />
+        </ImageBackground>
+        <TitleContainer>{props.title}</TitleContainer>
       </Stack>
-    </div>
+    </CardContainer>
   );
 }
 

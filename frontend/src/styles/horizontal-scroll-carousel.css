@@ -1,6 +1,7 @@
 .scrollSection {
     position: relative;
     height: 300vh;
+    margin-top: -50px;
     z-index: 0;
 }
 

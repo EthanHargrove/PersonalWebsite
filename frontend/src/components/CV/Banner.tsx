@@ -44,14 +44,21 @@ function Banner(props: BannerProps) {
       {
         breakpoint: 710,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1.75,
+          autoplay: false,
         },
       },
     ],
   };
+
   return (
     <div className="slider-container">
-      <h2 className="heading cv-heading">{props.title}</h2>
+      <h2
+        className="heading cv-heading"
+        style={{ marginTop: "44px", marginBottom: "15px" }}
+      >
+        {props.title}
+      </h2>
       <Slider {...settings}>
         {props.items.map((item) => {
           return item;

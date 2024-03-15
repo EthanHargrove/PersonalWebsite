@@ -8,6 +8,7 @@ import SkillsCard from "../components/CV/SkillsCard";
 import Banner from "../components/CV/Banner";
 import Education from "../components/CV/Education";
 import WorkExperience from "../components/CV/WorkExperience";
+import { styled } from "@mui/system";
 
 function CV() {
   useEffect(() => {
@@ -21,51 +22,25 @@ function CV() {
     // }
   }, []);
 
-  const certStyle = {
-    height: "67vh",
-  };
+  const CertImage = styled("img")(({ theme }) => ({
+    height: "50vh",
+    [theme.breakpoints.down("sm")]: {
+      height: "37vh",
+    },
+  }));
 
   const certs = [
-    <img
-      src={"./images/CourseraAppliedML.png"}
-      alt="Certificate"
-      style={certStyle}
-    />,
-    <img
-      src={"./images/CourseraTF2-1.png"}
-      alt="Certificate"
-      style={certStyle}
-    />,
-    <img
-      src={"./images/CourseraTF2-2.png"}
-      alt="Certificate"
-      style={certStyle}
-    />,
-    <img
-      src={"./images/CourseraBootstrap.png"}
-      alt="Certificate"
-      style={certStyle}
-    />,
-    <img
-      src={"./images/CourseraIOT.png"}
-      alt="Certificate"
-      style={certStyle}
-    />,
-    <img
-      src={"./images/CourseraArduino.png"}
-      alt="Certificate"
-      style={certStyle}
-    />,
-    <img
+    <CertImage src={"./images/CourseraAppliedML.png"} alt="Certificate" />,
+    <CertImage src={"./images/CourseraTF2-1.png"} alt="Certificate" />,
+    <CertImage src={"./images/CourseraTF2-2.png"} alt="Certificate" />,
+    <CertImage src={"./images/CourseraBootstrap.png"} alt="Certificate" />,
+    <CertImage src={"./images/CourseraIOT.png"} alt="Certificate" />,
+    <CertImage src={"./images/CourseraArduino.png"} alt="Certificate" />,
+    <CertImage
       src={"./images/CourseraChineseCharacters1.png"}
       alt="Certificate"
-      style={certStyle}
     />,
-    <img
-      src={"./images/BathChineseCharacters.png"}
-      alt="Certificate"
-      style={certStyle}
-    />,
+    <CertImage src={"./images/BathChineseCharacters.png"} alt="Certificate" />,
   ];
 
   const skillsCards = [
@@ -118,16 +93,13 @@ function CV() {
     <>
       <div
         className="cyberpunk-background"
-        style={{ position: "fixed", marginTop: "-30px" }}
+        style={{ position: "fixed", marginTop: "-60px" }}
       />
       <Navbar active="CV" />
-      <h1 className="heading cv-heading">CV</h1>
       <WorkExperience />
       <Education />
-      {/* <HorizontalScrollCarousel title="Work Experience" items={certs} />
-      <HorizontalScrollCarousel title="Education" items={certs} /> */}
       <Banner items={skillsCards} title="Skills" />
-      <HorizontalScrollCarousel title="Certificates" items={certs} />
+      <HorizontalScrollCarousel items={certs} title="Certificates" />
     </>
   );
 }
