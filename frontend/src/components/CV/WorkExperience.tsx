@@ -17,10 +17,16 @@ function WorkExperience() {
         justifyContent="space-evenly"
       >
         <WorkCard
+          imagen="./images/digiLab.jpeg"
+          jobTitle="Research and Development Graduate"
+          employer="digiLab"
+          date="03/2024-PRESENT"
+        />
+        <WorkCard
           imagen="./images/University-of-Exeter.jpeg"
           jobTitle="Data Scientist"
           employer="University of Exeter"
-          date="09/2023-Present"
+          date="09/2023-03/2024"
         />
       </Stack>
     </div>

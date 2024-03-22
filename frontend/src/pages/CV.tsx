@@ -2,7 +2,6 @@
 import React, { useEffect } from "react";
 // Internal imports
 import Navbar from "../components/Navbar";
-import HorizontalScrollCarousel from "../components/CV/HorizontalScrollCarousel";
 import "../styles/main.css";
 import SkillsCard from "../components/CV/SkillsCard";
 import Banner from "../components/CV/Banner";
@@ -24,8 +23,10 @@ function CV() {
 
   const CertImage = styled("img")(({ theme }) => ({
     height: "50vh",
+    objectFit: "contain",
     [theme.breakpoints.down("sm")]: {
-      height: "37vh",
+      height: "33vh",
+      objectFit: "contain",
     },
   }));
 
@@ -89,6 +90,77 @@ function CV() {
     />,
   ];
 
+  const skillsSettings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 1000,
+    easing: "linear",
+    pauseOnHover: true,
+    swipeToSlide: true,
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 5,
+        },
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4,
+        },
+      },
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 710,
+        settings: {
+          slidesToShow: 1.75,
+          autoplay: false,
+        },
+      },
+    ],
+  };
+
+  const certSettings = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 6000,
+    autoplaySpeed: 6000,
+    easing: "linear",
+    pauseOnHover: true,
+    swipeToSlide: true,
+    rtl: true,
+    responsive: [
+      {
+        breakpoint: 1400,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 710,
+        settings: {
+          slidesToShow: 1,
+          autoplay: false,
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <div
@@ -98,8 +170,8 @@ function CV() {
       <Navbar active="CV" />
       <WorkExperience />
       <Education />
-      <Banner items={skillsCards} title="Skills" />
-      <HorizontalScrollCarousel items={certs} title="Certificates" />
+      <Banner items={skillsCards} settings={skillsSettings} title="Skills" />
+      <Banner items={certs} settings={certSettings} title="Certificates" />
     </>
   );
 }

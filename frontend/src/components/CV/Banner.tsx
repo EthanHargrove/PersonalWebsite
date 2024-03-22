@@ -7,50 +7,10 @@ import "../../../node_modules/slick-carousel/slick/slick-theme.css";
 interface BannerProps {
   items: any[];
   title: string;
+  settings: { [key: symbol]: any };
 }
 
 function Banner(props: BannerProps) {
-  const settings = {
-    dots: false,
-    arrows: false,
-    infinite: true,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-    autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 1000,
-    easing: "linear",
-    pauseOnHover: true,
-    swipeToSlide: true,
-    responsive: [
-      {
-        breakpoint: 1400,
-        settings: {
-          slidesToShow: 5,
-        },
-      },
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 4,
-        },
-      },
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        },
-      },
-      {
-        breakpoint: 710,
-        settings: {
-          slidesToShow: 1.75,
-          autoplay: false,
-        },
-      },
-    ],
-  };
-
   return (
     <div className="slider-container">
       <h2
@@ -59,7 +19,7 @@ function Banner(props: BannerProps) {
       >
         {props.title}
       </h2>
-      <Slider {...settings}>
+      <Slider {...props.settings}>
         {props.items.map((item) => {
           return item;
         })}
