@@ -24,6 +24,11 @@ function CV() {
   const CertImage = styled("img")(({ theme }) => ({
     height: "50vh",
     objectFit: "contain",
+
+    "&:hover": {
+      transform: "scale(1.1)",
+    },
+
     [theme.breakpoints.down("sm")]: {
       height: "33vh",
       objectFit: "contain",

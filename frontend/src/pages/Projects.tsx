@@ -98,10 +98,9 @@ function Projects() {
 
   return (
     <>
-      <div className="cyberpunk-background"></div>
+      <div className="cyberpunk-background" />
       <Navbar active="projects" />
       <div className="content">
-        {/* <h1>Projects</h1> */}
         <Carousel3D
           cards={cards}
           height="100vh"

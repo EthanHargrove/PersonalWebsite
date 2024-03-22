@@ -11,21 +11,6 @@ interface EducationCardProps {
 }
 
 function EducationCard(props: EducationCardProps) {
-  // const cardStyle = {
-  //   height: "250px",
-  //   width: "450px",
-  //   backgroundColor: "#181818",
-  //   boxShadow: "0 0 20px #ffffff",
-  //   padding: "20px",
-  //   borderRadius: "10px",
-  //   backdropFilter: "blur(10px)",
-  //   // background: "#000000",
-  //   // backdropFilter: "blur(10px)", // Apply a blur effect
-  //   // backgroundColor: "rgba(255, 255, 255, 0.5)", // Set a semi-transparent background color
-  //   // padding: "20px",
-  //   // borderRadius: "10px", // Add rounded corners for a more glassy effect
-  // };
-
   const CardContainer = styled(Box)(({ theme }) => ({
     height: "225px",
     width: "425px",

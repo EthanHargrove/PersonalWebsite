@@ -1,7 +1,7 @@
 .card {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     justify-content: center;
     background-color: var(--dark-grey);
     /* background-color: var(--dark-grey); */
@@ -14,11 +14,33 @@
   }
   
   .card img {
+    height: 256px;
+    width: 256px;
     margin-top: -20%;
-    /* width: 100%; */
     border-radius: 20px;
     display: block;
   }
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .card img {
+    height: 175px;
+    width: 175px;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 900px) {
+  .card img {
+    height: 175px;
+    width: 175px;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 600px) {
+  .card img {
+    height: 10rem;
+    width: 10rem;
+  }
+}
   
   .card h2 {
     margin: 0;

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
+import { styled } from "@mui/system";
 
 import "../../styles/card.css";
 import EncryptButton from "../EncryptButton";
@@ -41,8 +42,6 @@ function Card(props: CardProps) {
   });
 
   const imgStyle = {
-    height: "256px",
-    width: "256px",
     boxShadow: show
       ? `0 0 8px 4px ${props.colour}`
       : `0 0 4px 2px ${props.colour}`,

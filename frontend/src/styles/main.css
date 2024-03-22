@@ -17,9 +17,13 @@
     src: url('../assets/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
-    /* overflow: hidden; */
-    position: relative;
+    overflow-x: hidden;
+    /* position: relative; */
     background-color: var(--jet-black);
     font-family: 'SpaceGrotesk';
     font-size: 28px;
@@ -29,7 +33,7 @@ body {
 
 .cyberpunk-background {
     /* position: fixed;
-    margin-top: -100px; */
+    margin-top: -60px; */
     background-image: url(../assets/image-2.png);
     background-size: cover;
     background-repeat: no-repeat;
@@ -91,6 +95,10 @@ body {
       font-size: 0.75em;
     }
   }
+
+.slick-list {
+    overflow: visible !important;
+}
 
 /* .slider-container {
     height: 100px;
