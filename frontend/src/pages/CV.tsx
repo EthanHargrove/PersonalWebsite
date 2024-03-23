@@ -168,10 +168,7 @@ function CV() {
 
   return (
     <>
-      <div
-        className="cyberpunk-background"
-        style={{ position: "fixed", marginTop: "-60px" }}
-      />
+      <div className="cyberpunk-background" style={{ marginTop: "-60px" }} />
       <Navbar active="CV" />
       <WorkExperience />
       <Education />

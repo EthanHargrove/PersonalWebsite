@@ -8,6 +8,7 @@ function Projects() {
   useEffect(() => {
     document.title = "Ethan Hargrove - Projects";
   }, []);
+
   let cards = [
     {
       key: 0,

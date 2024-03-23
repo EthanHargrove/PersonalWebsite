@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
-import { styled } from "@mui/system";
 
 import "../../styles/card.css";
-import EncryptButton from "../EncryptButton";
 
 interface CardProps {
   slide: number;
@@ -54,16 +52,16 @@ function Card(props: CardProps) {
       onMouseEnter={() => setShown(true)}
       onMouseLeave={() => setShown(false)}
     >
-      <img src={props.imagen} style={imgStyle} alt="Project" />
+      <div style={{ textAlign: "center" }}>
+        <img src={props.imagen} style={imgStyle} alt="Project" />
+      </div>
       <h2 className="text-center">{props.title}</h2>
       <Stack direction="row" alignItems="center" justifyContent="space-evenly">
         <Link to={props.button1Link} className="link">
-          <EncryptButton text={props.button1Title} />
-          {/* <button className="btn-glitch">{props.button1Title}</button> */}
+          <button className="btn-glitch">{props.button1Title}</button>
         </Link>
         <Link to={props.button2Link} className="link">
-          <EncryptButton text={props.button2Title} />
-          {/* <button className="btn-glitch">{props.button2Title}</button> */}
+          <button className="btn-glitch">{props.button2Title}</button>
         </Link>
       </Stack>
     </animated.div>

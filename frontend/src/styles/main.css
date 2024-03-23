@@ -32,8 +32,8 @@ body {
 }
 
 .cyberpunk-background {
-    /* position: fixed;
-    margin-top: -60px; */
+    position: fixed;
+    /* margin-top: -60px; */
     background-image: url(../assets/image-2.png);
     background-size: cover;
     background-repeat: no-repeat;
