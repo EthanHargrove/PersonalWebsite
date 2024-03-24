@@ -1,6 +1,7 @@
 import Carousel from "react-spring-3d-carousel";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { config } from "react-spring";
+import { useSwipeable } from "react-swipeable";
 
 interface Carousel3DProps {
   cards: any;
@@ -30,9 +31,18 @@ export default function Carousel3D(props: Carousel3DProps) {
     setGoToSlide(index);
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: (eventData) => setGoToSlide(goToSlide + 1),
+    onSwipedRight: (eventData) => setGoToSlide(goToSlide - 1),
+    trackMouse: true,
+    ...config,
+  });
+
   return (
     <div
+      className="no-highlight"
       style={{ width: props.width, height: props.height, margin: props.margin }}
+      {...handlers}
     >
       <Carousel
         slides={cards}

@@ -53,7 +53,12 @@ function Card(props: CardProps) {
       onMouseLeave={() => setShown(false)}
     >
       <div style={{ textAlign: "center" }}>
-        <img src={props.imagen} style={imgStyle} alt="Project" />
+        <img
+          src={props.imagen}
+          style={imgStyle}
+          draggable={false}
+          alt="Project"
+        />
       </div>
       <h2 className="text-center">{props.title}</h2>
       <Stack direction="row" alignItems="center" justifyContent="space-evenly">
