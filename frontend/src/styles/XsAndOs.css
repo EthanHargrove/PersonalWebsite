@@ -1,36 +1,29 @@
-.reset-btn {
+.xo-form {
     position: absolute;
-    top: 72vh;
+    top: 75vh;
     left: 50%;
     transform: translate(-50%, -0%);
+    width: min(85vw, 500px);
 }
 
-.values-btn {
-    position: absolute;
-    top: 72vh;
-    right: 50%;
-    transform: translate(-75%, -0%);
-    z-index: 1;
+.xo-form button {
+    font-size: 0.55em;
 }
 
-.ai-move-btn {
-    position: absolute;
-    top: 72vh;
-    left: 50%;
-    transform: translate(75%, -0%);
-    z-index: 1;
+@media (min-width: 600px) and (max-width: 900px) {
+    .xo-form {
+        top: 72.5vh;
+    }
+    .xo-form button {
+        font-size: 0.5em;
+    }
 }
-
-.q-table-slider {
-    position: absolute;
-    top: 78vh;
-    left: 50%;
-    transform: translate(-50%, -0%);
-}
-
-.game-result {
-    position: absolute;
-    top: 0vh;
-    left: 50%;
-    transform: translate(-50%, -0%);
+  
+@media (min-width: 0px) and (max-width: 600px) {
+    .xo-form {
+        top: 70vh;
+    }
+    .xo-form button {
+        font-size: 0.4em;
+    }
 }

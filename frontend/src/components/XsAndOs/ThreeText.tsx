@@ -52,7 +52,15 @@ const ThreeText: React.FC<ThreeTextProps> = (props) => {
         setCurrentPlayer={setCurrentPlayer}
         scaling={scaling}
       />
-      <Text position={[x, y, z]} fontSize={0.275} textAlign="center">
+      <Text
+        position={[x, y, z]}
+        fontSize={39.2857 * scaling}
+        textAlign="center"
+        color="#FFA500"
+        outlineWidth={scaling * 2}
+        outlineColor="#000000"
+        outlineOpacity={1.0}
+      >
         {value}
       </Text>
     </>

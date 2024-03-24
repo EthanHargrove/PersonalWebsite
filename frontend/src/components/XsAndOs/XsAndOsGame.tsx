@@ -1,6 +1,5 @@
 // External imports
 import React, { useState, useLayoutEffect, useEffect } from "react";
-import { useSpring, animated } from "react-spring";
 import { Canvas } from "@react-three/fiber";
 import { Typography, Switch, Stack, Tooltip } from "@mui/material";
 import Slider from "@mui/material-next/Slider";
@@ -325,12 +324,35 @@ function XsAndOsGame() {
     setSched(!sched);
   };
 
-  const scaling = 0.007;
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
+  const [scaling, setScaling] = useState<number>(0.007);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowWidth < 600) {
+      setScaling(0.005);
+    } else if (windowWidth < 900) {
+      setScaling(0.006);
+    } else {
+      setScaling(0.007);
+    }
+  }, [windowWidth]);
 
   return (
     <div className="content">
-      <h3 className="game-result">{resultText}</h3>
-      <Canvas style={{ width: "100%", height: "90%" }}>
+      <Canvas style={{ width: "100%", height: "90%", marginTop: "10px" }}>
         <ambientLight intensity={1} />
         <spotLight
           position={[-10, 10, 10]}
@@ -350,6 +372,23 @@ function XsAndOsGame() {
             horiColour={horiGridColour}
             scaling={scaling}
           />
+          {resultText !== "" && (
+            <ThreeText
+              x={scaling * colXVals[1]}
+              y={scaling * rowYVals[1]}
+              z={1.0}
+              value={resultText}
+              gridArmLength={gridArmLength}
+              depth={pieceDepth}
+              row={1}
+              col={1}
+              board={board}
+              setBoard={setBoard}
+              currentPlayer={currentPlayer}
+              setCurrentPlayer={setCurrentPlayer}
+              scaling={scaling * 2}
+            />
+          )}
           {/* loop over each row */}
           {board.map((row, rowIndex: number) =>
             // loop over each column in the row
@@ -374,8 +413,8 @@ function XsAndOsGame() {
                 />
               ) : showVals ? (
                 <ThreeText
-                  x={0.007 * colXVals[colIndex]}
-                  y={0.007 * rowYVals[rowIndex]}
+                  x={scaling * colXVals[colIndex]}
+                  y={scaling * rowYVals[rowIndex]}
                   z={0.175}
                   value={getQValue(rowIndex, colIndex)}
                   gridArmLength={gridArmLength}
@@ -409,75 +448,87 @@ function XsAndOsGame() {
           )}
         </group>
       </Canvas>
-      <div className="d-flex justify-content-center align-items-center">
-        <button className="btn-glitch reset-btn" onClick={resetGame}>
-          Reset Game
-        </button>
-        {showVals ? (
-          <button
-            className="btn-glitch values-btn"
-            onClick={() => setShowVals(!showVals)}
-          >
-            Hide Q-Values
+      <Stack direction="column" spacing={2} className="xo-form">
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          {showVals ? (
+            <button
+              className="btn-glitch"
+              onClick={() => setShowVals(!showVals)}
+            >
+              Hide Q-Values
+            </button>
+          ) : (
+            <button
+              className="btn-glitch"
+              onClick={() => setShowVals(!showVals)}
+            >
+              Show Q-Values
+            </button>
+          )}
+          <button className="btn-glitch" onClick={resetGame}>
+            Reset Game
           </button>
-        ) : (
-          <button
-            className="btn-glitch values-btn"
-            onClick={() => setShowVals(!showVals)}
-          >
-            Show Q-Values
+          <button className="btn-glitch" onClick={makeAIMove}>
+            Make AI Move
           </button>
-        )}
-        <button className="btn-glitch ai-move-btn" onClick={makeAIMove}>
-          Make AI Move
-        </button>
-      </div>
-      <div className="q-table-slider">
-        <Typography style={fontStyle}>
-          Number of episodes (games) trained:
-        </Typography>
-        <Slider
-          min={3}
-          max={9}
-          defaultValue={9}
-          step={1}
-          marks={marks}
-          sx={customSliderStyle}
-          onChange={handleEpisodeChange}
-          valueLabelDisplay="off"
-          valueLabelFormat={(value: any) =>
-            marks.find((mark) => mark.value === value)?.label || ""
-          }
-        />
-        <Stack direction="row" spacing={1} alignItems={"center"}>
-          <Tooltip
-            placement="left"
-            title={
-              "Starts from a randomly selected state rather than the beginning of the game for enhanced exploration."
-            }
-          >
-            <Typography style={tooltipFontStyle}>Exploring starts</Typography>
-          </Tooltip>
-          <Switch
-            defaultChecked
-            onChange={handleRandChange}
-            sx={customSwitchStyle}
-          />
-          <Switch
-            defaultChecked
-            onChange={handleSchedChange}
-            sx={customSwitchStyle}
-          />
-          <Tooltip
-            placement="right"
-            title={
-              "Starts from always exploring (ε=1) and linearly decreases to always exploiting (ε=0) for faster convergence. Otherwise exploration rate is constant (ε=0.1)."
-            }
-          >
-            <Typography style={tooltipFontStyle}>ε-scheduling</Typography>
-          </Tooltip>
         </Stack>
-      </div>
+        <div>
+          <Typography style={fontStyle}>
+            Number of episodes (games) trained:
+          </Typography>
+          <Slider
+            min={3}
+            max={9}
+            defaultValue={9}
+            step={1}
+            marks={marks}
+            sx={customSliderStyle}
+            onChange={handleEpisodeChange}
+            valueLabelDisplay="off"
+            valueLabelFormat={(value: any) =>
+              marks.find((mark) => mark.value === value)?.label || ""
+            }
+          />
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Tooltip
+              placement="top"
+              title={
+                "Starts from a randomly selected state rather than the beginning of the game for enhanced exploration."
+              }
+            >
+              <Typography style={tooltipFontStyle}>Exploring starts</Typography>
+            </Tooltip>
+            <Switch
+              defaultChecked
+              onChange={handleRandChange}
+              sx={customSwitchStyle}
+            />
+            <Switch
+              defaultChecked
+              onChange={handleSchedChange}
+              sx={customSwitchStyle}
+            />
+            <Tooltip
+              placement="top"
+              title={
+                "Starts from always exploring (ε=1) and linearly decreases to always exploiting (ε=0) for faster convergence. Otherwise exploration rate is constant (ε=0.1)."
+              }
+            >
+              <Typography style={tooltipFontStyle}>ε-scheduling</Typography>
+            </Tooltip>
+          </Stack>
+        </div>
+      </Stack>
     </div>
   );
 }

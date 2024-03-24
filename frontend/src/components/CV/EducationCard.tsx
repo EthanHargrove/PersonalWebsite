@@ -59,7 +59,7 @@ function EducationCard(props: EducationCardProps) {
         spacing={{ xs: 2, md: 4 }}
         justifyContent="space-evenly"
       >
-        <ImageContainer src={props.imagen} alt="Graduation" />
+        <ImageContainer src={props.imagen} draggable={false} alt="Graduation" />
         <Stack direction="column" spacing={1} justifyContent="space-evenly">
           <TextContainer>{props.university}</TextContainer>
           <TextContainer>{props.degree}</TextContainer>
@@ -68,20 +68,6 @@ function EducationCard(props: EducationCardProps) {
         </Stack>
       </Stack>
     </CardContainer>
-    // <Stack
-    //   direction="row"
-    //   spacing={{ xs: 2, md: 4 }}
-    //   justifyContent="space-evenly"
-    //   style={cardStyle}
-    // >
-    //   <img src={props.imagen} style={imgStyle} alt="Graduation" />
-    //   <Stack direction="column" spacing={1} justifyContent="space-evenly">
-    //     <p style={fontStyle}>{props.university}</p>
-    //     <p style={fontStyle}>{props.degree}</p>
-    //     <p style={fontStyle}>{props.grade}</p>
-    //     <p style={fontStyle}>{props.date}</p>
-    //   </Stack>
-    // </Stack>
   );
 }
 export default EducationCard;

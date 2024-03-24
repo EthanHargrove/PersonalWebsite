@@ -55,7 +55,7 @@ function WorkCard(props: WorkCardProps) {
         spacing={{ xs: 2, md: 4 }}
         justifyContent="space-evenly"
       >
-        <ImageContainer src={props.imagen} alt="Work" />
+        <ImageContainer src={props.imagen} draggable={false} alt="Work" />
         <Stack direction="column" spacing={1} justifyContent="space-evenly">
           <p style={fontStyle}>{props.jobTitle}</p>
           <p style={fontStyle}>{props.employer}</p>
