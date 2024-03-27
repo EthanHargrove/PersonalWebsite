@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
 import Navbar from "../components/Navbar";
+import GraphsExplained from "../components/GNNs/GraphsExplained";
 import "../styles/gnn.css";
 
 const GraphNeuralNetworks = () => {
@@ -19,11 +20,11 @@ const GraphNeuralNetworks = () => {
             <ReactFullpage.Wrapper>
               {/* Your full-page sections go here */}
               <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
+                <h1 className="heading">Graph Neural Networks</h1>
               </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
+              <GraphsExplained />
+              <GraphsExplained />
+              <GraphsExplained />
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3
               </div>
