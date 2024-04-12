@@ -16,12 +16,14 @@ function Home() {
 
   return (
     <>
-      <div className="cyberpunk-background" style={{ marginTop: "-35px" }} />
+      <div className="cyberpunk-background" style={{ marginTop: "-65px" }} />
       <Navbar active="home" />
-      <FeaturedProjects />
-      <FeaturedProjects />
-      <FeaturedProjects />
-      <FeaturedProjects />
+      <h1
+        className="heading"
+        style={{ marginTop: "60px", textAlign: "center" }}
+      >
+        Ethan Hargrove
+      </h1>
     </>
   );
 }
