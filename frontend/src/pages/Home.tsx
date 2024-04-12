@@ -7,12 +7,16 @@ import FeaturedProjects from "../components/home/FeaturedProject";
 
 function Home() {
   useEffect(() => {
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Change document title
     document.title = "Ethan Hargrove - Home";
   }, []);
 
   return (
     <>
-      <div className="cyberpunk-background" />
+      <div className="cyberpunk-background" style={{ marginTop: "-35px" }} />
       <Navbar active="home" />
       <FeaturedProjects />
       <FeaturedProjects />

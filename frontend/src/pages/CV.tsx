@@ -11,6 +11,9 @@ import { styled } from "@mui/system";
 
 function CV() {
   useEffect(() => {
+    // Scroll to top
+    window.scrollTo(0, 0);
+
     // Change document title
     document.title = "Ethan Hargrove - CV";
 
