@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import Card from "../components/projects/Card";
 import Carousel3D from "../components/projects/Carousel3D";
@@ -51,13 +51,13 @@ function Projects() {
           slide={2}
           colour="var(--neon-orange)"
           imagen="https://updates.theme-fusion.com/wp-content/uploads/2016/08/slider_revolution-1.png"
-          page="/graph-neural-networks"
-          title="GNNs Explained"
-          description="Graph Neural Networks."
+          page="/"
+          title=""
+          description=""
           button1Title=""
-          button1Link="/graph-neural-networks"
+          button1Link=""
           button2Title=""
-          button2Link="/graph-neural-networks"
+          button2Link=""
         />
       ),
     },

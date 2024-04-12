@@ -88,6 +88,12 @@ function CV() {
       textColour="#264de4"
     />,
     <SkillsCard
+      imagen="./images/Git.png"
+      title="Git"
+      background="#FFFFFF"
+      textColour="#F1502F"
+    />,
+    <SkillsCard
       imagen="./images/Haskell.png"
       title="Haskell"
       background="#d3d3d3"
@@ -168,7 +174,7 @@ function CV() {
 
   return (
     <>
-      <div className="cyberpunk-background" style={{ marginTop: "-60px" }} />
+      <div className="cyberpunk-background" style={{ marginTop: "-65px" }} />
       <Navbar active="CV" />
       <WorkExperience />
       <Education />

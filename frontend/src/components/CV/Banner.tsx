@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Slider from "react-slick";
-import { styled } from "@mui/system";
+import { useSpring, animated } from "react-spring";
 
 import "../../../node_modules/slick-carousel/slick/slick.css";
 import "../../../node_modules/slick-carousel/slick/slick-theme.css";
@@ -12,19 +12,47 @@ interface BannerProps {
 }
 
 function Banner(props: BannerProps) {
+  const titleStyle = useSpring({
+    from: {
+      opacity: 0,
+      transform: "scale(0.5)",
+    },
+    to: {
+      opacity: 1,
+      transform: "scale(1)",
+    },
+    delay: 650,
+  });
+
+  const contentStyle = useSpring({
+    from: {
+      opacity: 0,
+      transform: "scale(0.5)",
+    },
+    to: {
+      opacity: 1,
+      transform: "scale(1)",
+    },
+    delay: 800,
+  });
+
   return (
     <div className="slider-container">
-      <h2
-        className="heading cv-heading"
-        style={{ marginTop: "44px", marginBottom: "15px" }}
-      >
-        {props.title}
-      </h2>
-      <Slider {...props.settings}>
-        {props.items.map((item) => {
-          return item;
-        })}
-      </Slider>
+      <animated.div style={titleStyle}>
+        <h2
+          className="heading cv-heading"
+          style={{ marginTop: "44px", marginBottom: "15px" }}
+        >
+          {props.title}
+        </h2>
+      </animated.div>
+      <animated.div style={contentStyle}>
+        <Slider {...props.settings}>
+          {props.items.map((item) => {
+            return item;
+          })}
+        </Slider>
+      </animated.div>
     </div>
   );
 }
