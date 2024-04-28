@@ -151,6 +151,63 @@ def hidden_singles(puzzle, notes):
     return new_puzzle, changes, num_changes
 
 
+def pointing_groups(puzzle, notes):
+    """
+    Checks for pointing groups (if all candidates in a box are within the same row or column).
+
+    Input
+        puzzle : 9x9 list of ints
+            Current state of sudoku puzzle.
+        notes : 9x9x9 list of boolean integers
+            hello
+
+    Output
+        new_puzzle : 9x9 np array of ints
+            Updated sudoku puzzle.
+        changes : 9x9x9 np array of boolean integers
+            there
+    """
+    puzzle = np.array(puzzle, dtype=int).reshape((9, 9))
+    notes = np.array(notes, dtype=int).reshape((9, 9, 9))
+    new_notes = notes.copy()
+    num_changes = 0
+
+    for row_start in [0, 3, 6]:
+        for col_start in [0, 3, 6]:
+            box = puzzle[row_start : row_start + 3, col_start : col_start + 3]
+            box_notes = new_notes[
+                row_start : row_start + 3, col_start : col_start + 3, :
+            ]
+            for num_ind in range(9):
+                if num_ind + 1 in box:
+                    continue
+                poss_cells = np.argwhere((box_notes[:, :, num_ind] == 1) & (box == 0))
+                poss_cells_rows, poss_cells_cols = poss_cells[:, 0], poss_cells[:, 1]
+
+                if len(np.unique(poss_cells_rows)) == 1:
+                    row_ind = poss_cells_rows[0]
+                    for col_ind, poss in enumerate(
+                        new_notes[row_start + row_ind, :, num_ind]
+                    ):
+                        if (poss == 0) or (col_start <= col_ind <= col_start + 2):
+                            continue
+                        new_notes[row_start + row_ind, col_ind, num_ind] = 0
+
+                elif len(np.unique(poss_cells_cols)) == 1:
+                    col_ind = poss_cells_cols[0]
+                    for row_ind, poss in enumerate(
+                        new_notes[:, col_start + col_ind, num_ind]
+                    ):
+                        if (poss == 0) or (row_start <= row_ind <= row_start + 2):
+                            continue
+                        new_notes[row_ind, col_start + col_ind, num_ind] = 0
+
+    changes = new_notes - notes
+    num_changes += -1 * np.sum(changes)
+
+    return new_notes, changes, num_changes
+
+
 # def naked_pairs(puzzle, notes):
 #     """
 #     Checks for naked pairs (two cells in the same row/column/box with the same two possible candidates).

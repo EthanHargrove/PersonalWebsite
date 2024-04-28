@@ -6,6 +6,10 @@ import Navbar from "../components/Navbar";
 
 function Projects() {
   useEffect(() => {
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Change document title
     document.title = "Ethan Hargrove - Projects";
   }, []);
 
@@ -54,8 +58,8 @@ function Projects() {
           page="/"
           title=""
           description=""
-          button1Title=""
-          button1Link=""
+          button1Title="/graph-neural-networks"
+          button1Link="/graph-neural-networks"
           button2Title=""
           button2Link=""
         />

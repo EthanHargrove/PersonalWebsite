@@ -11,6 +11,7 @@ import { apiCall } from "../../api/api";
 function SudokuGame() {
   const [toNote, setToNote] = useState<boolean>(false);
   const [toUpdate, setToUpdate] = useState<boolean>(false);
+  const [currentStep, setCurrentStep] = useState<string>("start");
 
   const [startingPuzzle, setStartingPuzzle] = useState(
     Array.from({ length: 9 }, () => Array(9).fill(0))
@@ -53,6 +54,7 @@ function SudokuGame() {
         setNotes(initialNotes);
         setNotesChanges(initialNotesChanges);
         setToNote(false);
+        setCurrentStep("");
       } else {
         console.log("no response");
       }
@@ -63,6 +65,9 @@ function SudokuGame() {
     setNotes(newNotes);
     setNotesChanges(initialNotesChanges);
     setToNote(false);
+    if (currentStep !== "pointingGroups") {
+      setCurrentStep("noted");
+    }
   };
 
   const updateCells = () => {
@@ -84,6 +89,7 @@ function SudokuGame() {
         setNewNotes(response.notes);
         setNotesChanges(response.changes);
         setToNote(response.numChanges > 0);
+        setCurrentStep("");
         return response.numChanges;
       } else {
         console.log("no response");
@@ -105,12 +111,13 @@ function SudokuGame() {
         setNewPuzzle(response.puzzle);
         setNotesChanges(response.changes);
         setToUpdate(response.numChanges > 0);
+        setCurrentStep("nakedSingles");
         return response.numChanges;
       } else {
         console.log("no response");
       }
     } catch (error) {
-      console.error("Error in getNewNotes:", error);
+      console.error("Error in nakedSingles:", error);
     }
   };
 
@@ -126,33 +133,53 @@ function SudokuGame() {
         setNewPuzzle(response.puzzle);
         setNotesChanges(response.changes);
         setToUpdate(response.numChanges > 0);
+        setCurrentStep("hiddenSingles");
         return response.numChanges;
       } else {
         console.log("no response");
       }
     } catch (error) {
-      console.error("Error in getNewNotes:", error);
+      console.error("Error in hiddenSingles:", error);
+    }
+  };
+
+  const pointingGroups = async () => {
+    const body = {
+      puzzle: puzzle,
+      notes: notes,
+    };
+    try {
+      const response = await apiCall("sudoku/pointing_groups", "POST", body);
+
+      if (response) {
+        setNewNotes(response.notes);
+        setNotesChanges(response.changes);
+        setToNote(response.numChanges > 0);
+        setCurrentStep("pointingGroups");
+        return response.numChanges;
+      } else {
+        console.log("no response");
+      }
+    } catch (error) {
+      console.error("Error in pointingGroups:", error);
     }
   };
 
   const handleStep = async () => {
     if (toNote) {
-      console.log("noting");
       updateNotes();
     } else if (toUpdate) {
-      console.log("updating");
       updateCells();
     } else {
-      console.log("getting new note");
       getNewNotes().then((result) => {
         if (result === 0) {
-          console.log("no new notes");
-          console.log("getting naked singles");
           nakedSingles().then((result) => {
             if (result === 0) {
-              console.log("no naked singles");
-              console.log("getting hidden singles");
-              hiddenSingles();
+              hiddenSingles().then((result) => {
+                if (result === 0) {
+                  pointingGroups();
+                }
+              });
             }
           });
         }
@@ -202,17 +229,68 @@ function SudokuGame() {
         </Grid>
         <Grid item xs={12} md={4} lg={3}>
           <ol>
-            <li>Missing Notes</li>
+            <li className={`${currentStep === "" ? "currentStep" : ""}`}>
+              Update Notes
+            </li>
             <ul>
-              <li>Update</li>
+              <li className={`${currentStep === "noted" ? "currentStep" : ""}`}>
+                Update
+              </li>
             </ul>
-            <li>Naked Singles</li>
+            <li
+              className={`${
+                currentStep === "nakedSingles" && toUpdate ? "currentStep" : ""
+              }`}
+            >
+              Naked Singles
+            </li>
             <ul>
-              <li>Update</li>
+              <li
+                className={`${
+                  currentStep === "nakedSingles" && !toUpdate
+                    ? "currentStep"
+                    : ""
+                }`}
+              >
+                Update
+              </li>
             </ul>
-            <li>Hidden Singles</li>
+            <li
+              className={`${
+                currentStep === "hiddenSingles" && toUpdate ? "currentStep" : ""
+              }`}
+            >
+              Hidden Singles
+            </li>
             <ul>
-              <li>Update</li>
+              <li
+                className={`${
+                  currentStep === "hiddenSingles" && !toUpdate
+                    ? "currentStep"
+                    : ""
+                }`}
+              >
+                Update
+              </li>
+            </ul>
+            <li
+              className={`${
+                currentStep === "pointingGroups" && toNote ? "currentStep" : ""
+              }`}
+            >
+              {" "}
+              Pointing Groups
+            </li>
+            <ul>
+              <li
+                className={`${
+                  currentStep === "pointingGroups" && !toNote
+                    ? "currentStep"
+                    : ""
+                }`}
+              >
+                Update
+              </li>
             </ul>
           </ol>
         </Grid>

@@ -43,10 +43,10 @@ const router = createBrowserRouter([
     path: "/sudoku",
     element: <Sudoku />,
   },
-  // {
-  //   path: "/graph-neural-networks",
-  //   element: <GraphNeuralNetworks />,
-  // },
+  {
+    path: "/graph-neural-networks",
+    element: <GraphNeuralNetworks />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
