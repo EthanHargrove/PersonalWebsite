@@ -1,0 +1,51 @@
+/* FeaturedProject.css */
+
+.featured-project {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .project-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .project-image img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .project-buttons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .project-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .project-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .view-all {
+    background-color: #28a745;
+  }
+  
+  .view-all:hover {
+    background-color: #218838;
+  }
+  

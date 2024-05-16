@@ -160,7 +160,7 @@ function CV() {
     rtl: true,
     responsive: [
       {
-        breakpoint: 1400,
+        breakpoint: 1200,
         settings: {
           slidesToShow: 1,
         },

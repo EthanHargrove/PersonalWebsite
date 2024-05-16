@@ -165,25 +165,50 @@ function SudokuGame() {
     }
   };
 
+  const nakedPairs = async () => {
+    const body = {
+      puzzle: puzzle,
+      notes: notes,
+    };
+    try {
+      const response = await apiCall("sudoku/naked_pairs", "POST", body);
+
+      if (response) {
+        // setNewPuzzle(response.puzzle);
+        // setNotesChanges(response.changes);
+        setToUpdate(response.numChanges > 0);
+        setCurrentStep("nakedPairs");
+        return response.numChanges;
+      } else {
+        console.log("no response");
+      }
+    } catch (error) {
+      console.error("Error in nakedPairs:", error);
+    }
+  };
+
   const handleStep = async () => {
     if (toNote) {
       updateNotes();
     } else if (toUpdate) {
       updateCells();
     } else {
-      getNewNotes().then((result) => {
-        if (result === 0) {
-          nakedSingles().then((result) => {
-            if (result === 0) {
-              hiddenSingles().then((result) => {
-                if (result === 0) {
-                  pointingGroups();
-                }
-              });
-            }
-          });
-        }
-      });
+      let result;
+
+      result = await getNewNotes();
+      if (result !== 0) return;
+
+      result = await nakedSingles();
+      if (result !== 0) return;
+
+      result = await hiddenSingles();
+      if (result !== 0) return;
+
+      result = await nakedPairs();
+      if (result !== 0) return;
+
+      result = await pointingGroups();
+      if (result !== 0) return;
     }
   };
 
@@ -268,6 +293,23 @@ function SudokuGame() {
                   currentStep === "hiddenSingles" && !toUpdate
                     ? "currentStep"
                     : ""
+                }`}
+              >
+                Update
+              </li>
+            </ul>
+            <li
+              className={`${
+                currentStep === "nakedPairs" && toNote ? "currentStep" : ""
+              }`}
+            >
+              {" "}
+              Naked Pairs
+            </li>
+            <ul>
+              <li
+                className={`${
+                  currentStep === "nakedPairs" && !toNote ? "currentStep" : ""
                 }`}
               >
                 Update
