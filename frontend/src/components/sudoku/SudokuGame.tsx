@@ -65,7 +65,7 @@ function SudokuGame() {
     setNotes(newNotes);
     setNotesChanges(initialNotesChanges);
     setToNote(false);
-    if (currentStep !== "pointingGroups") {
+    if (!["pointingGroups", "nakedPairs"].includes(currentStep)) {
       setCurrentStep("noted");
     }
   };
@@ -174,9 +174,9 @@ function SudokuGame() {
       const response = await apiCall("sudoku/naked_pairs", "POST", body);
 
       if (response) {
-        // setNewPuzzle(response.puzzle);
-        // setNotesChanges(response.changes);
-        setToUpdate(response.numChanges > 0);
+        setNewNotes(response.notes);
+        setNotesChanges(response.changes);
+        setToNote(response.numChanges > 0);
         setCurrentStep("nakedPairs");
         return response.numChanges;
       } else {
@@ -209,6 +209,8 @@ function SudokuGame() {
 
       result = await pointingGroups();
       if (result !== 0) return;
+
+      setCurrentStep("moreAdvanced");
     }
   };
 
@@ -334,6 +336,14 @@ function SudokuGame() {
                 Update
               </li>
             </ul>
+            <li
+              className={`${
+                currentStep === "moreAdvanced" && toNote ? "currentStep" : ""
+              }`}
+            >
+              {" "}
+              More Advanced Methods Required
+            </li>
           </ol>
         </Grid>
       </Grid>

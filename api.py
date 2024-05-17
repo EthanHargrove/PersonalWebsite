@@ -228,10 +228,8 @@ def naked_pairs(puzzle, notes):
 
     # Check rows
     for row_ind, row in enumerate(new_notes):
-        print(f"row_inds: {row_ind}")
-        # Find indices of columns with only two possibilities
+        # Find indices of cells with only two possibilities
         col_inds = np.argwhere(np.sum(row, axis=1) == 2).flatten()
-        print(f"col_inds: {col_inds}")
         # Check if any of them have identical possibilities
         if len(col_inds) < 2:
             continue
@@ -249,10 +247,9 @@ def naked_pairs(puzzle, notes):
 
     # Check cols
     for col_ind in range(9):
-        # Find indices of rows with only two possibilities
+        # Find indices of cells with only two possibilities
         row_inds = np.argwhere(np.sum(new_notes[:, col_ind], axis=1) == 2).flatten()
-        print(f"col_inds: {col_ind}")
-        print(f"row_inds: {row_inds}")
+
         # Check if any of them have identical possibilities
         if len(row_inds) < 2:
             continue
@@ -269,24 +266,50 @@ def naked_pairs(puzzle, notes):
                             new_notes[row_ind, col_ind, num_inds[1]] = 0
 
     # Check boxes
-    # for row_start in [0, 3, 6]:
-    #     for col_start in [0, 3, 6]:
-    #         box = new_notes[row_start : row_start + 3, col_start : col_start + 3]
-    #         box = box.reshape((9))
-    #         box_inds = np.argwhere(np.sum(box, axis=1) == 2).flatten()
-    #         if len(box_inds) < 2:
-    #             continue
-    #         for i, box_ind1 in enumerate(box_inds):
-    #             for box_ind2 in box_inds[i + 1 :]:
-    #                 if np.array_equal(box[box_ind1], box[box_ind2]):
-    #                     # Found naked pair
-    #                     for box_ind in range(9):
-    #                         if (box_ind != box_ind1) and (box_ind != box_ind2):
-    #                             new_notes[
-    #                                 row_start + box_ind // 3, col_start + box_ind % 3
-    #                             ] -= new_notes[
-    #                                 row_start + box_ind1 // 3, col_start + box_ind1 % 3
-    #                             ]
+    for row_start in [0, 3, 6]:
+        for col_start in [0, 3, 6]:
+            # Find indices of cells with only two possibilities
+            box_inds = np.argwhere(
+                np.sum(
+                    new_notes[row_start : row_start + 3, col_start : col_start + 3],
+                    axis=2,
+                )
+                == 2
+            )
+            # Check if any of them have identical possibilities
+            if len(box_inds) < 2:
+                continue
+            for i, box_ind1 in enumerate(box_inds):
+                for box_ind2 in box_inds[i + 1 :]:
+                    if np.array_equal(
+                        new_notes[row_start + box_ind1[0], col_start + box_ind1[1]],
+                        new_notes[row_start + box_ind2[0], col_start + box_ind2[1]],
+                    ):
+                        # Found naked pair
+                        num_inds = np.argwhere(
+                            new_notes[row_start + box_ind1[0], col_start + box_ind1[1]]
+                            == 1
+                        ).flatten()
+                        for box_row in range(3):
+                            for box_col in range(3):
+                                if (
+                                    (box_row == box_ind1[0])
+                                    and (box_col == box_ind1[1])
+                                ) or (
+                                    (box_row == box_ind2[0])
+                                    and (box_col == box_ind2[1])
+                                ):
+                                    continue
+                                new_notes[
+                                    row_start + box_row,
+                                    col_start + box_col,
+                                    num_inds[0],
+                                ] = 0
+                                new_notes[
+                                    row_start + box_row,
+                                    col_start + box_col,
+                                    num_inds[1],
+                                ] = 0
 
     changes = new_notes - notes
     num_changes += -1 * np.sum(changes)

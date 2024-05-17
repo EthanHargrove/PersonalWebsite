@@ -96,9 +96,6 @@ def api_naked_pairs():
     puzzle = data["puzzle"]
     notes = data["notes"]
     new_notes, changes, num_changes = naked_pairs(puzzle, notes)
-    print(new_notes)
-    print(changes)
-    print(num_changes)
     return jsonify(
         {
             "notes": new_notes.tolist(),
