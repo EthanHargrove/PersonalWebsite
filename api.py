@@ -317,44 +317,107 @@ def naked_pairs(puzzle, notes):
     return new_notes, changes, num_changes
 
 
-#     puzzle = np.array(puzzle, dtype=int).reshape((9, 9))
-#     new_notes = np.array(notes, dtype=int).reshape((9, 9, 9))
-#     changes = np.zeros((9, 9, 9), dtype=int)
-#     num_changes = 0
+def hidden_pairs(puzzle, notes):
+    """
+    Checks for hidden pairs (two candidates that only appear in two cells in the same row/column/box).
 
-#     # Check rows
-#     for row_ind, row in enumerate(new_notes):
-#         # Find indices of columns with only two possibilities
-#         col_inds = np.argwhere(np.sum(row, axis=1) == 2).flatten()
-#         # Check if any of them have identical possibilities
-#         if len(col_inds) < 2:
-#             continue
-#         for col_ind1 in col_inds:
-#             for col_ind2 in col_inds:
-#                 if col_ind1 == col_ind2:
-#                     continue
-#                 if new_notes[row_ind, col_ind1, :] == new_notes[row_ind, col_ind2, :]:
-#                     num_inds = np.argwhere(
-#                         new_notes[row_ind, col_ind1, :] == 1
-#                     ).flatten()
-#                     for col_ind in range(9):
-#                         if (
-#                             (col_ind != col_ind1)
-#                             and (col_ind != col_ind2)
-#                             and (
-#                                 (new_notes[row_ind, col_ind, num_inds[0]] == 1)
-#                                 or (new_notes[row_ind, col_ind, num_inds[1]] == 1)
-#                             )
-#                         ):
-#                             new_notes[row_ind, col_ind, num_inds[0]] = 0
-#                             changes[row_ind, col_ind, num_inds[0]] = -1
+    Input
+        puzzle : 9x9 list of ints
+            Current state of sudoku puzzle.
+        notes : 9x9x9 list of boolean integers
+            hello
 
-#                             new_notes[row_ind, col_ind, num_inds[1]] = 0
-#                             changes[row_ind, col_ind, num_inds[1]] = -1
+    Output
 
-#                             changes[row_ind, col_ind1, num_inds[0]] = 1
-#                             changes[row_ind, col_ind1, num_inds[1]] = 1
-#                             changes[row_ind, col_ind2, num_inds[0]] = 1
-#                             changes[row_ind, col_ind2, num_inds[1]] = 1
+    """
+    puzzle = np.array(puzzle, dtype=int).reshape((9, 9))
+    notes = np.array(notes, dtype=int).reshape((9, 9, 9))
+    new_notes = notes.copy()
+    num_changes = 0
 
-#                             num_changes += 1
+    # Check rows
+    for row_ind, row in enumerate(new_notes):
+        # Find digits that can only appear in two cells
+        digits = np.argwhere(np.sum(row, axis=0) == 2).flatten()
+        if len(digits) < 2:
+            continue
+        for i, digit1 in enumerate(digits):
+            for digit2 in digits[i + 1 :]:
+                if np.array_equal(
+                    new_notes[row_ind, :, digit1], new_notes[row_ind, :, digit2]
+                ):
+                    # Found hidden pair
+                    # Find columns where the pair appears
+                    for col_ind in range(9):
+                        if new_notes[row_ind, col_ind, digit1] == 1:
+                            # Remove all other possibilities from those cells
+                            for num_ind in range(9):
+                                if (num_ind != digit1) and (num_ind != digit2):
+                                    new_notes[row_ind, col_ind, num_ind] = 0
+
+    # Check cols
+    for col_ind in range(9):
+        # Find digits that can only appear in two cells
+        digits = np.argwhere(np.sum(new_notes[:, col_ind], axis=0) == 2).flatten()
+        if len(digits) < 2:
+            continue
+        for i, digit1 in enumerate(digits):
+            for digit2 in digits[i + 1 :]:
+                if np.array_equal(
+                    new_notes[:, col_ind, digit1], new_notes[:, col_ind, digit2]
+                ):
+                    # Found hidden pair
+                    # Find rows where the pair appears
+                    for row_ind in range(9):
+                        if new_notes[row_ind, col_ind, digit1] == 1:
+                            # Remove all other possibilities from those cells
+                            for num_ind in range(9):
+                                if (num_ind != digit1) and (num_ind != digit2):
+                                    new_notes[row_ind, col_ind, num_ind] = 0
+
+    # Check boxes
+    for row_start in [0, 3, 6]:
+        for col_start in [0, 3, 6]:
+            # Find digits that can only appear in two cells
+            digits = np.argwhere(
+                np.sum(
+                    new_notes[row_start : row_start + 3, col_start : col_start + 3],
+                    axis=(0, 1),
+                )
+                == 2
+            ).flatten()
+            if len(digits) < 2:
+                continue
+            for i, digit1 in enumerate(digits):
+                for digit2 in digits[i + 1 :]:
+                    if np.array_equal(
+                        new_notes[
+                            row_start : row_start + 3, col_start : col_start + 3, digit1
+                        ],
+                        new_notes[
+                            row_start : row_start + 3, col_start : col_start + 3, digit2
+                        ],
+                    ):
+                        # Found hidden pair
+                        # Find cells where the pair appears
+                        for box_row in range(3):
+                            for box_col in range(3):
+                                if (
+                                    new_notes[
+                                        row_start + box_row, col_start + box_col, digit1
+                                    ]
+                                    == 1
+                                ):
+                                    # Remove all other possibilities from those cells
+                                    for num_ind in range(9):
+                                        if (num_ind != digit1) and (num_ind != digit2):
+                                            new_notes[
+                                                row_start + box_row,
+                                                col_start + box_col,
+                                                num_ind,
+                                            ] = 0
+
+    changes = new_notes - notes
+    num_changes += -1 * np.sum(changes)
+
+    return new_notes, changes, num_changes

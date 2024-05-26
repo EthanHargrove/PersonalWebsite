@@ -6,9 +6,6 @@ import Navbar from "../components/Navbar";
 
 function Projects() {
   useEffect(() => {
-    // Scroll to top
-    window.scrollTo(0, 0);
-
     // Change document title
     document.title = "Ethan Hargrove - Projects";
   }, []);
@@ -27,7 +24,7 @@ function Projects() {
           button1Title="Play Against AI"
           button1Link="/Xs-and-Os"
           button2Title="How it Works"
-          button2Link=""
+          button2Link="/Q-Learning"
         />
       ),
     },
@@ -105,7 +102,8 @@ function Projects() {
     <>
       <div className="cyberpunk-background" />
       <Navbar active="projects" />
-      <div className="content">
+      {/* <div className="content"> */}
+      <div>
         <Carousel3D
           cards={cards}
           height="100vh"

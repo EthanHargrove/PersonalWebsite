@@ -8,6 +8,7 @@ import Projects from "./pages/Projects";
 import XsAndOs from "./pages/XsAndOs";
 import Sudoku from "./pages/Sudoku";
 import GraphNeuralNetworks from "./pages/GraphNeuralNetworks";
+import QLearning from "./pages/QLearning";
 
 function setDefaultTitleAndFavicon() {
   // Change document title
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "/graph-neural-networks",
     element: <GraphNeuralNetworks />,
+  },
+  {
+    path: "/Q-Learning",
+    element: <QLearning />,
   },
 ]);
 

@@ -9,6 +9,7 @@ from api import (
     hidden_singles,
     pointing_groups,
     naked_pairs,
+    hidden_pairs,
 )
 
 app = Flask(
@@ -96,6 +97,21 @@ def api_naked_pairs():
     puzzle = data["puzzle"]
     notes = data["notes"]
     new_notes, changes, num_changes = naked_pairs(puzzle, notes)
+    return jsonify(
+        {
+            "notes": new_notes.tolist(),
+            "changes": changes.tolist(),
+            "numChanges": int(num_changes),
+        }
+    )
+
+
+@app.route("/api/sudoku/hidden_pairs", methods=["POST"])
+def api_hidden_pairs():
+    data = request.get_json()
+    puzzle = data["puzzle"]
+    notes = data["notes"]
+    new_notes, changes, num_changes = hidden_pairs(puzzle, notes)
     return jsonify(
         {
             "notes": new_notes.tolist(),

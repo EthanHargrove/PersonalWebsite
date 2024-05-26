@@ -65,7 +65,9 @@ function SudokuGame() {
     setNotes(newNotes);
     setNotesChanges(initialNotesChanges);
     setToNote(false);
-    if (!["pointingGroups", "nakedPairs"].includes(currentStep)) {
+    if (
+      !["pointingGroups", "nakedPairs", "hiddenPairs"].includes(currentStep)
+    ) {
       setCurrentStep("noted");
     }
   };
@@ -187,6 +189,28 @@ function SudokuGame() {
     }
   };
 
+  const hiddenPairs = async () => {
+    const body = {
+      puzzle: puzzle,
+      notes: notes,
+    };
+    try {
+      const response = await apiCall("sudoku/hidden_pairs", "POST", body);
+
+      if (response) {
+        setNewNotes(response.notes);
+        setNotesChanges(response.changes);
+        setToNote(response.numChanges > 0);
+        setCurrentStep("hiddenPairs");
+        return response.numChanges;
+      } else {
+        console.log("no response");
+      }
+    } catch (error) {
+      console.error("Error in hiddenPairs:", error);
+    }
+  };
+
   const handleStep = async () => {
     if (toNote) {
       updateNotes();
@@ -205,6 +229,9 @@ function SudokuGame() {
       if (result !== 0) return;
 
       result = await nakedPairs();
+      if (result !== 0) return;
+
+      result = await hiddenPairs();
       if (result !== 0) return;
 
       result = await pointingGroups();
@@ -319,6 +346,23 @@ function SudokuGame() {
             </ul>
             <li
               className={`${
+                currentStep === "hiddenPairs" && toNote ? "currentStep" : ""
+              }`}
+            >
+              {" "}
+              Hidden Pairs
+            </li>
+            <ul>
+              <li
+                className={`${
+                  currentStep === "hiddenPairs" && !toNote ? "currentStep" : ""
+                }`}
+              >
+                Update
+              </li>
+            </ul>
+            <li
+              className={`${
                 currentStep === "pointingGroups" && toNote ? "currentStep" : ""
               }`}
             >
@@ -338,7 +382,7 @@ function SudokuGame() {
             </ul>
             <li
               className={`${
-                currentStep === "moreAdvanced" && toNote ? "currentStep" : ""
+                currentStep === "moreAdvanced" ? "currentStep" : ""
               }`}
             >
               {" "}
