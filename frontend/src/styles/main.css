@@ -23,7 +23,6 @@ html {
 
 body {
     overflow-x: hidden;
-    /* position: relative; */
     background-color: var(--jet-black);
     font-family: 'SpaceGrotesk';
     font-size: 28px;
@@ -43,15 +42,6 @@ body {
     filter: blur(5px);
     -webkit-filter: blur(5px);
     z-index: -1;
-}
-
-.content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100vw;
-    height: 100vh;
 }
 
 .btn-glitch {

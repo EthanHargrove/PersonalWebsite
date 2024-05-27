@@ -242,7 +242,7 @@ function SudokuGame() {
   };
 
   return (
-    <div className="content">
+    <div style={{ height: "100vh", width: "100vw" }}>
       <Grid
         container
         spacing={0}

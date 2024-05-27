@@ -102,16 +102,17 @@ function Projects() {
     <>
       <div className="cyberpunk-background" />
       <Navbar active="projects" />
-      {/* <div className="content"> */}
-      <div>
-        <Carousel3D
-          cards={cards}
-          height="100vh"
-          width="90%"
-          margin="0 auto"
-          offset={200}
-          showArrows={false}
-        />
+      <div className="content">
+        <div>
+          <Carousel3D
+            cards={cards}
+            height="100vh"
+            width="90%"
+            margin="0 auto"
+            offset={200}
+            showArrows={false}
+          />
+        </div>
       </div>
     </>
   );

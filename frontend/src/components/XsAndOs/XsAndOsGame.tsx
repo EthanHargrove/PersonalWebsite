@@ -60,7 +60,7 @@ function XsAndOsGame() {
     display: "inline",
   };
 
-  let gridCenterX = 0;
+  let gridCenterX = -11;
   let gridCenterY = 60;
   let gridDepth = 60;
   let gridArmLength = 200;
@@ -351,7 +351,14 @@ function XsAndOsGame() {
   }, [windowWidth]);
 
   return (
-    <div className="content">
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        height: "100vh",
+        width: "100vw",
+      }}
+    >
       <Canvas style={{ width: "100%", height: "90%", marginTop: "10px" }}>
         <ambientLight intensity={1} />
         <spotLight
