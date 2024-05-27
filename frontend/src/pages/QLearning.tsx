@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
 import Navbar from "../components/Navbar";
+import IntroToRL from "../components/Q-Learning/IntroToRL";
 import "../styles/gnn.css";
 
 const QLearning = () => {
@@ -19,8 +20,12 @@ const QLearning = () => {
             <ReactFullpage.Wrapper>
               {/* Your full-page sections go here */}
               <div className="section" style={{ background: "#ffffff" }}>
-                <h1 className="heading">Graph Neural Networks</h1>
+                <h1 className="heading">
+                  Reinforcement Learning:
+                  <br /> Q-Learning
+                </h1>
               </div>
+              <IntroToRL />
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3
               </div>
