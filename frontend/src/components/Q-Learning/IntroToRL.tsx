@@ -1,13 +1,147 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { useSpring, animated } from "react-spring";
 // import { Link } from "react-router-dom";
 import { Grid, Stack } from "@mui/material";
+import {
+  Stage,
+  Layer,
+  Circle,
+  Line,
+  Arrow,
+  Text,
+  Rect,
+  Image,
+} from "react-konva";
+import useImage from "use-image";
 // import { styled } from "@mui/system";
 
 function IntroToRL() {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const stageWidth = dimensions.width * 0.9;
+  const stageHeight = dimensions.height * 0.9;
+  const rectWidth = Math.max(stageWidth * 0.45, 275);
+  const rectHeight = rectWidth / 5;
+  const cornerRadius = rectHeight / 7;
+  const rectX = (stageWidth - rectWidth) / 2;
+  const rectY = 50;
+  const fontSize = rectWidth * 0.1;
+
+  // Circle properties
+  const [image1] = useImage("./images/supervised_learning.png");
+  const [image2] = useImage("./images/tic-tac-toe.png");
+  const [image3] = useImage("./images/tic-tac-toe.png");
+
+  const circleRadius = Math.min(stageHeight, stageWidth) * 0.11; // 5% of the smaller window dimension
+  const circleY = rectY + rectHeight + circleRadius * 2;
+  const circleSpacing = rectWidth / 8;
+  const circles = [
+    { x: rectX + circleSpacing, image: image1 },
+    { x: rectX + rectWidth / 2, image: image2 },
+    { x: rectX + rectWidth - circleSpacing, image: image3 },
+  ];
+
+  const getControlPoints = (x1: number, y1: number, x2: number, y2: number) => {
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    return [
+      { x: x1 + dx * 0.05, y: y1 + dy * 0.4 }, // First control point (curve outward)
+      { x: x1 + dx * 0.8, y: y1 + dy * 0.4 }, // Second control point (curve outward)
+    ];
+  };
+
   return (
     <div className="section" style={{ background: "#ffffff" }}>
-      <h1>Machine Learning</h1>
+      <Stage width={stageWidth} height={stageHeight}>
+        <Layer>
+          <Rect
+            x={rectX}
+            y={rectY}
+            width={rectWidth}
+            height={rectHeight}
+            cornerRadius={cornerRadius}
+            fill="lightblue"
+            shadowBlur={5}
+          />
+          <Text
+            x={rectX}
+            y={rectY}
+            width={rectWidth}
+            height={rectHeight}
+            text="Machine Learning"
+            fontSize={fontSize}
+            fontFamily="SpaceGrotesk"
+            fill="black"
+            align="center"
+            verticalAlign="middle"
+          />
+          {circles.map((circle, index) => {
+            const controlPoints = getControlPoints(
+              rectX + rectWidth / 2,
+              rectY + rectHeight,
+              circle.x,
+              circleY - circleRadius
+            );
+            return (
+              <React.Fragment key={index}>
+                <Circle
+                  x={circle.x}
+                  y={circleY}
+                  radius={circleRadius}
+                  fill="white"
+                  shadowBlur={5}
+                />
+                <Image
+                  x={circle.x - circleRadius}
+                  y={circleY - circleRadius}
+                  width={circleRadius * 2}
+                  height={circleRadius * 2}
+                  image={circle.image}
+                  cornerRadius={circleRadius}
+                />
+                <Arrow
+                  points={[
+                    rectX + rectWidth / 2,
+                    rectY + rectHeight, // Start point
+                    controlPoints[0].x,
+                    controlPoints[0].y, // First control point
+                    controlPoints[1].x,
+                    controlPoints[1].y, // Second control point
+                    circle.x,
+                    circleY -
+                      circleRadius -
+                      Math.min(stageHeight, stageWidth) * 0.015, // End point
+                  ]}
+                  pointerLength={10}
+                  pointerWidth={10}
+                  fill="black"
+                  stroke="black"
+                  strokeWidth={2}
+                  tension={0.5}
+                />
+              </React.Fragment>
+            );
+          })}
+        </Layer>
+      </Stage>
+      {/* <h1>Machine Learning</h1>
       <ul>
         <li>
           Reinforcement Learning (RL) is one of the three main machine learning
@@ -17,7 +151,7 @@ function IntroToRL() {
           It is used to solve control problems, where learning is achieved
           through trial and error.
         </li>
-      </ul>
+      </ul> */}
     </div>
   );
 }
