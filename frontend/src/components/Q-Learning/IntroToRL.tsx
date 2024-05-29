@@ -46,8 +46,8 @@ function IntroToRL() {
 
   // Circle properties
   const [image1] = useImage("./images/supervised_learning.png");
-  const [image2] = useImage("./images/tic-tac-toe.png");
-  const [image3] = useImage("./images/tic-tac-toe.png");
+  const [image2] = useImage("./images/unsupervised_learning.png");
+  const [image3] = useImage("./images/reinforcement_learning.png");
 
   const circleRadius = Math.min(stageHeight, stageWidth) * 0.11; // 5% of the smaller window dimension
   const circleY = rectY + rectHeight + circleRadius * 2;
