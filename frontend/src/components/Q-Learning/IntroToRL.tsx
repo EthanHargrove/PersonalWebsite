@@ -13,6 +13,7 @@ import {
   Image,
 } from "react-konva";
 import useImage from "use-image";
+import { title } from "process";
 // import { styled } from "@mui/system";
 
 function IntroToRL() {
@@ -37,25 +38,34 @@ function IntroToRL() {
 
   const stageWidth = dimensions.width * 0.9;
   const stageHeight = dimensions.height * 0.9;
-  const rectWidth = Math.max(stageWidth * 0.45, 275);
+  const rectWidth = Math.max(stageWidth * 0.5, 275);
   const rectHeight = rectWidth / 5;
   const cornerRadius = rectHeight / 7;
   const rectX = (stageWidth - rectWidth) / 2;
   const rectY = 50;
-  const fontSize = rectWidth * 0.1;
+  const fontSize = rectWidth * 0.075;
+  const letterSpacing = fontSize * 0.15;
 
   // Circle properties
   const [image1] = useImage("./images/supervised_learning.png");
   const [image2] = useImage("./images/unsupervised_learning.png");
   const [image3] = useImage("./images/reinforcement_learning.png");
 
-  const circleRadius = Math.min(stageHeight, stageWidth) * 0.11; // 5% of the smaller window dimension
-  const circleY = rectY + rectHeight + circleRadius * 2;
+  const circleRadius = Math.max(dimensions.width * 0.06, 45); // 5% of the smaller window dimension
+  const circleY = rectY + rectHeight + circleRadius * 1.75;
   const circleSpacing = rectWidth / 8;
   const circles = [
-    { x: rectX + circleSpacing, image: image1 },
-    { x: rectX + rectWidth / 2, image: image2 },
-    { x: rectX + rectWidth - circleSpacing, image: image3 },
+    { x: rectX + circleSpacing, image: image1, title: "Supervised\nLearning" },
+    {
+      x: rectX + rectWidth / 2,
+      image: image2,
+      title: "Unsupervised\nLearning",
+    },
+    {
+      x: rectX + rectWidth - circleSpacing,
+      image: image3,
+      title: "Reinforcement\nLearning",
+    },
   ];
 
   const getControlPoints = (x1: number, y1: number, x2: number, y2: number) => {
@@ -66,6 +76,9 @@ function IntroToRL() {
       { x: x1 + dx * 0.8, y: y1 + dy * 0.4 }, // Second control point (curve outward)
     ];
   };
+
+  const titleY = circleY + circleRadius * 1.1;
+  const titleFontSize = circleRadius * 0.25;
 
   return (
     <div className="section" style={{ background: "#ffffff" }}>
@@ -86,6 +99,7 @@ function IntroToRL() {
             width={rectWidth}
             height={rectHeight}
             text="Machine Learning"
+            letterSpacing={letterSpacing}
             fontSize={fontSize}
             fontFamily="SpaceGrotesk"
             fill="black"
@@ -136,9 +150,47 @@ function IntroToRL() {
                   strokeWidth={2}
                   tension={0.5}
                 />
+                <Text
+                  x={circle.x - circleRadius}
+                  y={titleY}
+                  text={circle.title}
+                  width={circleRadius * 2}
+                  fontSize={titleFontSize}
+                  fontFamily="SpaceGrotesk"
+                  fontStyle="500"
+                  wrap="word"
+                  fill="black"
+                  align="center"
+                  verticalAlign="middle"
+                  listening={false}
+                />
               </React.Fragment>
             );
           })}
+          {/* <Text
+            x={rectX + circleSpacing}
+            y={titleY}
+            text={"Supervised\nLearning"}
+            fontSize={titleFontSize}
+            fontFamily="SpaceGrotesk"
+            wrap="word"
+            fill="black"
+            align="center"
+            verticalAlign="middle"
+            listening={false}
+          />
+          <Text
+            x={rectX - circleRadius * 2.5}
+            y={titleY}
+            text={"Unsupervised\nLearning"}
+            fontSize={titleFontSize}
+            fontFamily="SpaceGrotesk"
+            wrap="word"
+            fill="black"
+            align="center"
+            verticalAlign="middle"
+            listening={false}
+          /> */}
         </Layer>
       </Stage>
       {/* <h1>Machine Learning</h1>
