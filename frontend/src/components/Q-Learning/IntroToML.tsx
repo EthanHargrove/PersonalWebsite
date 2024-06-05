@@ -1,6 +1,3 @@
-import { display, fontStyle } from "@mui/system";
-import { info } from "console";
-import { title } from "process";
 import React, { useState, useEffect } from "react";
 import { Stage, Layer, Circle, Arrow, Text, Rect, Image } from "react-konva";
 import useImage from "use-image";
@@ -187,6 +184,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
                   onMouseEnter={(e) => {
                     const container = e.target.getStage()!.container();
                     container.style.cursor = "pointer";
+                    setCurrentParadigm(circle.title);
                   }}
                   onMouseLeave={(e) => {
                     const container = e.target.getStage()!.container();
@@ -232,6 +230,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
                   onMouseEnter={(e) => {
                     const container = e.target.getStage()!.container();
                     container.style.cursor = "pointer";
+                    setCurrentParadigm(circle.title);
                   }}
                   onMouseLeave={(e) => {
                     const container = e.target.getStage()!.container();
@@ -257,63 +256,8 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
           })}
         </Layer>
       </Stage>
-      {/* <h1>Machine Learning</h1>
-      <ul>
-        <li>
-          Reinforcement Learning (RL) is one of the three main machine learning
-          paradigms, alongside supervised learning and unsupervised learning.
-        </li>
-        <li>
-          It is used to solve control problems, where learning is achieved
-          through trial and error.
-        </li>
-      </ul> */}
     </div>
   );
 }
 
 export default IntroToML;
-
-// const IntroToRL = () => {
-//   return (
-//     <div className="section" style={styles.container}>
-//       <h1 style={styles.title}>Introduction to Reinforcement Learning</h1>
-//       <section style={styles.section}>
-//         <h2 style={styles.subtitle}>What is Reinforcement Learning?</h2>
-//         <p style={styles.text}>
-//           Reinforcement Learning (RL) is a type of machine learning where an
-//           agent learns to make decisions by performing actions in an environment
-//           to maximize cumulative rewards.
-//         </p>
-//       </section>
-//       <section style={styles.section}>
-//         <h2 style={styles.subtitle}>Key Concepts</h2>
-//         <ul style={styles.list}>
-//           <li style={styles.listItem}>
-//             <strong>Agent:</strong> The learner or decision-maker.
-//           </li>
-//           <li style={styles.listItem}>
-//             <strong>Environment:</strong> The external system the agent
-//             interacts with.
-//           </li>
-//           <li style={styles.listItem}>
-//             <strong>State:</strong> A representation of the current situation.
-//           </li>
-//           <li style={styles.listItem}>
-//             <strong>Action:</strong> Choices available to the agent.
-//           </li>
-//           <li style={styles.listItem}>
-//             <strong>Reward:</strong> Feedback from the environment.
-//           </li>
-//         </ul>
-//       </section>
-//       <section style={styles.section}>
-//         <h2 style={styles.subtitle}>Objective</h2>
-//         <p style={styles.text}>
-//           The main objective of reinforcement learning is to learn optimal
-//           policies that maximize cumulative rewards over time.
-//         </p>
-//       </section>
-//     </div>
-//   );
-// };
