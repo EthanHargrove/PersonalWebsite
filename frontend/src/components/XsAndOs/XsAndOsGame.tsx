@@ -512,6 +512,7 @@ function XsAndOsGame() {
               title={
                 "Starts from a randomly selected state rather than the beginning of the game for enhanced exploration."
               }
+              enterTouchDelay={0}
             >
               <Typography style={tooltipFontStyle}>Exploring starts</Typography>
             </Tooltip>
@@ -530,6 +531,7 @@ function XsAndOsGame() {
               title={
                 "Starts from always exploring (ε=1) and linearly decreases to always exploiting (ε=0) for faster convergence. Otherwise exploration rate is constant (ε=0.1)."
               }
+              enterTouchDelay={0}
             >
               <Typography style={tooltipFontStyle}>ε-scheduling</Typography>
             </Tooltip>
