@@ -4,6 +4,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import Navbar from "../components/Navbar";
 import IntroToML from "../components/Q-Learning/IntroToML";
 import MDPs from "../components/Q-Learning/MDPs";
+import QLearningSlide from "../components/Q-Learning/QLearningSlide";
 import "../styles/gnn.css";
 
 const QLearning = () => {
@@ -48,6 +49,7 @@ const QLearning = () => {
               </div>
               <IntroToML defaultParadigm={"Reinforcement\nLearning"} />
               <MDPs />
+              <QLearningSlide />
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3
               </div>

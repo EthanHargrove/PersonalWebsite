@@ -28,7 +28,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
 
   const stageWidth = dimensions.width * 0.9;
   const stageHeight = dimensions.height * 0.9;
-  const rectWidth = Math.max(stageWidth * 0.5, 275);
+  const rectWidth = Math.max(stageWidth * 0.5, 260);
   const rectHeight = rectWidth / 5;
   const cornerRadius = rectHeight / 7;
   const rectX = (stageWidth - rectWidth) / 2;
@@ -48,7 +48,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
   const circleY =
     dimensions.width > 444
       ? rectY + rectHeight + circleRadius * 1.9
-      : rectY + rectHeight + dimensions.height * 0.115;
+      : rectY + rectHeight + dimensions.height * 0.135;
   const circleSpacing = dimensions.width > 444 ? rectWidth / 8 : 20;
   const circles = [
     {

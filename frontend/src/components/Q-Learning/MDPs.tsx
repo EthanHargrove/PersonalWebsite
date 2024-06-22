@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Stage, Layer, Rect, Text, Arrow, Line, Label } from "react-konva";
+import { Stage, Layer, Rect, Text, Arrow, Line } from "react-konva";
 import { Tooltip } from "@mui/material";
 
 interface MDPsProps {
@@ -35,7 +35,7 @@ const MDPs: React.FC<MDPsProps> = () => {
   const agentWidth = Math.max(stageWidth * 0.225, 110);
   const agentHeight = Math.max(agentWidth / 3, 55);
   const agentX = (stageWidth - agentWidth) / 2;
-  const agentY = 100;
+  const agentY = 66.7;
 
   // Determine Environment box params
   const envWidth = Math.max(stageWidth * 0.225, 110);
@@ -114,7 +114,7 @@ const MDPs: React.FC<MDPsProps> = () => {
       <Tooltip
         title={agentTooltipText}
         open={showActionTooltip}
-        placement="top"
+        placement="bottom"
       >
         <div
           style={{
