@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Stage, Layer, Circle, Arrow, Text, Rect, Image } from "react-konva";
 import useImage from "use-image";
 
+import PlayAgainstAI from "./PlayAgainstAI";
+
 interface IntroToMLProps {
   defaultParadigm: string;
 }
@@ -95,6 +97,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
 
   return (
     <div className="section" style={{ background: "#ffffff" }}>
+      <PlayAgainstAI />
       <Stage width={stageWidth} height={stageHeight}>
         <Layer>
           <Rect

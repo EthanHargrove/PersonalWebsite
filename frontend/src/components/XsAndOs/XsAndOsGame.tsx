@@ -3,6 +3,7 @@ import React, { useState, useLayoutEffect, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Typography, Switch, Stack, Tooltip } from "@mui/material";
 import Slider from "@mui/material-next/Slider";
+import { Link } from "react-router-dom";
 // Internal imports
 import "../../styles/main.css";
 import "../../styles/XsAndOs.css";
@@ -359,7 +360,7 @@ function XsAndOsGame() {
         width: "100vw",
       }}
     >
-      <Canvas style={{ width: "100%", height: "90%", marginTop: "10px" }}>
+      <Canvas style={{ width: "100%", height: "85%", marginTop: "7px" }}>
         <ambientLight intensity={1} />
         <spotLight
           position={[-10, 10, 10]}
@@ -477,12 +478,22 @@ function XsAndOsGame() {
               Show Q-Values
             </button>
           )}
-          <button className="btn-glitch" onClick={resetGame}>
-            Reset Game
-          </button>
           <button className="btn-glitch" onClick={makeAIMove}>
             Make AI Move
           </button>
+          <button className="btn-glitch" onClick={resetGame}>
+            Reset Game
+          </button>
+          <Link
+            to="/Q-Learning"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              textDecoration: "none",
+            }}
+          >
+            <button className="btn-glitch">How it Works</button>
+          </Link>
         </Stack>
         <div>
           <Typography style={fontStyle}>

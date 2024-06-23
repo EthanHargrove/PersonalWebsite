@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Stage, Layer, Rect, Text, Arrow, Line } from "react-konva";
 import { Tooltip } from "@mui/material";
 
+import PlayAgainstAI from "./PlayAgainstAI";
 interface MDPsProps {
   // Define the props for the component here
 }
@@ -111,6 +112,7 @@ const MDPs: React.FC<MDPsProps> = () => {
 
   return (
     <div className="section" style={{ background: "#ffffff" }}>
+      <PlayAgainstAI />
       <Tooltip
         title={agentTooltipText}
         open={showActionTooltip}

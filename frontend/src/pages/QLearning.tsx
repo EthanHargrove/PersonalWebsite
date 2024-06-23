@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import IntroToML from "../components/Q-Learning/IntroToML";
 import MDPs from "../components/Q-Learning/MDPs";
 import QLearningSlide from "../components/Q-Learning/QLearningSlide";
+import XsAndOsEnv from "../components/Q-Learning/XsAndOsEnv";
 import "../styles/gnn.css";
 
 const QLearning = () => {
@@ -50,6 +51,7 @@ const QLearning = () => {
               <IntroToML defaultParadigm={"Reinforcement\nLearning"} />
               <MDPs />
               <QLearningSlide />
+              <XsAndOsEnv />
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3
               </div>

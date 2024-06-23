@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { Tabs, Tab } from "@mui/material";
 
+import PlayAgainstAI from "./PlayAgainstAI";
+
 const QLearningSlide: React.FC = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -23,7 +25,7 @@ const QLearningSlide: React.FC = () => {
   }, []);
 
   const mathFontSize = Math.max(dimensions.width * 0.02, 12);
-  const textFontSize = Math.max(dimensions.width * 0.015, 12);
+  const textFontSize = Math.max(dimensions.width * 0.014, 12);
   const mathJaxStyles = `
     .MathJax {
       font-size: ${mathFontSize}px !important;
@@ -37,6 +39,7 @@ const QLearningSlide: React.FC = () => {
   `;
   return (
     <div className="section" style={{ background: "#ffffff" }}>
+      <PlayAgainstAI />
       <style>{mathJaxStyles}</style>
       <h3>Q-Learning</h3>
       <MathJaxContext>
@@ -58,14 +61,14 @@ const QLearningSlide: React.FC = () => {
           </li>
           <li>
             <p>
-              These values are stored in a ‘Q-table' with values being updated
+              These values are stored in a ‘Q-table', with values being updated
               using the following update rule:
             </p>
           </li>
         </ul>
         <MathJax>
           {
-            "\\[Q(S_t, A_t) \\leftarrow Q(S_t,A_t) + \\alpha \\biggl(R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t) \\biggr)\\]"
+            "\\[Q(S_t, A_t) \\leftarrow Q(S_t,A_t) + \\alpha (R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t))\\]"
           }
         </MathJax>
       </MathJaxContext>

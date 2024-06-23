@@ -56,7 +56,7 @@ const ThreeText: React.FC<ThreeTextProps> = (props) => {
         position={[x, y, z]}
         fontSize={39.2857 * scaling}
         textAlign="center"
-        color="#FFA500"
+        color="#FFFFFF"
         outlineWidth={scaling * 2}
         outlineColor="#000000"
         outlineOpacity={1.0}
