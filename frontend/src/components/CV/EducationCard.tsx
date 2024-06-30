@@ -63,7 +63,7 @@ function EducationCard(props: EducationCardProps) {
         <Stack direction="column" spacing={1} justifyContent="space-evenly">
           <TextContainer>{props.university}</TextContainer>
           <TextContainer>{props.degree}</TextContainer>
-          <TextContainer>{props.grade}</TextContainer>
+          {/* <TextContainer>{props.grade}</TextContainer> */}
           <TextContainer>{props.date}</TextContainer>
         </Stack>
       </Stack>

@@ -37,6 +37,21 @@ const QLearningSlide: React.FC = () => {
       color: #333;
 }
   `;
+
+  const [tab, setTab] = React.useState(0);
+  const tabStyles = {
+    backgroundColor: "#f0f0f0",
+    color: "#000000",
+    fontWeight: "bold",
+  };
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTab(newValue);
+  };
+  const equations: { [key: number]: any } = {
+    0: 0,
+    1: 1,
+  };
+
   return (
     <div className="section" style={{ background: "#ffffff" }}>
       <PlayAgainstAI />
@@ -72,10 +87,15 @@ const QLearningSlide: React.FC = () => {
           }
         </MathJax>
       </MathJaxContext>
-      <Tabs>
-        <Tab label="Exploration vs. Exploitation" />
-        <Tab label="Epsilon-Greedy Strategy" />
+      <Tabs
+        value={tab}
+        onChange={handleTabChange}
+        TabIndicatorProps={{ style: { backgroundColor: "#000000" } }}
+      >
+        <Tab label={"j"} value={0} style={tabStyles} />
+        <Tab label={"k"} value={1} style={tabStyles} />
       </Tabs>
+      <h3>{equations[tab]}</h3>
     </div>
   );
 };

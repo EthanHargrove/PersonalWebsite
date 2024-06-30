@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import Card from "../components/projects/Card";
 import Carousel3D from "../components/projects/Carousel3D";
@@ -8,6 +8,11 @@ function Projects() {
   useEffect(() => {
     // Change document title
     document.title = "Ethan Hargrove - Projects";
+
+    document.documentElement.classList.add("no-scroll");
+    return () => {
+      document.documentElement.classList.remove("no-scroll");
+    };
   }, []);
 
   let cards = [
@@ -50,14 +55,14 @@ function Projects() {
       content: (
         <Card
           slide={2}
-          colour="var(--neon-orange)"
-          imagen="https://updates.theme-fusion.com/wp-content/uploads/2016/08/slider_revolution-1.png"
-          page="/"
-          title=""
-          description=""
-          button1Title="/graph-neural-networks"
-          button1Link="/graph-neural-networks"
-          button2Title=""
+          colour="var(--neon-green)"
+          imagen="./images/AoC-2023.png"
+          page="/tic-tac-toe"
+          title="Haskell: AoC 2023"
+          description="Second card."
+          button1Title="Coming Soon"
+          button1Link=""
+          button2Title="Coming Soon"
           button2Link=""
         />
       ),
@@ -68,13 +73,13 @@ function Projects() {
         <Card
           slide={3}
           colour="var(--neon-pink)"
-          imagen="https://updates.theme-fusion.com/wp-content/uploads/2019/01/pwa_880_660.jpg"
-          page="/tic-tac-toe"
-          title="Card 5"
+          imagen="./images/trappist1.png"
+          page="/"
+          title="TTV Modelling"
           description="Fifth card."
-          button1Title=""
+          button1Title="Coming Soon"
           button1Link=""
-          button2Title=""
+          button2Title="Coming Soon"
           button2Link=""
         />
       ),
@@ -84,15 +89,15 @@ function Projects() {
       content: (
         <Card
           slide={4}
-          colour="var(--neon-green)"
-          imagen="./images/AoC-2023.png"
-          page="/tic-tac-toe"
-          title="Haskell: AoC 2023"
-          description="Second card."
-          button1Title=""
-          button1Link=""
-          button2Title=""
-          button2Link=""
+          colour="var(--neon-orange)"
+          imagen="./images/PersonalWebsite.png"
+          page="/"
+          title="Personal Website"
+          description=""
+          button1Title="View the Code"
+          button1Link="https://github.com/EthanHargrove/PersonalWebsite"
+          button2Title="Legacy Site"
+          button2Link="https://github.com/EthanHargrove/ethanhargrove.com"
         />
       ),
     },
@@ -102,7 +107,7 @@ function Projects() {
     <>
       <div className="cyberpunk-background" />
       <Navbar active="projects" />
-      <div className="content">
+      <div className="content" style={{ overflow: "hidden" }}>
         <div>
           <Carousel3D
             cards={cards}

@@ -63,6 +63,12 @@ body {
     background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
 }
 
+.disabled {
+    opacity: 0.5;
+    cursor: not-allowed !important;
+    pointer-events: none;
+}
+
 .link {
     text-decoration: none;
     color: inherit;
@@ -99,3 +105,7 @@ body {
     user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera, and Firefox */
     cursor: pointer;
 }
+
+.no-scroll {
+    overflow-y: hidden;
+  }

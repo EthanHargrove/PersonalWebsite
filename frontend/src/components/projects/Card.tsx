@@ -63,10 +63,24 @@ function Card(props: CardProps) {
       <h2 className="text-center">{props.title}</h2>
       <Stack direction="row" alignItems="center" justifyContent="space-evenly">
         <Link to={props.button1Link} className="link">
-          <button className="btn-glitch">{props.button1Title}</button>
+          <button
+            className={`btn-glitch ${
+              props.button2Title === "Coming Soon" ? "disabled" : ""
+            }`}
+            disabled={props.button1Title === "Coming Soon"}
+          >
+            {props.button1Title}
+          </button>
         </Link>
         <Link to={props.button2Link} className="link">
-          <button className="btn-glitch">{props.button2Title}</button>
+          <button
+            className={`btn-glitch ${
+              props.button2Title === "Coming Soon" ? "disabled" : ""
+            }`}
+            disabled={props.button2Title === "Coming Soon"}
+          >
+            {props.button2Title}
+          </button>
         </Link>
       </Stack>
     </animated.div>
