@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import Card from "../components/projects/Card";
 import Carousel3D from "../components/projects/Carousel3D";

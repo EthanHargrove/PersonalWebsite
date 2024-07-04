@@ -3,6 +3,7 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { Tabs, Tab } from "@mui/material";
 
 import PlayAgainstAI from "./PlayAgainstAI";
+import { delimiter } from "path";
 
 const QLearningSlide: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -81,7 +82,7 @@ const QLearningSlide: React.FC = () => {
             </p>
           </li>
         </ul>
-        <MathJax>
+        <MathJax inline>
           {
             "\\[Q(S_t, A_t) \\leftarrow Q(S_t,A_t) + \\alpha (R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t))\\]"
           }
