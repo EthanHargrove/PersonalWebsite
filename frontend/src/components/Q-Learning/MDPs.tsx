@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Stage, Layer, Rect, Text, Arrow, Line } from "react-konva";
+import { Stage, Layer, Rect, Text, Arrow, Line, Image } from "react-konva";
 import { Tooltip } from "@mui/material";
+import useImage from "use-image";
 
 import PlayAgainstAI from "./PlayAgainstAI";
 interface MDPsProps {
@@ -110,6 +111,57 @@ const MDPs: React.FC<MDPsProps> = () => {
   const envTooltipText =
     "The external system the agent observes and interacts with. It provides states and rewards, and responds to the agent's actions.";
 
+  // Load in images
+  const [RLAgentImage] = useImage("./images/RL_agent.png");
+  const [TreeImage] = useImage("./images/tree.png");
+
+  // Image Params
+  // Agent
+  let agentImageY;
+  let agentImageX;
+  let agentImageDim;
+  let agentImageMulti;
+
+  // Tree
+  let treeImageY;
+  let treeImageX;
+  let treeImageDim;
+  let treeImageMulti;
+
+  if (dimensions.width > 444) {
+    // Agent
+    agentImageMulti = 0.75;
+    agentImageDim = agentHeight * agentImageMulti;
+    agentImageX =
+      agentX +
+      agentWidth -
+      agentImageDim -
+      ((1 - agentImageMulti) / 2) * agentHeight;
+
+    // Tree
+    treeImageMulti = 0.75;
+    treeImageDim = envHeight * treeImageMulti;
+    treeImageX =
+      envX + envWidth - treeImageDim + ((1 - treeImageMulti) / 4) * envHeight;
+  } else {
+    // Agent
+    agentImageMulti = 0.5;
+    agentImageDim = agentHeight * agentImageMulti;
+    agentImageX =
+      agentX +
+      agentWidth -
+      agentImageDim -
+      ((1 - agentImageMulti) / 4) * agentHeight;
+
+    // Tree
+    treeImageMulti = 0.75;
+    treeImageDim = envHeight * treeImageMulti;
+    treeImageX =
+      envX + envWidth - treeImageDim - ((1 - treeImageMulti) / 2) * envHeight;
+  }
+  agentImageY = agentY + ((1 - agentImageMulti) / 2) * agentHeight;
+  treeImageY = envY + ((1 - treeImageMulti) / 3) * envHeight;
+
   return (
     <div className="section" style={{ background: "#ffffff" }}>
       <PlayAgainstAI />
@@ -121,7 +173,7 @@ const MDPs: React.FC<MDPsProps> = () => {
         <div
           style={{
             position: "absolute",
-            top: agentY + 0.5 * agentHeight,
+            top: agentY + 0.25 * agentHeight,
             left: agentX,
             height: agentHeight,
             width: agentWidth,
@@ -165,6 +217,28 @@ const MDPs: React.FC<MDPsProps> = () => {
             onTouchStart={() => setShowActionTooltip(true)}
             onTouchEnd={() => setShowActionTooltip(false)}
           />
+          <Image
+            x={agentImageX}
+            y={agentImageY}
+            width={agentImageDim}
+            height={agentImageDim}
+            image={RLAgentImage}
+            // cornerRadius={circleRadius}
+            // shadowColor={shadowColour}
+            // shadowBlur={shadowBlur}
+            // listening
+            // onClick={() => setCurrentParadigm(circle.title)}
+            // onTouchStart={() => setCurrentParadigm(circle.title)}
+            // onMouseEnter={(e) => {
+            //   const container = e.target.getStage()!.container();
+            //   container.style.cursor = "pointer";
+            //   setCurrentParadigm(circle.title);
+            // }}
+            // onMouseLeave={(e) => {
+            //   const container = e.target.getStage()!.container();
+            //   container.style.cursor = "default";
+            // }}
+          />
           <Line
             points={[agentLineX1, agentLineY, agentLineX2, agentLineY]}
             stroke="black"
@@ -194,6 +268,28 @@ const MDPs: React.FC<MDPsProps> = () => {
             onMouseLeave={() => setShowEnvTooltip(false)}
             onTouchStart={() => setShowEnvTooltip(true)}
             onTouchEnd={() => setShowEnvTooltip(false)}
+          />
+          <Image
+            x={treeImageX}
+            y={treeImageY}
+            width={treeImageDim}
+            height={treeImageDim}
+            image={TreeImage}
+            // cornerRadius={circleRadius}
+            // shadowColor={shadowColour}
+            // shadowBlur={shadowBlur}
+            // listening
+            // onClick={() => setCurrentParadigm(circle.title)}
+            // onTouchStart={() => setCurrentParadigm(circle.title)}
+            // onMouseEnter={(e) => {
+            //   const container = e.target.getStage()!.container();
+            //   container.style.cursor = "pointer";
+            //   setCurrentParadigm(circle.title);
+            // }}
+            // onMouseLeave={(e) => {
+            //   const container = e.target.getStage()!.container();
+            //   container.style.cursor = "default";
+            // }}
           />
           <Line
             points={[envLineX1, envLineY, envLineX2, envLineY]}
