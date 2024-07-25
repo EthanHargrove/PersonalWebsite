@@ -1,6 +1,7 @@
 // External imports
 import React, { useEffect } from "react";
 import { useSpring, animated } from "react-spring";
+import { Stack } from "@mui/material";
 
 // Internal imports
 import "../styles/main.css";
@@ -40,7 +41,26 @@ function Home() {
           Ethan Hargrove
         </h1>
       </animated.div>
-      <FeaturedProject imagen="./images/tic-tac-toe.png" link="/Xs-and-Os" />
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={{ xs: 4, md: 1 }}
+        padding={2}
+        alignItems="center"
+        justifyContent="space-evenly"
+      >
+        <FeaturedProject
+          imagen="./images/tic-tac-toe.png"
+          link="/Xs-and-Os"
+          title="An introduction to reinforcement learning."
+          blurb="Teaching an agent to play Xs and Os using Q-learning."
+        />
+        <FeaturedProject
+          imagen="./images/tic-tac-toe.png"
+          link="/Xs-and-Os"
+          title="An introduction to reinforcement learning."
+          blurb="Teaching an agent to play Xs and Os using Q-learning."
+        />
+      </Stack>
     </>
   );
 }

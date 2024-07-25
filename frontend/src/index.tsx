@@ -9,6 +9,7 @@ import XsAndOs from "./pages/XsAndOs";
 import Sudoku from "./pages/Sudoku";
 import GraphNeuralNetworks from "./pages/GraphNeuralNetworks";
 import QLearning from "./pages/QLearning";
+import BayesMARL from "./pages/BayesMARL";
 
 function setDefaultTitleAndFavicon() {
   // Change document title
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: "/Q-Learning",
     element: <QLearning />,
+  },
+  {
+    path: "/bayesian-multi-agent-reinforcement-learning",
+    element: <BayesMARL />,
   },
 ]);
 

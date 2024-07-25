@@ -92,8 +92,28 @@ const QLearningSlide: React.FC = () => {
         </ul>
       </MathJaxContext>
     ),
-    3: "hello",
-    4: "wagwan",
+    3: (
+      <MathJaxContext>
+        <ul>
+          <li>
+            <p>
+              The reward received after taking action{" "}
+              <MathJax inline>{"\\(A\\)"}</MathJax> in state{" "}
+              <MathJax inline>{"\\(S\\)"}</MathJax>
+            </p>
+          </li>
+        </ul>
+      </MathJaxContext>
+    ),
+    4: (
+      <MathJaxContext>
+        <ul>
+          <li>
+            <p>The discount factor</p>
+          </li>
+        </ul>
+      </MathJaxContext>
+    ),
   };
 
   return (
