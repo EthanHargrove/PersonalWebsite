@@ -37,7 +37,8 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
         <MathJaxContext>
           <ul>
             <li>
-              Use Bayes' theorem to update our belief of the opponent's policy:
+              Calculates the probability of a hypothesis being true based on
+              prior knowledge and new evidence.
             </li>
           </ul>
           <MathJax inline dynamic={true}>

@@ -47,9 +47,9 @@ const BayesMARL = () => {
                   <br /> Type-Based Reasoning
                 </h1>
               </div>
-              <BayesTheoremLore />
               <BayesTheorem />
               <BeliefOverPolicies />
+              <BayesTheoremLore />
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3
               </div>
