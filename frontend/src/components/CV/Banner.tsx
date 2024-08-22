@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { useSpring, animated } from "react-spring";
 
@@ -12,6 +12,25 @@ interface BannerProps {
 }
 
 function Banner(props: BannerProps) {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const titleStyle = useSpring({
     from: {
       opacity: 0,
@@ -21,7 +40,7 @@ function Banner(props: BannerProps) {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: 650,
+    delay: dimensions.width ? 1000 : 0,
   });
 
   const contentStyle = useSpring({
@@ -33,7 +52,7 @@ function Banner(props: BannerProps) {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: 800,
+    delay: dimensions.width ? 1150 : 800,
   });
 
   return (
