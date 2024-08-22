@@ -45,7 +45,24 @@
   }
 }
 
-@media (min-width: 0px) and (max-width: 600px) {
+@media (min-width: 444px) and (max-width: 600px) {
+  .card {
+    width: 10rem;
+    margin-top: 0rem;
+  }
+  .card h2 {
+    font-size: 0.9em;
+  }
+  .card img {
+    height: 10rem;
+    width: 10rem;
+  }
+  .card button {
+    font-size: 0.3em;
+  }
+}
+
+@media (min-width: 0px) and (max-width: 444px) {
   .card {
     width: 10rem;
     margin-top: 0rem;

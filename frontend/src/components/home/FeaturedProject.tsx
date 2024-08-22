@@ -2,15 +2,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Stack, Box } from "@mui/material";
 import { styled } from "@mui/system";
-import { useSpring, animated } from "react-spring";
 
 import "../../styles/featured-project.css";
 
 interface FeaturedProjectProps {
-  imagen: string;
-  link: string;
   title: string;
+  imagen: string;
+  subtitle: string;
   blurb: string;
+  leftButtonText: string;
+  leftButtonLink: string;
+  rightButtonText: string;
+  rightButtonLink: string;
 }
 
 function FeaturedProject(props: FeaturedProjectProps) {
@@ -29,7 +32,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
     },
     [theme.breakpoints.only("md")]: {
       height: "300px",
-      width: "40%",
+      width: "38vw",
     },
   }));
 
@@ -91,66 +94,36 @@ function FeaturedProject(props: FeaturedProjectProps) {
     ":hover": { backgroundColor: "#218838" },
   }));
 
-  const animationStyle = useSpring({
-    from: {
-      opacity: 0,
-      transform: "scale(0.5)",
-    },
-    to: {
-      opacity: 1,
-      transform: "scale(1)",
-    },
-    delay: 300,
-  });
-
   return (
-    <animated.div style={animationStyle}>
-      <CardContainer>
-        <Stack direction="column" spacing={3} alignItems="center">
-          <TitleContainer className="heading">Featured Project</TitleContainer>
-          <Stack
-            direction="row"
-            spacing={{ xs: 2, md: 4 }}
-            justifyContent="space-evenly"
-          >
-            <ImageContainer
-              src={props.imagen}
-              draggable={false}
-              alt="Featured Project"
-            />
-            <Stack direction="column" spacing={1} justifyContent="space-evenly">
-              <TextContainer>{props.title}</TextContainer>
-              <TextContainer>{props.blurb}</TextContainer>
-            </Stack>
+    <CardContainer>
+      <Stack direction="column" spacing={3} alignItems="center">
+        <TitleContainer className="heading">{props.title}</TitleContainer>
+        <Stack
+          direction="row"
+          spacing={{ xs: 2, md: 4 }}
+          justifyContent="space-evenly"
+        >
+          <ImageContainer
+            src={props.imagen}
+            draggable={false}
+            alt="Featured Project"
+          />
+          <Stack direction="column" spacing={1} justifyContent="space-evenly">
+            <TextContainer>{props.subtitle}</TextContainer>
+            <TextContainer>{props.blurb}</TextContainer>
           </Stack>
-          <div className="project-buttons">
-            <Link to={props.link} className="link">
-              <ProjectButton>View Project</ProjectButton>
-            </Link>
-            <Link to={"/projects"} className="link">
-              <ProjectsButton>View All Projects</ProjectsButton>
-            </Link>
-          </div>
         </Stack>
-      </CardContainer>
-    </animated.div>
+        <div className="project-buttons">
+          <Link to={props.leftButtonLink} className="link">
+            <ProjectButton>{props.leftButtonText}</ProjectButton>
+          </Link>
+          <Link to={props.rightButtonLink} className="link">
+            <ProjectsButton>{props.rightButtonText}</ProjectsButton>
+          </Link>
+        </div>
+      </Stack>
+    </CardContainer>
   );
-  // return (
-  //   <div className="featured-project">
-  //     <h2 className="project-title">Featured Project</h2>
-  //     <div className="project-image">
-  //       <img src={props.imagen} alt="Project Screenshot" />
-  //     </div>
-  //     <div className="project-buttons">
-  //       <a href={props.link} className="project-button view-project">
-  //         View Project
-  //       </a>
-  //       <a href={"/projects"} className="project-button view-all">
-  //         View All Projects
-  //       </a>
-  //     </div>
-  //   </div>
-  // );
 }
 
 export default FeaturedProject;
