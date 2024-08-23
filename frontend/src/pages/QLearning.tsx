@@ -32,6 +32,10 @@ const QLearning = () => {
     };
   }, []);
 
+  const shadowWidth = dimensions.width < 444 ? 1 : 2;
+  const shadowColor =
+    dimensions.width < 444 ? "var(--neon-blue)" : "var(--dark-grey)";
+
   return (
     <>
       <Navbar active="" />
@@ -42,10 +46,39 @@ const QLearning = () => {
         render={({ state, fullpageApi }) => {
           return (
             <ReactFullpage.Wrapper>
-              <div className="section" style={{ background: "#ffffff" }}>
-                <h1 className="heading">
-                  Reinforcement Learning:
-                  <br /> Q-Learning
+              <div
+                className="section"
+                style={{
+                  backgroundImage:
+                    dimensions.width < 444
+                      ? "url(./images/ChessBotMobile.png)"
+                      : "url(./images/ChessBot.png)",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center center",
+                  backgroundRepeat: "no-repeat",
+                  width: "100vw !important",
+                  height: "100vh !important",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <h1
+                  className="heading"
+                  style={{
+                    margin: 0,
+                    textAlign: "center",
+                    color:
+                      dimensions.width < 444 ? "var(--dark-grey)" : "#ffffff",
+                    textShadow: `
+                      -${shadowWidth}px -${shadowWidth}px 0 ${shadowColor}, /* Top-left */
+                      ${shadowWidth}px -${shadowWidth}px 0 ${shadowColor},  /* Top-right */
+                      -${shadowWidth}px ${shadowWidth}px 0 ${shadowColor},  /* Bottom-left */
+                      ${shadowWidth}px ${shadowWidth}px 0 ${shadowColor}   /* Bottom-right */
+                    `,
+                  }}
+                >
+                  An Intoduction to Reinforcement Learning
                 </h1>
               </div>
               <IntroToML defaultParadigm={"Reinforcement\nLearning"} />

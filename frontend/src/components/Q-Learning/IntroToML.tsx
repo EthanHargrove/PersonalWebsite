@@ -67,7 +67,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
       title: "Unsupervised\nLearning",
       displayInfo: currentParadigm === "Unsupervised\nLearning",
       infoText:
-        "• Training on unlabelled data\n\n\n• Model aims to identify patterns, structures, or relationships within the data\n\n\n• Often used for clustering, dimensionality reduction, and anomaly detection",
+        "• Trained on unlabelled data\n\n\n• Model aims to identify patterns, structures, or relationships within the data\n\n\n• Often used for clustering, dimensionality reduction, and anomaly detection",
     },
     {
       x: rectX + rectWidth - circleSpacing,

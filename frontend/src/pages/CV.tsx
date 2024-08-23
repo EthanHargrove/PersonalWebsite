@@ -96,12 +96,12 @@ function CV() {
       background="#FFFFFF"
       textColour="#F1502F"
     />,
-    <SkillsCard
-      imagen="./images/Haskell.png"
-      title="Haskell"
-      background="#d3d3d3"
-      textColour="#5e5086"
-    />,
+    // <SkillsCard
+    //   imagen="./images/Haskell.png"
+    //   title="Haskell"
+    //   background="#d3d3d3"
+    //   textColour="#5e5086"
+    // />,
   ];
 
   const skillsSettings = {
