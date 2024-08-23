@@ -34,7 +34,7 @@ const QLearning = () => {
 
   const shadowWidth = dimensions.width < 444 ? 1 : 2;
   const shadowColor =
-    dimensions.width < 444 ? "var(--neon-blue)" : "var(--dark-grey)";
+    dimensions.width < 444 ? "var(--dark-grey)" : "var(--dark-grey)";
 
   return (
     <>
@@ -48,37 +48,38 @@ const QLearning = () => {
             <ReactFullpage.Wrapper>
               <div
                 className="section"
-                style={{
-                  backgroundImage:
-                    dimensions.width < 444
-                      ? "url(./images/ChessBotMobile.png)"
-                      : "url(./images/ChessBot.png)",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center center",
-                  backgroundRepeat: "no-repeat",
-                  width: "100vw !important",
-                  height: "100vh !important",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+                style={{ background: "#ffffff", zIndex: -3 }}
               >
+                <div
+                  className="background"
+                  style={{
+                    marginTop: dimensions.width < 444 ? "-428px" : "-302px",
+                    marginLeft: dimensions.width < 444 ? "-30px" : "-30px",
+                    backgroundImage:
+                      dimensions.width < 444
+                        ? "url(./images/ChessBotMobile.png)"
+                        : "url(./images/ChessBot.png)",
+                  }}
+                />
                 <h1
                   className="heading"
                   style={{
                     margin: 0,
                     textAlign: "center",
-                    color:
-                      dimensions.width < 444 ? "var(--dark-grey)" : "#ffffff",
+                    color: "#ffffff",
                     textShadow: `
                       -${shadowWidth}px -${shadowWidth}px 0 ${shadowColor}, /* Top-left */
                       ${shadowWidth}px -${shadowWidth}px 0 ${shadowColor},  /* Top-right */
                       -${shadowWidth}px ${shadowWidth}px 0 ${shadowColor},  /* Bottom-left */
                       ${shadowWidth}px ${shadowWidth}px 0 ${shadowColor}   /* Bottom-right */
                     `,
+                    backgroundColor:
+                      dimensions.width < 444
+                        ? "rgba(0, 0, 0, 0.75)"
+                        : "transparent",
                   }}
                 >
-                  An Intoduction to Reinforcement Learning
+                  An Introduction to Reinforcement Learning
                 </h1>
               </div>
               <IntroToML defaultParadigm={"Reinforcement\nLearning"} />

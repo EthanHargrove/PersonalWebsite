@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Stack, Box } from "@mui/material";
 import { styled } from "@mui/system";
 
+import EncryptButton from "../EncryptButton";
 import "../../styles/featured-project.css";
 
 interface FeaturedProjectProps {

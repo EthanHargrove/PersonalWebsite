@@ -34,14 +34,16 @@ const MDPs: React.FC<MDPsProps> = () => {
   const stageHeight = dimensions.height * 0.9;
 
   // Determine Agent box params
-  const agentWidth = Math.max(stageWidth * 0.225, 110);
-  const agentHeight = Math.max(agentWidth / 3, 55);
+  const agentWidth = Math.max(stageWidth * 0.225, 135);
+  const agentHeight = Math.max(agentWidth / 3.1, 55);
   const agentX = (stageWidth - agentWidth) / 2;
-  const agentY = 66.7;
+  // const agentY = 66.7;
+  const agentY =
+    dimensions.width < 444 ? dimensions.height * 0.2 : dimensions.height * 0.1;
 
   // Determine Environment box params
-  const envWidth = Math.max(stageWidth * 0.225, 110);
-  const envHeight = Math.max(envWidth / 3, 55);
+  const envWidth = agentWidth;
+  const envHeight = agentHeight;
   const envX = (stageWidth - envWidth) / 2;
   const envY = agentY + envHeight + agentHeight;
 
@@ -53,15 +55,15 @@ const MDPs: React.FC<MDPsProps> = () => {
   // Arrow 1
   const arrow1_p1_x = agentX + agentWidth;
   const arrow1_p1_y = agentY + 0.5 * agentHeight;
-  const arrow1_p2_x = agentX + 1.45 * agentWidth;
+  const arrow1_p2_x = agentX + 1.4 * agentWidth;
   const arrow1_p2_y = agentY + 0.5 * agentHeight;
-  const arrow1_p3_x = agentX + 1.45 * agentWidth;
+  const arrow1_p3_x = arrow1_p2_x;
   const arrow1_p3_y = envY + 0.5 * envHeight;
   const arrow1_p4_x = envX + envWidth;
   const arrow1_p4_y = envY + 0.5 * envHeight;
   // Arrow 2
   const arrow2_p1_y = envY + 0.5 * envHeight;
-  const arrow2_p2_x = envX - 0.65 * agentWidth;
+  const arrow2_p2_x = envX - 0.55 * agentWidth;
   const arrow2_p2_y = arrow2_p1_y;
   const arrow2_p3_x = arrow2_p2_x;
   const arrow2_p3_y =
@@ -75,7 +77,7 @@ const MDPs: React.FC<MDPsProps> = () => {
   const arrow3_p3_y = arrow3_p2_y;
   // Arrow 4
   const arrow4_p1_y = envY + 0.5 * envHeight;
-  const arrow4_p2_x = envX - 0.45 * agentWidth;
+  const arrow4_p2_x = envX - 0.4 * agentWidth;
   const arrow4_p2_y = arrow4_p1_y;
   const arrow4_p3_x = arrow4_p2_x;
   const arrow4_p3_y =
@@ -88,21 +90,32 @@ const MDPs: React.FC<MDPsProps> = () => {
   const arrow5_p3_x = agentX;
   const arrow5_p3_y = arrow5_p2_y;
   // Set font sizes
-  const labelFontSize = agentWidth * 0.1;
+  const labelFontSize =
+    dimensions.width < 444 ? agentWidth * 0.09 : agentWidth * 0.095;
   const arrowFontSize = agentWidth * 0.075;
   const textOffset = pointerWidth;
 
   // Explainer text
-  const explainerText =
-    "• The agent interacts with the environment\n\n\n• Observes the result of those actions\n\n\n• Receives a reward based on the result of the action\n\n\n• Uses those rewards to inform future decisions\n\n\n";
-  const explainerFontSize = (labelFontSize + arrowFontSize) / 2;
+  var explainerText;
+  if (dimensions.width < 444) {
+    explainerText =
+      "• The agent interacts with the environment\n\n\n\n• Observes the result of those actions\n\n\n\n• Receives a reward based on the result of the action\n\n\n\n• Uses those rewards to inform future decisions\n\n\n\n• Next state depends only on the current state and action";
+  } else {
+    explainerText =
+      "• The agent interacts with the environment\n\n\n• Observes the result of those actions\n\n\n• Receives a reward based on the result of the action\n\n\n• Uses those rewards to inform future decisions\n\n\n• Next state depends only on the current state and action";
+  }
+
+  const explainerFontSize =
+    dimensions.width < 444
+      ? (labelFontSize + arrowFontSize) / 1.8
+      : (labelFontSize + arrowFontSize) / 2;
 
   // Agent underline
   const agentLineY = agentY + 0.5 * agentHeight + 0.4 * labelFontSize;
   const agentLineX1 = agentX + 0.5 * agentWidth - 1.5 * labelFontSize;
   const agentLineX2 = agentX + 0.5 * agentWidth + 1.5 * labelFontSize;
   const agentTooltipText =
-    "The entity that autonomously interacts with an environment. Its objective is to learn a policy for choosing actions to maximise cumulative reward over time.";
+    "The entity that autonomously interacts with an environment. Its objective is to learn a policy for choosing actions to maximize cumulative reward over time.";
 
   // Environment underline
   const envLineY = envY + 0.5 * envHeight + 0.4 * labelFontSize;
@@ -145,7 +158,7 @@ const MDPs: React.FC<MDPsProps> = () => {
       envX + envWidth - treeImageDim + ((1 - treeImageMulti) / 4) * envHeight;
   } else {
     // Agent
-    agentImageMulti = 0.5;
+    agentImageMulti = 0.65;
     agentImageDim = agentHeight * agentImageMulti;
     agentImageX =
       agentX +
@@ -154,17 +167,21 @@ const MDPs: React.FC<MDPsProps> = () => {
       ((1 - agentImageMulti) / 4) * agentHeight;
 
     // Tree
-    treeImageMulti = 0.75;
+    treeImageMulti = 0.6;
     treeImageDim = envHeight * treeImageMulti;
     treeImageX =
-      envX + envWidth - treeImageDim - ((1 - treeImageMulti) / 2) * envHeight;
+      envX +
+      envWidth -
+      treeImageDim -
+      ((1 - treeImageMulti) / 2) * envHeight +
+      10;
   }
   agentImageY = agentY + ((1 - agentImageMulti) / 2) * agentHeight;
   treeImageY = envY + ((1 - treeImageMulti) / 3) * envHeight;
 
   return (
     <div className="section" style={{ background: "#ffffff" }}>
-      <PlayAgainstAI />
+      <PlayAgainstAI dark={true} />
       <Tooltip
         title={agentTooltipText}
         open={showActionTooltip}
@@ -193,6 +210,31 @@ const MDPs: React.FC<MDPsProps> = () => {
       </Tooltip>
       <Stage width={stageWidth} height={stageHeight}>
         <Layer>
+          {dimensions.width < 444 && (
+            <>
+              <Rect
+                x={(stageWidth - 2 * agentWidth) / 2}
+                y={dimensions.height * 0.066}
+                width={2 * agentWidth}
+                height={agentHeight}
+                cornerRadius={agentHeight / 6}
+                fill="#b85959"
+              />
+              <Text
+                text="Markov Decision Process (MDP)"
+                x={(stageWidth - 2 * agentWidth) / 2}
+                y={dimensions.height * 0.066}
+                width={2 * agentWidth}
+                height={agentHeight}
+                fontSize={1.8 * labelFontSize}
+                fontFamily="SpaceGrotesk"
+                align="center"
+                verticalAlign="middle"
+                letterSpacing={2}
+                fill="white"
+              />
+            </>
+          )}
           {/* Agent rectangle */}
           <Rect
             x={agentX}
@@ -223,21 +265,6 @@ const MDPs: React.FC<MDPsProps> = () => {
             width={agentImageDim}
             height={agentImageDim}
             image={RLAgentImage}
-            // cornerRadius={circleRadius}
-            // shadowColor={shadowColour}
-            // shadowBlur={shadowBlur}
-            // listening
-            // onClick={() => setCurrentParadigm(circle.title)}
-            // onTouchStart={() => setCurrentParadigm(circle.title)}
-            // onMouseEnter={(e) => {
-            //   const container = e.target.getStage()!.container();
-            //   container.style.cursor = "pointer";
-            //   setCurrentParadigm(circle.title);
-            // }}
-            // onMouseLeave={(e) => {
-            //   const container = e.target.getStage()!.container();
-            //   container.style.cursor = "default";
-            // }}
           />
           <Line
             points={[agentLineX1, agentLineY, agentLineX2, agentLineY]}
@@ -275,21 +302,6 @@ const MDPs: React.FC<MDPsProps> = () => {
             width={treeImageDim}
             height={treeImageDim}
             image={TreeImage}
-            // cornerRadius={circleRadius}
-            // shadowColor={shadowColour}
-            // shadowBlur={shadowBlur}
-            // listening
-            // onClick={() => setCurrentParadigm(circle.title)}
-            // onTouchStart={() => setCurrentParadigm(circle.title)}
-            // onMouseEnter={(e) => {
-            //   const container = e.target.getStage()!.container();
-            //   container.style.cursor = "pointer";
-            //   setCurrentParadigm(circle.title);
-            // }}
-            // onMouseLeave={(e) => {
-            //   const container = e.target.getStage()!.container();
-            //   container.style.cursor = "default";
-            // }}
           />
           <Line
             points={[envLineX1, envLineY, envLineX2, envLineY]}
@@ -441,8 +453,16 @@ const MDPs: React.FC<MDPsProps> = () => {
           />
           <Text
             text={explainerText}
-            x={arrow3_p2_x}
-            y={envY + envHeight + 5 * textOffset}
+            x={
+              dimensions.width < 444
+                ? arrow3_p2_x - 3 * textOffset
+                : arrow3_p2_x - textOffset
+            }
+            y={
+              dimensions.width < 444
+                ? envY + envHeight + 7 * textOffset
+                : envY + envHeight + 3.5 * textOffset
+            }
             height={stageHeight}
             width={stageWidth}
             fontFamily="SpaceGrotesk"

@@ -11,7 +11,7 @@ import { motion } from "framer-motion";
 
 // const TARGET_TEXT = "Encrypt data";
 const CYCLES_PER_LETTER = 2;
-const SHUFFLE_TIME = 60;
+const SHUFFLE_TIME = 30;
 
 const CHARS = "!@#$%^&*():€{};|£<>/?";
 

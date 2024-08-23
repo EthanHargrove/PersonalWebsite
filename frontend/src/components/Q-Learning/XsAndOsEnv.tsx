@@ -47,7 +47,7 @@ const XsAndOsEnv: React.FC = () => {
   const gameName = ["Xs and Os", "Noughts and Crosses", "Tic-Tac-Toe"];
   return (
     <div className="section" style={{ background: "#ffffff" }}>
-      <PlayAgainstAI />
+      <PlayAgainstAI dark={true} />
       {/* <div style={{ position: "absolute", top: 50, left: 5 }}>
         <ButtonGroup orientation="vertical">
           <Button

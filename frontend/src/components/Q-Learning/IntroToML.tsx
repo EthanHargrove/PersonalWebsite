@@ -34,7 +34,10 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
   const rectHeight = rectWidth / 5;
   const cornerRadius = rectHeight / 7;
   const rectX = (stageWidth - rectWidth) / 2;
-  const rectY = 50;
+  const rectY =
+    dimensions.width < 444
+      ? dimensions.height * 0.125
+      : dimensions.height * 0.1;
   const fontSize = rectWidth * 0.075;
   const letterSpacing = fontSize * 0.15;
 
@@ -97,7 +100,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
 
   return (
     <div className="section" style={{ background: "#ffffff" }}>
-      <PlayAgainstAI />
+      <PlayAgainstAI dark={true} />
       <Stage width={stageWidth} height={stageHeight}>
         <Layer>
           <Rect

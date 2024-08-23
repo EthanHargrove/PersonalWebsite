@@ -44,6 +44,28 @@ body {
     z-index: -1;
 }
 
+.background {
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.blur-background {
+    position: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100vw;
+    height: 100vh;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    z-index: -1;
+}
+
 .btn-glitch {
     /* set text styles */
     font-family: 'SpaceGrotesk', cursive;
@@ -61,6 +83,26 @@ body {
 .btn-glitch:hover,
 .btn-glitch:focus {
     background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+}
+
+.btn-glitch-dark {
+    /* set text styles */
+    font-family: 'SpaceGrotesk', cursive;
+    color: #ffffff;
+    text-transform: uppercase;
+    /* set border styles */
+    border-width: 1px;
+    border-style: solid;
+    border-image: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+    border-image-slice: 1;
+    background: linear-gradient(45deg, var(--neon-pink), var(--neon-blue));
+    cursor: pointer;
+}
+
+.btn-glitch-dark:hover,
+.btn-glitch-dark:focus {
+    color: var(--neon-blue);
+    background: transparent;
 }
 
 .disabled {

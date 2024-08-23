@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PlayAgainstAI: React.FC = () => {
+interface PlayAgainstAIProps {
+  dark: boolean;
+}
+
+const PlayAgainstAI: React.FC<PlayAgainstAIProps> = ({ dark }) => {
   return (
     <div
       style={{
@@ -18,7 +22,9 @@ const PlayAgainstAI: React.FC = () => {
           textDecoration: "none",
         }}
       >
-        <button className="btn-glitch">Play Against AI</button>
+        <button className={dark ? "btn-glitch-dark" : "btn-glitch"}>
+          Play Against AI
+        </button>
       </Link>
     </div>
   );
