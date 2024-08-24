@@ -107,7 +107,7 @@ const MDPs: React.FC<MDPsProps> = () => {
 
   const explainerFontSize =
     dimensions.width < 444
-      ? (labelFontSize + arrowFontSize) / 1.8
+      ? (labelFontSize + arrowFontSize) / 1.9
       : (labelFontSize + arrowFontSize) / 2;
 
   // Agent underline
@@ -180,7 +180,16 @@ const MDPs: React.FC<MDPsProps> = () => {
   treeImageY = envY + ((1 - treeImageMulti) / 3) * envHeight;
 
   return (
-    <div className="section" style={{ background: "#ffffff" }}>
+    <div className="section" style={{ background: "#ffffff", zIndex: -3 }}>
+      <div
+        className="blur-background"
+        style={{
+          backgroundImage:
+            dimensions.width < 444
+              ? "url(./images/NNPortrait.png)"
+              : "url(./images/NNLandscape.png)",
+        }}
+      />
       <PlayAgainstAI dark={true} />
       <Tooltip
         title={agentTooltipText}
@@ -219,6 +228,8 @@ const MDPs: React.FC<MDPsProps> = () => {
                 height={agentHeight}
                 cornerRadius={agentHeight / 6}
                 fill="#b85959"
+                shadowBlur={25}
+                shadowColor="lightblue"
               />
               <Text
                 text="Markov Decision Process (MDP)"
@@ -243,6 +254,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             height={agentHeight}
             cornerRadius={agentHeight / 6}
             fill="lightblue"
+            shadowBlur={25}
+            shadowColor="#b85959"
           />
           <Text
             text="Agent"
@@ -280,6 +293,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             height={envHeight}
             cornerRadius={envHeight / 6}
             fill="lightblue"
+            shadowBlur={25}
+            shadowColor="#b85959"
           />
           <Text
             text="Environment"
@@ -327,6 +342,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             stroke="black"
             strokeWidth={2}
             tension={0}
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Text
             text={"Action\nA_t"}
@@ -341,6 +358,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             fontFamily="SpaceGrotesk"
             align="left"
             verticalAlign="middle"
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           {/* Env to agent arrows */}
           <Arrow
@@ -358,6 +377,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             stroke="black"
             strokeWidth={2}
             tension={0}
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Text
             text={"State\nS_t+1"}
@@ -369,6 +390,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             fontFamily="SpaceGrotesk"
             align="right"
             verticalAlign="middle"
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Arrow
             points={[
@@ -385,6 +408,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             stroke="black"
             strokeWidth={2}
             tension={0}
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Text
             text={"State\nS_t"}
@@ -396,6 +421,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             fontFamily="SpaceGrotesk"
             align="right"
             verticalAlign="middle"
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Arrow
             points={[
@@ -412,6 +439,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             stroke="black"
             strokeWidth={2}
             tension={0}
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Text
             text={"Reward\nR_t+1"}
@@ -423,6 +452,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             fontFamily="SpaceGrotesk"
             align="left"
             verticalAlign="middle"
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Arrow
             points={[
@@ -439,6 +470,8 @@ const MDPs: React.FC<MDPsProps> = () => {
             stroke="black"
             strokeWidth={2}
             tension={0}
+            shadowBlur={5}
+            shadowColor="#ffffff"
           />
           <Text
             text={"Reward\nR_t"}
@@ -450,13 +483,32 @@ const MDPs: React.FC<MDPsProps> = () => {
             fontFamily="SpaceGrotesk"
             align="left"
             verticalAlign="middle"
+            shadowBlur={5}
+            shadowColor="#ffffff"
+          />
+          <Rect
+            x={
+              dimensions.width < 444
+                ? arrow3_p2_x - 4 * textOffset
+                : arrow3_p2_x - 5.75 * textOffset
+            }
+            y={
+              dimensions.width < 444
+                ? envY + envHeight + 6 * textOffset
+                : envY + envHeight + 2 * textOffset
+            }
+            height={agentHeight * 4}
+            width={agentWidth * 2.55}
+            cornerRadius={envHeight / 6}
+            fill="#ffffff"
+            opacity={0.25}
           />
           <Text
             text={explainerText}
             x={
               dimensions.width < 444
                 ? arrow3_p2_x - 3 * textOffset
-                : arrow3_p2_x - textOffset
+                : arrow3_p2_x - 4.75 * textOffset
             }
             y={
               dimensions.width < 444

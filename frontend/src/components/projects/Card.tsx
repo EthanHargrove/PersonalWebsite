@@ -11,6 +11,7 @@ interface CardProps {
   imagen: string;
   page: string;
   title: string;
+  longTitle: boolean;
   description: string;
   button1Title: string;
   button1Link: string;
@@ -60,7 +61,8 @@ function Card(props: CardProps) {
           alt="Project"
         />
       </div>
-      <h2 className="text-center">{props.title}</h2>
+      {!props.longTitle && <h2 className="text-center">{props.title}</h2>}
+      {props.longTitle && <h4 className="text-center">{props.title}</h4>}
       <Stack direction="row" alignItems="center" justifyContent="space-evenly">
         <Link to={props.button1Link} className="link">
           <button

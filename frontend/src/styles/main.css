@@ -45,7 +45,9 @@ body {
 }
 
 .background {
-    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -55,7 +57,9 @@ body {
 }
 
 .blur-background {
-    position: fixed;
+    position: absolute;
+    top: 0;
+    left: 0;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

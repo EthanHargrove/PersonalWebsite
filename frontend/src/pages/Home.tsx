@@ -111,8 +111,8 @@ function Home() {
           <FeaturedProject
             title="About Me"
             imagen="./images/tic-tac-toe.png"
-            subtitle="Machine Learning"
-            blurb="Some Other Things"
+            subtitle="Machine Learning Professional"
+            blurb="Passionately creating AI solutions to optimize complex decision-making"
             leftButtonText="CV"
             leftButtonLink="/CV"
             rightButtonText="View All Projects"

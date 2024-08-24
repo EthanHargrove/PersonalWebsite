@@ -25,6 +25,7 @@ function Projects() {
           imagen="./images/tic-tac-toe.png"
           page="/tic-tac-toe"
           title="Q-Learning: Xs and Os"
+          longTitle={false}
           description="First card."
           button1Title="Play Against AI"
           button1Link="/Xs-and-Os"
@@ -37,15 +38,16 @@ function Projects() {
       key: 1,
       content: (
         <Card
-          slide={1}
-          colour="var(--neon-purple)"
-          imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png"
+          slide={2}
+          colour="var(--neon-orange)"
+          imagen="./images/BayesPrisoner.png"
           page="/tic-tac-toe"
-          title="Explainable AI: Sudoku"
-          description="Third card."
-          button1Title="Try It Out"
-          button1Link="/sudoku"
-          button2Title="How It Works"
+          title="Bayesian MARL: The Prisoner's Dilemma"
+          longTitle={true}
+          description="Second card."
+          button1Title="Coming Soon"
+          button1Link=""
+          button2Title="Coming Soon"
           button2Link=""
         />
       ),
@@ -71,12 +73,13 @@ function Projects() {
       key: 2,
       content: (
         <Card
-          slide={2}
-          colour="var(--neon-orange)"
-          imagen="./images/BayesPrisoner.png"
-          page="/tic-tac-toe"
-          title="Bayesian MARL: The Prisoner's Dilemma"
-          description="Second card."
+          slide={3}
+          colour="var(--neon-pink)"
+          imagen="./images/trappist1.png"
+          page="/"
+          title="TTV Modelling"
+          longTitle={false}
+          description="Fifth card."
           button1Title="Coming Soon"
           button1Link=""
           button2Title="Coming Soon"
@@ -88,16 +91,17 @@ function Projects() {
       key: 3,
       content: (
         <Card
-          slide={3}
-          colour="var(--neon-pink)"
-          imagen="./images/trappist1.png"
+          slide={4}
+          colour="var(--neon-orange)"
+          imagen="./images/PersonalWebsite.png"
           page="/"
-          title="TTV Modelling"
-          description="Fifth card."
-          button1Title="Coming Soon"
-          button1Link=""
-          button2Title="Coming Soon"
-          button2Link=""
+          title="Personal Website"
+          longTitle={false}
+          description=""
+          button1Title="View the Code"
+          button1Link="https://github.com/EthanHargrove/PersonalWebsite"
+          button2Title="Legacy Site"
+          button2Link="https://github.com/EthanHargrove/ethanhargrove.com"
         />
       ),
     },
@@ -105,16 +109,17 @@ function Projects() {
       key: 4,
       content: (
         <Card
-          slide={4}
-          colour="var(--neon-orange)"
-          imagen="./images/PersonalWebsite.png"
-          page="/"
-          title="Personal Website"
-          description=""
-          button1Title="View the Code"
-          button1Link="https://github.com/EthanHargrove/PersonalWebsite"
-          button2Title="Legacy Site"
-          button2Link="https://github.com/EthanHargrove/ethanhargrove.com"
+          slide={1}
+          colour="var(--neon-purple)"
+          imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png"
+          page="/tic-tac-toe"
+          title="XAI: Sudoku Solver"
+          longTitle={false}
+          description="Third card."
+          button1Title="Try It Out"
+          button1Link="/sudoku"
+          button2Title="How It Works"
+          button2Link=""
         />
       ),
     },

@@ -53,8 +53,6 @@ const QLearning = () => {
                 <div
                   className="background"
                   style={{
-                    marginTop: dimensions.width < 444 ? "-428px" : "-302px",
-                    marginLeft: dimensions.width < 444 ? "-30px" : "-30px",
                     backgroundImage:
                       dimensions.width < 444
                         ? "url(./images/ChessBotMobile.png)"

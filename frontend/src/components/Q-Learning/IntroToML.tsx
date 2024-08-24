@@ -99,7 +99,16 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
       : titleY + 2.25 * circleRadius;
 
   return (
-    <div className="section" style={{ background: "#ffffff" }}>
+    <div className="section" style={{ background: "#ffffff", zIndex: -3 }}>
+      <div
+        className="blur-background"
+        style={{
+          backgroundImage:
+            dimensions.width < 444
+              ? "url(./images/NNPortrait.png)"
+              : "url(./images/NNLandscape.png)",
+        }}
+      />
       <PlayAgainstAI dark={true} />
       <Stage width={stageWidth} height={stageHeight}>
         <Layer>
@@ -110,7 +119,8 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
             height={rectHeight}
             cornerRadius={cornerRadius}
             fill="lightblue"
-            shadowBlur={5}
+            shadowBlur={15}
+            shadowColor="#b85959"
           />
           <Text
             x={rectX}
@@ -229,6 +239,8 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
                   fontStyle={titleFontStyle}
                   wrap="word"
                   fill={currentParadigm === circle.title ? "white" : "black"}
+                  shadowBlur={currentParadigm === circle.title ? 0 : 5}
+                  shadowColor="#ffffff"
                   align="center"
                   verticalAlign="middle"
                   onClick={() => setCurrentParadigm(circle.title)}

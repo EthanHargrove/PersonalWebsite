@@ -57,7 +57,7 @@ function EducationCard(props: EducationCardProps) {
       <Stack
         direction="row"
         spacing={{ xs: 2, md: 4 }}
-        justifyContent="space-evenly"
+        // justifyContent="space-evenly"
       >
         <ImageContainer src={props.imagen} draggable={false} alt="Graduation" />
         <Stack direction="column" spacing={1} justifyContent="space-evenly">

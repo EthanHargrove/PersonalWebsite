@@ -121,12 +121,10 @@ const QLearningSlide: React.FC = () => {
   };
 
   return (
-    <div className="section" style={{ background: "#ffffff", zIndex: "-4" }}>
+    <div className="section">
       <div
         className="blur-background"
         style={{
-          marginTop: dimensions.width < 444 ? "-53px" : "-51px",
-          marginLeft: dimensions.width < 444 ? "-15px" : "-73px",
           backgroundImage:
             dimensions.width < 444
               ? "url(./images/QPortrait.png)"
@@ -140,6 +138,7 @@ const QLearningSlide: React.FC = () => {
           background: "rgba(0, 0, 0, 0.75)",
           width: dimensions.width < 444 ? "92vw" : "85vw",
           height: dimensions.width < 444 ? "480px" : "82vh",
+          paddingLeft: "5px",
           paddingRight: "15px",
         }}
       >

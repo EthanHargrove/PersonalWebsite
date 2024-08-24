@@ -10,10 +10,13 @@ interface WorkCardProps {
 }
 
 function WorkCard(props: WorkCardProps) {
-  const fontStyle = {
+  const TextContainer = styled("p")(({ theme }) => ({
     fontSize: "16px",
-    textShadow: "0 0 10px #ffffff",
-  };
+    textShadow: "0 0 15px #ffffff",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "12px",
+    },
+  }));
 
   const CardContainer = styled(Box)(({ theme }) => ({
     height: "225px",
@@ -53,13 +56,13 @@ function WorkCard(props: WorkCardProps) {
       <Stack
         direction="row"
         spacing={{ xs: 2, md: 4 }}
-        justifyContent="space-evenly"
+        // justifyContent="space-evenly"
       >
         <ImageContainer src={props.imagen} draggable={false} alt="Work" />
         <Stack direction="column" spacing={1} justifyContent="space-evenly">
-          <p style={fontStyle}>{props.jobTitle}</p>
-          <p style={fontStyle}>{props.employer}</p>
-          <p style={fontStyle}>{props.date}</p>
+          <TextContainer>{props.jobTitle}</TextContainer>
+          <TextContainer>{props.employer}</TextContainer>
+          <TextContainer>{props.date}</TextContainer>
         </Stack>
       </Stack>
     </CardContainer>
