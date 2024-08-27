@@ -99,16 +99,16 @@ const MDPs: React.FC<MDPsProps> = () => {
   var explainerText;
   if (dimensions.width < 444) {
     explainerText =
-      "• The agent interacts with the environment\n\n\n\n• Observes the result of those actions\n\n\n\n• Receives a reward based on the result of the action\n\n\n\n• Uses those rewards to inform future decisions\n\n\n\n• Next state depends only on the current state and action";
+      "• The agent interacts with the environment\n\n\n• Observes the result of those actions\n\n\n• Receives a reward based on the result of the action\n\n\n• Uses those rewards to inform future decisions\n\n\n• Next state depends only on the current state and action\n\n\n• Agent balances discovering the results of new actions (exploration) and using known high-reward actions (exploitation)";
   } else {
     explainerText =
-      "• The agent interacts with the environment\n\n\n• Observes the result of those actions\n\n\n• Receives a reward based on the result of the action\n\n\n• Uses those rewards to inform future decisions\n\n\n• Next state depends only on the current state and action";
+      "• The agent interacts with the environment\n\n• Observes the result of those actions\n\n• Receives a reward based on the result of the action\n\n• Uses those rewards to inform future decisions\n\n• Next state depends only on the current state and action\n\n• Agent balances discovering the results of new actions (exploration) and using known high-reward actions (exploitation)";
   }
 
   const explainerFontSize =
     dimensions.width < 444
       ? (labelFontSize + arrowFontSize) / 1.9
-      : (labelFontSize + arrowFontSize) / 2;
+      : (labelFontSize + arrowFontSize) / 2.5;
 
   // Agent underline
   const agentLineY = agentY + 0.5 * agentHeight + 0.4 * labelFontSize;
@@ -180,7 +180,7 @@ const MDPs: React.FC<MDPsProps> = () => {
   treeImageY = envY + ((1 - treeImageMulti) / 3) * envHeight;
 
   return (
-    <div className="section" style={{ background: "#ffffff", zIndex: -3 }}>
+    <div className="section">
       <div
         className="blur-background"
         style={{
@@ -497,7 +497,9 @@ const MDPs: React.FC<MDPsProps> = () => {
                 ? envY + envHeight + 6 * textOffset
                 : envY + envHeight + 2 * textOffset
             }
-            height={agentHeight * 4}
+            height={
+              dimensions.width < 444 ? agentHeight * 4.1 : agentHeight * 3
+            }
             width={agentWidth * 2.55}
             cornerRadius={envHeight / 6}
             fill="#ffffff"
@@ -516,7 +518,7 @@ const MDPs: React.FC<MDPsProps> = () => {
                 : envY + envHeight + 3.5 * textOffset
             }
             height={stageHeight}
-            width={stageWidth}
+            width={agentWidth * 2.55}
             fontFamily="SpaceGrotesk"
             wrap="word"
             fontSize={explainerFontSize}

@@ -99,7 +99,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
       : titleY + 2.25 * circleRadius;
 
   return (
-    <div className="section" style={{ background: "#ffffff", zIndex: -3 }}>
+    <div className="section">
       <div
         className="blur-background"
         style={{
