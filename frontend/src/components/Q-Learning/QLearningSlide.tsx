@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { Tabs, Tab } from "@mui/material";
+import { Tabs, Tab, Divider } from "@mui/material";
 
 import PlayAgainstAI from "./PlayAgainstAI";
-import { delimiter } from "path";
 
 const QLearningSlide: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -47,6 +46,7 @@ const QLearningSlide: React.FC = () => {
     minWidth: dimensions.width < 444 ? 20 : 100,
     width:
       dimensions.width < 444 ? dimensions.width / 6.5 : dimensions.width / 9.5,
+    borderTop: "2px solid #ffffff",
   };
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -136,7 +136,7 @@ const QLearningSlide: React.FC = () => {
               The Temporal Difference (TD) Error
               <MathJax inline>
                 {
-                  "\\(\\bigl(R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t)\\bigr)\\)"
+                  "\\(\\;\\bigl(R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t)\\bigr)\\;\\)"
                 }
               </MathJax>
               is the difference between the estimated Q-value and the target
@@ -252,7 +252,9 @@ const QLearningSlide: React.FC = () => {
           value={tab}
           onChange={handleTabChange}
           textColor="secondary"
-          TabIndicatorProps={{ style: { backgroundColor: "#ffffff" } }}
+          TabIndicatorProps={{
+            style: { backgroundColor: "#ffffff" },
+          }}
           centered
         >
           <Tab
@@ -262,7 +264,7 @@ const QLearningSlide: React.FC = () => {
               </MathJaxContext>
             }
             value={0}
-            sx={tabStyles}
+            sx={{ borderLeft: "2px solid #ffffff", ...tabStyles }}
           />
           <Tab
             label={
@@ -271,7 +273,7 @@ const QLearningSlide: React.FC = () => {
               </MathJaxContext>
             }
             value={1}
-            sx={tabStyles}
+            sx={{ borderLeft: "2px solid #ffffff", ...tabStyles }}
           />
           <Tab
             label={
@@ -280,7 +282,7 @@ const QLearningSlide: React.FC = () => {
               </MathJaxContext>
             }
             value={2}
-            sx={tabStyles}
+            sx={{ borderLeft: "2px solid #ffffff", ...tabStyles }}
           />
           <Tab
             label={
@@ -289,7 +291,7 @@ const QLearningSlide: React.FC = () => {
               </MathJaxContext>
             }
             value={3}
-            sx={tabStyles}
+            sx={{ borderLeft: "2px solid #ffffff", ...tabStyles }}
           />
 
           <Tab
@@ -299,7 +301,11 @@ const QLearningSlide: React.FC = () => {
               </MathJaxContext>
             }
             value={4}
-            sx={tabStyles}
+            sx={{
+              borderLeft: "2px solid #ffffff",
+              borderRight: "2px solid #ffffff",
+              ...tabStyles,
+            }}
           />
         </Tabs>
         <p>{equations[tab]}</p>

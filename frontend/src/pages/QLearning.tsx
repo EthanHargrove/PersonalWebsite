@@ -6,6 +6,7 @@ import IntroToML from "../components/Q-Learning/IntroToML";
 import MDPs from "../components/Q-Learning/MDPs";
 import QLearningSlide from "../components/Q-Learning/QLearningSlide";
 import XsAndOsEnv from "../components/Q-Learning/XsAndOsEnv";
+import TipsAndTricks from "../components/Q-Learning/TipsAndTricks";
 import "../styles/gnn.css";
 
 const QLearning = () => {
@@ -48,7 +49,7 @@ const QLearning = () => {
             <ReactFullpage.Wrapper>
               <div
                 className="section"
-                style={{ background: "#ffffff", zIndex: -3 }}
+                style={{ background: "#000000", zIndex: -3 }}
               >
                 <div
                   className="background"
@@ -83,6 +84,7 @@ const QLearning = () => {
               <IntroToML defaultParadigm={"Reinforcement\nLearning"} />
               <MDPs />
               <QLearningSlide />
+              <TipsAndTricks />
               <XsAndOsEnv />
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3
