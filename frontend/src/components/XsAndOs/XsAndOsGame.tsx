@@ -46,6 +46,28 @@ import qTable1000000 from "../../assets/q-tables/ttt_q_table1000000.json";
 import qTable5000000 from "../../assets/q-tables/ttt_q_table5000000.json";
 
 function XsAndOsGame() {
+  const [showExploringTooltip, setShowExploringTooltip] = useState(false);
+  const [showSchedulingTooltip, setShowSchedulingTooltip] = useState(false);
+
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const fontStyle = {
     fontFamily: "SpaceGrotesk",
     color: "#ffffff",
@@ -55,7 +77,15 @@ function XsAndOsGame() {
   const tooltipFontStyle = {
     fontFamily: "SpaceGrotesk",
     color: "#ffffff",
-    // marginBottom: '-4px',
+    textDecoration: "underline",
+    textDecorationStyle: "dotted" as "dotted",
+    display: "inline",
+  };
+
+  const tooltipFontStyleε = {
+    fontFamily: "SpaceGrotesk",
+    color: "#ffffff",
+    paddingLeft: dimensions.width < 444 ? "25px" : "",
     textDecoration: "underline",
     textDecorationStyle: "dotted" as "dotted",
     display: "inline",
@@ -513,39 +543,71 @@ function XsAndOsGame() {
             }
           />
           <Stack
-            direction="row"
-            spacing={1}
+            direction={{ xs: "column", sm: "row" }}
+            // spacing={1}
             alignItems="center"
             justifyContent="center"
           >
-            <Tooltip
-              placement="top"
-              title={
-                "Starts from a randomly selected state rather than the beginning of the game for enhanced exploration."
-              }
-              enterTouchDelay={0}
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="center"
+              justifyContent="center"
             >
-              <Typography style={tooltipFontStyle}>Exploring starts</Typography>
-            </Tooltip>
-            <Switch
-              defaultChecked
-              onChange={handleRandChange}
-              sx={customSwitchStyle}
-            />
-            <Switch
-              defaultChecked
-              onChange={handleSchedChange}
-              sx={customSwitchStyle}
-            />
-            <Tooltip
-              placement="top"
-              title={
-                "Starts from always exploring (ε=1) and linearly decreases to always exploiting (ε=0) for faster convergence. Otherwise exploration rate is constant (ε=0.1)."
-              }
-              enterTouchDelay={0}
+              <Tooltip
+                placement="top"
+                title={
+                  "Starts from a randomly selected state rather than the beginning of the game for enhanced exploration."
+                }
+                open={showExploringTooltip}
+                // enterTouchDelay={0}
+              >
+                <Typography
+                  sx={tooltipFontStyle}
+                  onMouseEnter={() => setShowExploringTooltip(true)}
+                  onMouseLeave={() => setShowExploringTooltip(false)}
+                  onTouchStart={() => setShowExploringTooltip(true)}
+                  onTouchEnd={() => setShowExploringTooltip(false)}
+                >
+                  Exploring starts
+                </Typography>
+              </Tooltip>
+              <Switch
+                defaultChecked
+                onChange={handleRandChange}
+                sx={customSwitchStyle}
+              />
+            </Stack>
+            <Stack
+              direction={{ xs: "row-reverse", sm: "row" }}
+              spacing={1}
+              alignItems="center"
+              justifyContent="center"
             >
-              <Typography style={tooltipFontStyle}>ε-scheduling</Typography>
-            </Tooltip>
+              <Switch
+                defaultChecked
+                onChange={handleSchedChange}
+                sx={customSwitchStyle}
+              />
+              <Tooltip
+                placement="top"
+                title={
+                  "Starts from always exploring (ε=1) and linearly decreases to always exploiting (ε=0) for faster convergence. Otherwise exploration rate is constant (ε=0.1)."
+                }
+                // enterTouchDelay={0}
+                open={showSchedulingTooltip}
+              >
+                <Typography
+                  sx={tooltipFontStyleε}
+                  onMouseEnter={() => setShowSchedulingTooltip(true)}
+                  onMouseLeave={() => setShowSchedulingTooltip(false)}
+                  onTouchStart={() => setShowSchedulingTooltip(true)}
+                  onTouchEnd={() => setShowSchedulingTooltip(false)}
+                >
+                  ε-scheduling
+                </Typography>
+              </Tooltip>
+            </Stack>
           </Stack>
         </div>
       </Stack>
