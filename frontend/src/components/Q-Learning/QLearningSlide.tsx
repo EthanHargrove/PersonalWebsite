@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { Tabs, Tab, Divider } from "@mui/material";
+import { Tabs, Tab } from "@mui/material";
 
 import PlayAgainstAI from "./PlayAgainstAI";
 
@@ -199,7 +199,7 @@ const QLearningSlide: React.FC = () => {
   return (
     <div className="section">
       <div
-        className="blur-background"
+        className="background"
         style={{
           backgroundImage:
             dimensions.width < 444
