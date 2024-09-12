@@ -47,8 +47,8 @@ function Projects() {
           description="Second card."
           button1Title="Coming Soon"
           button1Link=""
-          button2Title="Coming Soon"
-          button2Link=""
+          button2Title="How it Works"
+          button2Link="/bayesian-multi-agent-reinforcement-learning"
         />
       ),
     },

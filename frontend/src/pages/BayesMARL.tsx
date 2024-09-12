@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ReactFullpage from "@fullpage/react-fullpage";
 
 import Navbar from "../components/Navbar";
+import IntroToPrisonersDilemma from "../components/BayesMARL/IntroToPrisonersDilemma";
 import BayesTheoremLore from "../components/BayesMARL/BayesTheoremLore";
 import BayesTheorem from "../components/BayesMARL/BayesTheorem";
 import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
@@ -45,11 +46,14 @@ const BayesMARL = () => {
                 <h1 className="heading">
                   Bayesian MARL:
                   <br /> Type-Based Reasoning
+                  <br /> For the Prisoner's Dilemma
                 </h1>
               </div>
+              <IntroToPrisonersDilemma />
               <BayesTheorem />
               <BeliefOverPolicies />
               <BayesTheoremLore />
+
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3
               </div>
