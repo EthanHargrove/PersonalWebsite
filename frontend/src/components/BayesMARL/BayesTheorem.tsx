@@ -28,24 +28,56 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
     };
   }, []);
 
+  const fontStyle = {
+    fontSize: Math.min(dimensions.width * 0.0325, dimensions.height * 0.0275),
+    paddingBottom: "10px",
+  };
   return (
-    <div className="section" style={{ background: "#ffffff" }}>
-      <div style={{ overflow: "hidden" }}>
-        <h3 className="heading" style={{ textAlign: "center" }}>
+    <div className="section" style={{ background: "#ffffff", zIndex: -12 }}>
+      <div
+        className="background"
+        style={{
+          backgroundImage:
+            dimensions.width < 444
+              ? "url(./images/BayesPortrait.png)"
+              : "url(./images/BayesLandscape.png)",
+        }}
+      />
+      <div
+        style={{
+          overflow: "hidden",
+          paddingLeft: "5px",
+          paddingRight: "20px",
+          paddingTop: "20px",
+          paddingBottom: "0px",
+          marginBottom: "0px",
+          // background: "#ddd",
+        }}
+      >
+        <h3
+          className="heading"
+          style={{
+            textAlign: "center",
+            fontSize: Math.min(
+              dimensions.width * 0.055,
+              dimensions.height * 0.05
+            ),
+          }}
+        >
           Bayes' Theorem
         </h3>
         <MathJaxContext>
           <ul>
-            <li>
+            <li style={fontStyle}>
               Calculates the probability of a hypothesis being true based on
               prior knowledge and new evidence.
             </li>
           </ul>
-          <MathJax inline dynamic={true}>
+          <MathJax inline dynamic={true} style={fontStyle}>
             {"\\[P(A \\mid B) = \\frac{P(B \\mid A) \\; P(A)}{P(B)} \\]"}
           </MathJax>
-          <ul>
-            <li>
+          <ul style={{ paddingBottom: 0, marginBottom: 0 }}>
+            <li style={fontStyle}>
               Prior{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(A)\\)"}
@@ -56,7 +88,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
               </MathJax>
               )
             </li>
-            <li>
+            <li style={fontStyle}>
               Likelihood{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(B \\mid A)\\)"}
@@ -71,7 +103,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
               </MathJax>
               ) is true
             </li>
-            <li>
+            <li style={fontStyle}>
               Posterior{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(A \\mid B)\\)"}
@@ -79,16 +111,22 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
               : Our updated belief about the probability of our hypothesis after
               accounting for the newly observed data
             </li>
-            <li>
+            <li style={fontStyle}>
               Evidence{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(B)\\)"}
               </MathJax>
               : The probability of observing the data
               <ul>
-                <li>Often calculated using the law of total probability:</li>
+                <li style={fontStyle}>
+                  Often calculated using the law of total probability:
+                </li>
               </ul>
-              <MathJax inline dynamic={true}>
+              <MathJax
+                inline
+                dynamic={true}
+                style={{ ...fontStyle, paddingBottom: 0, marginBottom: 0 }}
+              >
                 {
                   "\\[P(B) = \\sum_n P(B \\cap A_n)= \\sum_{n} P(B \\mid A_n) P(A_n)\\]"
                 }

@@ -36,12 +36,12 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
 
   const cellWidth: number = Math.min(
     dimensions.width < 444 ? dimensions.width / 5 : dimensions.width / 8,
-    dimensions.height / 5
+    dimensions.height / 6.5
   );
 
   const cellHeight: number = Math.min(
     dimensions.width < 444 ? dimensions.width / 5 : dimensions.height / 10,
-    dimensions.height / 11
+    dimensions.height / 14
   );
 
   const cellHeaderFontSize: number =
@@ -52,6 +52,10 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
     dimensions.width < 444 ? cellWidth * 0.155 : cellWidth * 0.125;
   const callToActionFontSize: number =
     dimensions.width < 444 ? cellWidth * 0.11 : cellWidth * 0.09;
+  const titleFontSize: number =
+    dimensions.width < 444
+      ? 1.5 * rewardTextFontSize
+      : dimensions.height * 0.04;
 
   const paperWidth = cellWidth * 3 + 10;
   const paperHeight = cellHeight * 3 + 10;
@@ -162,7 +166,7 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
       : selectedCell === 1
       ? 5
       : selectedCell === 2
-      ? 5
+      ? 0
       : selectedCell === 3
       ? 1
       : " ";
@@ -186,8 +190,8 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
           // height: dimensions.width < 444 ? "480px" : "82vh",
           paddingLeft: dimensions.width < 444 ? "1px" : "30px",
           paddingRight: dimensions.width < 444 ? "10px" : "35px",
-          paddingBottom: "20px",
-          marginTop: "30px",
+          paddingBottom: "10px",
+          marginTop: dimensions.height < dimensions.width ? "15px" : "0px",
         }}
       >
         <h3
@@ -199,10 +203,7 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
             paddingBottom: dimensions.width < 444 ? 0 : -10,
             // marginTop: 20,
             // paddingTop: 20,
-            fontSize:
-              dimensions.width < 444
-                ? 1.5 * rewardTextFontSize
-                : 2 * rewardTextFontSize,
+            fontSize: titleFontSize,
           }}
         >
           The Prisoner's Dilemma
@@ -293,6 +294,8 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            marginTop: 0,
+            paddingTop: 0,
           }}
         >
           <Paper
@@ -301,7 +304,7 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
               p: 0.1,
               height: paperHeight,
               width: paperWidth,
-              mt: 2,
+              mt: 1,
               mb: 2,
               ml: 2,
               mr: 2,

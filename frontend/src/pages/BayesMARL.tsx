@@ -42,8 +42,27 @@ const BayesMARL = () => {
         render={({ state, fullpageApi }) => {
           return (
             <ReactFullpage.Wrapper>
-              <div className="section" style={{ background: "#ffffff" }}>
-                <h1 className="heading">
+              <div
+                className="section"
+                style={{ background: "#ffffff", zIndex: -12 }}
+              >
+                <div
+                  className="background"
+                  style={{
+                    backgroundImage:
+                      dimensions.width < 444
+                        ? "url(./images/BayesPrisonerPortrait.png)"
+                        : "url(./images/BayesPrisonerLandscape.png)",
+                  }}
+                />
+                <h1
+                  className="heading"
+                  style={{
+                    color: "#ffffff",
+                    textShadow: "2px 2px 4px #000000",
+                    fontSize: dimensions.width < 444 ? "1rem" : "3rem",
+                  }}
+                >
                   Bayesian MARL:
                   <br /> Type-Based Reasoning
                   <br /> For the Prisoner's Dilemma
