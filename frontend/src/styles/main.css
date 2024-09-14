@@ -121,7 +121,7 @@ body {
 }
 
 .heading {
-    letter-spacing: 0.5rem;
+    letter-spacing: 1rem;
     text-transform: uppercase;
 }
 
@@ -132,9 +132,10 @@ body {
     font-size: 1.5em;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 444px) {
     .heading {
       font-size: 0.75em;
+      letter-spacing: 0.5rem;
     }
   }
 

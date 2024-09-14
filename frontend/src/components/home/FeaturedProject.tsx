@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Stack, Box } from "@mui/material";
 import { styled } from "@mui/system";
 
-import EncryptButton from "../EncryptButton";
 import "../../styles/featured-project.css";
 
 interface FeaturedProjectProps {
@@ -18,22 +17,52 @@ interface FeaturedProjectProps {
 }
 
 function FeaturedProject(props: FeaturedProjectProps) {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const CardContainer = styled(Box)(({ theme }) => ({
-    height: "350px",
-    width: "475px",
+    // height: `${Math.min(dimensions.height * 0.1, 350)}px`,
+    // width: `${Math.min(dimensions.width * 0.33, 475)}px`,
     // backgroundColor: "#181818",
     backgroundColor: "#202020",
     boxShadow: "0 0 20px var(--neon-purple)",
-    padding: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
     borderRadius: "10px",
     backdropFilter: "blur(10px)",
     [theme.breakpoints.down("sm")]: {
-      width: "75%",
-      height: "auto",
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
+      paddingTop: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+      width: "80%",
+      height: `${Math.min(dimensions.height * 0.265, 250)}px`,
     },
     [theme.breakpoints.only("md")]: {
-      height: "300px",
-      width: "38vw",
+      height: `${Math.min(dimensions.height * 0.5, 250)}px`,
+      width: `${Math.min(dimensions.width * 0.38, 475)}px`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      height: `${Math.min(dimensions.height * 0.5, 300)}px`,
+      width: `${Math.min(dimensions.width * 0.38, 475)}px`,
     },
   }));
 
@@ -43,12 +72,22 @@ function FeaturedProject(props: FeaturedProjectProps) {
     borderRadius: "10px",
     boxShadow: "0 0 10px var(--neon-purple)",
     [theme.breakpoints.down("sm")]: {
-      width: "8rem",
-      height: "8rem",
+      height: `${Math.min(dimensions.width * 0.75 * 0.4, 200)}px`,
+      width: `${Math.min(dimensions.width * 0.75 * 0.4, 200)}px`,
     },
     [theme.breakpoints.only("md")]: {
-      height: "175px",
-      width: "175px",
+      height: `${Math.min(
+        Math.min(dimensions.height * 0.5, 350) * 0.6,
+        175
+      )}px`,
+      width: `${Math.min(Math.min(dimensions.height * 0.5, 350) * 0.6, 175)}px`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      height: `${Math.min(
+        Math.min(dimensions.height * 0.5, 350) * 0.6,
+        190
+      )}px`,
+      width: `${Math.min(Math.min(dimensions.height * 0.5, 350) * 0.6, 190)}px`,
     },
   }));
 
@@ -56,53 +95,128 @@ function FeaturedProject(props: FeaturedProjectProps) {
     fontSize: "16px",
     textShadow: "0 0 15px #ffffff",
     [theme.breakpoints.down("sm")]: {
-      fontSize: "12px",
+      fontSize: `${dimensions.height * 0.015}px`,
+    },
+    [theme.breakpoints.only("md")]: {
+      fontSize: `${Math.min(
+        dimensions.width * 0.014,
+        dimensions.height * 0.03
+      )}px`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: `${Math.min(
+        Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
+        17
+      )}px`,
     },
   }));
 
   const TitleContainer = styled("h3")(({ theme }) => ({
-    fontSize: "28px",
+    fontSize: `${dimensions.height * 0.04}px`,
+    letterSpacing: "0.66rem",
+    margin: 0,
+    padding: 0,
     [theme.breakpoints.down("sm")]: {
-      letterSpacing: "0.33rem",
-      fontSize: "17px",
+      fontSize: `${dimensions.height * 0.02}px`,
+      letterSpacing: "0.4rem",
     },
     [theme.breakpoints.only("md")]: {
-      fontSize: "21px",
+      fontSize: `${Math.min(
+        dimensions.width * 0.018,
+        dimensions.height * 0.04
+      )}px`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: `${Math.min(
+        dimensions.width * 0.0175,
+        dimensions.height * 0.06
+      )}px`,
     },
   }));
 
   const ProjectButton = styled("button")(({ theme }) => ({
-    backgroundColor: "var(--neon-purple)",
+    backgroundColor: "transparent",
     color: "#fff",
+    padding: "5px 10px",
+    margin: "0px",
     border: "none",
-    bordeRadius: "5px",
-    padding: "10px 20px",
-    margin: "0 10px",
+    borderRadius: "20px",
+    boxShadow: "0 0 20px var(--neon-purple)",
+    outline: "1px solid var(--neon-purple)",
     textDecoration: "none",
     fontSize: "16px",
-    ":hover": { backgroundColor: "#0056b3" },
+    minWidth: `${Math.max(
+      dimensions.width * 0.085,
+      dimensions.height * 0.085
+    )}px`,
+    ":hover": {
+      backgroundColor: "var(--neon-purple)",
+      cursor: "pointer",
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: `${dimensions.height * 0.015}px`,
+    },
+    [theme.breakpoints.only("md")]: {
+      fontSize: `${Math.min(
+        dimensions.width * 0.014,
+        dimensions.height * 0.03
+      )}px`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: `${Math.min(
+        Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
+        17
+      )}px`,
+    },
   }));
 
   const ProjectsButton = styled("button")(({ theme }) => ({
-    backgroundColor: "var(--neon-orange)",
+    backgroundColor: "transparent",
     color: "#fff",
-    border: "none",
-    bordeRadius: "5px",
-    padding: "10px 20px",
-    margin: "0 10px",
+    padding: "5px 10px",
+    margin: "0px",
     textDecoration: "none",
+    border: "none",
+    boxShadow: "0 0 20px var(--neon-orange)",
+    outline: "1px solid var(--neon-orange)",
+    borderRadius: "20px",
     fontSize: "16px",
-    ":hover": { backgroundColor: "#218838" },
+    minWidth: `${Math.max(
+      dimensions.width * 0.085,
+      dimensions.height * 0.085
+    )}px`,
+    ":hover": { backgroundColor: "var(--neon-orange)", cursor: "pointer" },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: `${dimensions.height * 0.015}px`,
+    },
+    [theme.breakpoints.only("md")]: {
+      fontSize: `${Math.min(
+        dimensions.width * 0.014,
+        dimensions.height * 0.03
+      )}px`,
+    },
+    [theme.breakpoints.up("lg")]: {
+      fontSize: `${Math.min(
+        Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
+        17
+      )}px`,
+    },
   }));
 
   return (
     <CardContainer>
-      <Stack direction="column" spacing={3} alignItems="center">
+      <Stack
+        spacing={{ xs: 1, lg: 2 }}
+        alignItems="center"
+        justifyContent="space-evenly"
+        height="100%"
+      >
         <TitleContainer className="heading">{props.title}</TitleContainer>
         <Stack
           direction="row"
           spacing={{ xs: 2, md: 4 }}
           justifyContent="space-evenly"
+          padding={0}
         >
           <ImageContainer
             src={props.imagen}
@@ -114,14 +228,19 @@ function FeaturedProject(props: FeaturedProjectProps) {
             <TextContainer>{props.blurb}</TextContainer>
           </Stack>
         </Stack>
-        <div className="project-buttons">
+        <Stack
+          direction="row"
+          justifyContent="space-evenly"
+          className="project-buttons"
+          width="100%"
+        >
           <Link to={props.leftButtonLink} className="link">
             <ProjectButton>{props.leftButtonText}</ProjectButton>
           </Link>
           <Link to={props.rightButtonLink} className="link">
             <ProjectsButton>{props.rightButtonText}</ProjectsButton>
           </Link>
-        </div>
+        </Stack>
       </Stack>
     </CardContainer>
   );

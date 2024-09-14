@@ -90,47 +90,63 @@ function Home() {
 
   return (
     <>
-      <div className="cyberpunk-background" style={{ marginTop: "-60px" }} />
+      <div className="cyberpunk-background" style={{ marginTop: "0px" }} />
       <Navbar active="home" />
-      <animated.div style={titleStyle}>
-        <h1
-          className="heading"
-          style={{ marginTop: "60px", textAlign: "center" }}
-        >
-          Ethan Hargrove
-        </h1>
-      </animated.div>
       <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={{ xs: 4, md: 1 }}
-        padding={2}
-        alignItems="center"
-        justifyContent="space-evenly"
+        direction="column"
+        spacing={0}
+        justifyContent="center"
+        style={{ height: "90vh" }}
+        paddingTop={2}
+        paddingBottom={2}
       >
-        <animated.div style={animationStyle1}>
-          <FeaturedProject
-            title="About Me"
-            imagen="./images/tic-tac-toe.png"
-            subtitle="Machine Learning Professional"
-            blurb="Passionately creating AI solutions to optimize complex decision-making"
-            leftButtonText="CV"
-            leftButtonLink="/CV"
-            rightButtonText="View All Projects"
-            rightButtonLink="/projects"
-          />
+        <animated.div style={titleStyle}>
+          <h1
+            className="heading"
+            style={{
+              marginTop: "20px",
+              textAlign: "center",
+              fontSize: `${Math.min(
+                dimensions.height / 10,
+                dimensions.width / 20
+              )}px`,
+            }}
+          >
+            Ethan Hargrove
+          </h1>
         </animated.div>
-        <animated.div style={animationStyle2}>
-          <FeaturedProject
-            title="Featured Project"
-            imagen="./images/tic-tac-toe.png"
-            subtitle="An introduction to reinforcement learning"
-            blurb="Teaching an agent to play Xs and Os using Q-learning"
-            leftButtonText="View Project"
-            leftButtonLink="/Xs-and-Os"
-            rightButtonText="View All Projects"
-            rightButtonLink="/projects"
-          />
-        </animated.div>
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={{ xs: 4, md: 1 }}
+          padding={2}
+          alignItems="center"
+          justifyContent="space-evenly"
+        >
+          <animated.div style={animationStyle1}>
+            <FeaturedProject
+              title="About Me"
+              imagen="./images/tic-tac-toe.png"
+              subtitle="Machine Learning Professional"
+              blurb="Passionately creating AI solutions to optimize complex decision-making"
+              leftButtonText="CV"
+              leftButtonLink="/CV"
+              rightButtonText="View All Projects"
+              rightButtonLink="/projects"
+            />
+          </animated.div>
+          <animated.div style={animationStyle2}>
+            <FeaturedProject
+              title="Featured Project"
+              imagen="./images/tic-tac-toe.png"
+              subtitle="An introduction to reinforcement learning"
+              blurb="Teaching an agent to play Xs and Os using Q-learning"
+              leftButtonText="View Project"
+              leftButtonLink="/Xs-and-Os"
+              rightButtonText="View All Projects"
+              rightButtonLink="/projects"
+            />
+          </animated.div>
+        </Stack>
       </Stack>
     </>
   );
