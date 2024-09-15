@@ -37,8 +37,8 @@ function FeaturedProject(props: FeaturedProjectProps) {
   }, []);
 
   const CardContainer = styled(Box)(({ theme }) => ({
-    // height: `${Math.min(dimensions.height * 0.1, 350)}px`,
-    // width: `${Math.min(dimensions.width * 0.33, 475)}px`,
+    width: "80%",
+    height: `${Math.min(dimensions.height * 0.4, 250)}px`,
     // backgroundColor: "#181818",
     backgroundColor: "#202020",
     boxShadow: "0 0 20px var(--neon-purple)",
@@ -58,7 +58,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
     },
     [theme.breakpoints.only("md")]: {
       height: `${Math.min(dimensions.height * 0.5, 250)}px`,
-      width: `${Math.min(dimensions.width * 0.38, 475)}px`,
+      width: `${Math.min(dimensions.width * 0.38, 400)}px`,
     },
     [theme.breakpoints.up("lg")]: {
       height: `${Math.min(dimensions.height * 0.5, 300)}px`,
@@ -67,8 +67,8 @@ function FeaturedProject(props: FeaturedProjectProps) {
   }));
 
   const ImageContainer = styled("img")(({ theme }) => ({
-    height: "225px",
-    width: "225px",
+    height: `${Math.min(dimensions.height * 0.2, 200)}px`,
+    width: `${Math.min(dimensions.height * 0.2, 200)}px`,
     borderRadius: "10px",
     boxShadow: "0 0 10px var(--neon-purple)",
     [theme.breakpoints.down("sm")]: {
@@ -92,7 +92,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
   }));
 
   const TextContainer = styled("p")(({ theme }) => ({
-    fontSize: "16px",
+    fontSize: `${Math.min(dimensions.height * 0.0275)}px`,
     textShadow: "0 0 15px #ffffff",
     [theme.breakpoints.down("sm")]: {
       fontSize: `${dimensions.height * 0.015}px`,
@@ -112,8 +112,8 @@ function FeaturedProject(props: FeaturedProjectProps) {
   }));
 
   const TitleContainer = styled("h3")(({ theme }) => ({
-    fontSize: `${dimensions.height * 0.04}px`,
-    letterSpacing: "0.66rem",
+    fontSize: `${dimensions.height * 0.0375}px`,
+    letterSpacing: "0.4rem",
     margin: 0,
     padding: 0,
     [theme.breakpoints.down("sm")]: {
@@ -121,12 +121,14 @@ function FeaturedProject(props: FeaturedProjectProps) {
       letterSpacing: "0.4rem",
     },
     [theme.breakpoints.only("md")]: {
+      letterSpacing: "0.66rem",
       fontSize: `${Math.min(
         dimensions.width * 0.018,
         dimensions.height * 0.04
       )}px`,
     },
     [theme.breakpoints.up("lg")]: {
+      letterSpacing: "0.66rem",
       fontSize: `${Math.min(
         dimensions.width * 0.0175,
         dimensions.height * 0.06
@@ -144,7 +146,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
     boxShadow: "0 0 20px var(--neon-purple)",
     outline: "1px solid var(--neon-purple)",
     textDecoration: "none",
-    fontSize: "16px",
+    fontSize: `${dimensions.height * 0.0275}px`,
     minWidth: `${Math.max(
       dimensions.width * 0.085,
       dimensions.height * 0.085
@@ -180,7 +182,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
     boxShadow: "0 0 20px var(--neon-orange)",
     outline: "1px solid var(--neon-orange)",
     borderRadius: "20px",
-    fontSize: "16px",
+    fontSize: `${dimensions.height * 0.0275}px`,
     minWidth: `${Math.max(
       dimensions.width * 0.085,
       dimensions.height * 0.085

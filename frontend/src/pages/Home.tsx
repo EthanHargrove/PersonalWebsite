@@ -116,7 +116,8 @@ function Home() {
           </h1>
         </animated.div>
         <Stack
-          direction={{ xs: "column", md: "row" }}
+          // direction={{ xs: "column", md: "row" }}
+          direction={dimensions.width > dimensions.height ? "row" : "column"}
           spacing={{ xs: 4, md: 1 }}
           padding={2}
           alignItems="center"
