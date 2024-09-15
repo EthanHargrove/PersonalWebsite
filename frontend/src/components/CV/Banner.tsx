@@ -40,7 +40,7 @@ function Banner(props: BannerProps) {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: dimensions.width ? 1000 : 0,
+    delay: dimensions.width < dimensions.height ? 1000 : 0,
   });
 
   const contentStyle = useSpring({
@@ -52,7 +52,7 @@ function Banner(props: BannerProps) {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: dimensions.width ? 1150 : 800,
+    delay: dimensions.width < dimensions.height ? 1150 : 800,
   });
 
   return (

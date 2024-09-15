@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, Box } from "@mui/material";
 import { styled } from "@mui/system";
 
@@ -11,9 +11,30 @@ interface EducationCardProps {
 }
 
 function EducationCard(props: EducationCardProps) {
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const CardContainer = styled(Box)(({ theme }) => ({
     height: "225px",
     width: "425px",
+    maxWidth: dimensions.width > dimensions.height ? "37vw" : "",
+    maxHeight: dimensions.width > dimensions.height ? "20vw" : "",
     backgroundColor: "#181818",
     boxShadow: "0 0 20px #ffffff",
     padding: theme.spacing(2),
@@ -32,6 +53,8 @@ function EducationCard(props: EducationCardProps) {
   const ImageContainer = styled("img")(({ theme }) => ({
     height: "225px",
     width: "225px",
+    maxHeight: dimensions.width > dimensions.height ? "20vw" : "",
+    maxWidth: dimensions.width > dimensions.height ? "20vw" : "",
     borderRadius: "10px",
     boxShadow: "0 0 10px #ffffff",
     [theme.breakpoints.down("sm")]: {
@@ -45,7 +68,7 @@ function EducationCard(props: EducationCardProps) {
   }));
 
   const TextContainer = styled("p")(({ theme }) => ({
-    fontSize: "16px",
+    fontSize: `clamp(2px, 16px, ${dimensions.width * 0.0175}px)`,
     textShadow: "0 0 15px #ffffff",
     [theme.breakpoints.down("sm")]: {
       fontSize: "12px",

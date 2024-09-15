@@ -1,5 +1,5 @@
 // External imports
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // Internal imports
 import Navbar from "../components/Navbar";
 import "../styles/main.css";
@@ -22,6 +22,25 @@ function CV() {
     // if (favicon) {
     //   favicon.href = "/path/to/new/icon.png"; // Change path to your new favicon
     // }
+  }, []);
+
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const CertImage = styled("img")(({ theme }) => ({
@@ -136,7 +155,13 @@ function CV() {
         },
       },
       {
-        breakpoint: 710,
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2.33,
+        },
+      },
+      {
+        breakpoint: 444,
         settings: {
           slidesToShow: 1.75,
           autoplay: false,
@@ -149,30 +174,16 @@ function CV() {
     dots: false,
     arrows: false,
     infinite: true,
-    slidesToShow: 2,
+    slidesToShow: dimensions.width < dimensions.height ? 1 : 2,
     slidesToScroll: 1,
-    autoplay: true,
+    // autoplay: true,
     speed: 6000,
     autoplaySpeed: 6000,
     easing: "linear",
     pauseOnHover: true,
     swipeToSlide: true,
     rtl: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      {
-        breakpoint: 710,
-        settings: {
-          slidesToShow: 1,
-          autoplay: false,
-        },
-      },
-    ],
+    autoplay: dimensions.width < 444 ? false : true,
   };
 
   return (
