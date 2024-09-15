@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Stack, Box } from "@mui/material";
 import { styled } from "@mui/system";
@@ -22,22 +22,54 @@ function FeaturedProject(props: FeaturedProjectProps) {
     height: window.innerHeight,
   });
 
-  useEffect(() => {
-    const handleResize = () => {
+  // const handleResize = () => {
+  //   setDimensions({
+  //     width: window.innerWidth,
+  //     height: window.innerHeight,
+  //   });
+  // };
+
+  const debounce = (func: any, wait: any) => {
+    let timeout: any;
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const handleResize = useCallback(() => {
+    const debouncedResize = debounce(() => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    };
+    }, 250);
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    debouncedResize();
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
+
+  // useEffect(() => {
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
   const CardContainer = styled(Box)(({ theme }) => ({
-    width: "80%",
+    width:
+      dimensions.width < dimensions.height
+        ? "80%"
+        : `${dimensions.width * 0.33}px`,
     height: `${Math.min(dimensions.height * 0.4, 250)}px`,
     // backgroundColor: "#181818",
     backgroundColor: "#202020",
@@ -53,12 +85,18 @@ function FeaturedProject(props: FeaturedProjectProps) {
       paddingRight: theme.spacing(2),
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
-      width: "80%",
+      width:
+        dimensions.width < dimensions.height
+          ? "80%"
+          : `${dimensions.width * 0.33}px`,
       height: `${Math.min(dimensions.height * 0.265, 250)}px`,
     },
     [theme.breakpoints.only("md")]: {
       height: `${Math.min(dimensions.height * 0.5, 250)}px`,
-      width: `${Math.min(dimensions.width * 0.38, 400)}px`,
+      width:
+        dimensions.width < dimensions.height
+          ? `${Math.min(dimensions.width * 0.38, 400)}px`
+          : `${dimensions.width * 0.33}px`,
     },
     [theme.breakpoints.up("lg")]: {
       height: `${Math.min(dimensions.height * 0.5, 300)}px`,
@@ -72,8 +110,8 @@ function FeaturedProject(props: FeaturedProjectProps) {
     borderRadius: "10px",
     boxShadow: "0 0 10px var(--neon-purple)",
     [theme.breakpoints.down("sm")]: {
-      height: `${Math.min(dimensions.width * 0.75 * 0.4, 200)}px`,
-      width: `${Math.min(dimensions.width * 0.75 * 0.4, 200)}px`,
+      height: `${Math.min(dimensions.width * 0.265 * 0.4, 200)}px`,
+      width: `${Math.min(dimensions.width * 0.265 * 0.4, 200)}px`,
     },
     [theme.breakpoints.only("md")]: {
       height: `${Math.min(
@@ -212,13 +250,14 @@ function FeaturedProject(props: FeaturedProjectProps) {
         alignItems="center"
         justifyContent="space-evenly"
         height="100%"
+        padding="0px"
       >
         <TitleContainer className="heading">{props.title}</TitleContainer>
         <Stack
           direction="row"
           spacing={{ xs: 2, md: 4 }}
           justifyContent="space-evenly"
-          padding={0}
+          padding="0px"
         >
           <ImageContainer
             src={props.imagen}
@@ -235,6 +274,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
           justifyContent="space-evenly"
           className="project-buttons"
           width="100%"
+          padding="0px"
         >
           <Link to={props.leftButtonLink} className="link">
             <ProjectButton>{props.leftButtonText}</ProjectButton>
