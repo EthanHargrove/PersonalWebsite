@@ -49,6 +49,20 @@ function XsAndOsGame() {
   const [showExploringTooltip, setShowExploringTooltip] = useState(false);
   const [showSchedulingTooltip, setShowSchedulingTooltip] = useState(false);
 
+  useEffect(() => {
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Change document title
+    document.title = "Ethan Hargrove - Xs and Os";
+
+    // Change favicon
+    // const favicon = document.querySelector('link[rel="icon"]');
+    // if (favicon) {
+    //   favicon.href = "/path/to/new/icon.png"; // Change path to your new favicon
+    // }
+  }, []);
+
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -72,6 +86,14 @@ function XsAndOsGame() {
     fontFamily: "SpaceGrotesk",
     color: "#ffffff",
     marginBottom: "-4px",
+    fontSize: `clamp(0px, 1rem, ${dimensions.height * 0.035}px)`,
+  };
+
+  const buttonFontStyle = {
+    fontFamily: "SpaceGrotesk",
+    color: "#ffffff",
+    marginBottom: "-4px",
+    fontSize: `clamp(0px, 0.8rem, ${dimensions.height * 0.03}px)`,
   };
 
   const tooltipFontStyle = {
@@ -80,6 +102,7 @@ function XsAndOsGame() {
     textDecoration: "underline",
     textDecorationStyle: "dotted" as "dotted",
     display: "inline",
+    fontSize: `clamp(0px, 0.8rem, ${dimensions.height * 0.035}px)`,
   };
 
   const tooltipFontStyleε = {
@@ -89,6 +112,7 @@ function XsAndOsGame() {
     textDecoration: "underline",
     textDecorationStyle: "dotted" as "dotted",
     display: "inline",
+    fontSize: `clamp(0px, 0.8rem, ${dimensions.height * 0.035}px)`,
   };
 
   let gridCenterX = -11;
@@ -146,6 +170,8 @@ function XsAndOsGame() {
   const [sched, setSched] = useState<boolean>(true);
 
   const customSliderStyle = {
+    marginBottom: "0px",
+    // paddingBottom: "10px",
     "& .MuiSlider-thumb": {
       background: "radial-gradient(circle, #00FFFF, #FF1493)",
     },
@@ -158,6 +184,7 @@ function XsAndOsGame() {
     "& .MuiSlider-markLabel": {
       color: "#ffffff", // Customize the color of the tick labels
       fontSize: 12, // Customize the font size of the tick labels
+      marginTop: "-8px",
     },
     "& .MuiSlider-active": {
       color: "transparent",
@@ -374,23 +401,26 @@ function XsAndOsGame() {
   useEffect(() => {
     if (windowWidth < 600) {
       setScaling(0.005);
+    } else if (dimensions.width > 600 && dimensions.height < 444) {
+      setScaling(0.006);
     } else if (windowWidth < 900) {
       setScaling(0.006);
     } else {
       setScaling(0.007);
     }
-  }, [windowWidth]);
+  }, [windowWidth, dimensions.width, dimensions.height]);
 
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
+        paddingTop: dimensions.width < dimensions.height ? "" : "0px",
         height: "100vh",
         width: "100vw",
       }}
     >
-      <Canvas style={{ width: "100%", height: "85%", marginTop: "7px" }}>
+      <Canvas style={{ width: "100%", height: "85%", marginTop: "0px" }}>
         <ambientLight intensity={1} />
         <spotLight
           position={[-10, 10, 10]}
@@ -486,7 +516,11 @@ function XsAndOsGame() {
           )}
         </group>
       </Canvas>
-      <Stack direction="column" spacing={2} className="xo-form">
+      <Stack
+        direction="column"
+        spacing={dimensions.width > 600 && dimensions.height < 444 ? 1 : 2}
+        className="xo-form"
+      >
         <Stack
           direction="row"
           spacing={2}
@@ -497,6 +531,7 @@ function XsAndOsGame() {
             <button
               className="btn-glitch"
               onClick={() => setShowVals(!showVals)}
+              style={buttonFontStyle}
             >
               Hide Q-Values
             </button>
@@ -504,14 +539,23 @@ function XsAndOsGame() {
             <button
               className="btn-glitch"
               onClick={() => setShowVals(!showVals)}
+              style={buttonFontStyle}
             >
               Show Q-Values
             </button>
           )}
-          <button className="btn-glitch" onClick={makeAIMove}>
+          <button
+            className="btn-glitch"
+            onClick={makeAIMove}
+            style={buttonFontStyle}
+          >
             Make AI Move
           </button>
-          <button className="btn-glitch" onClick={resetGame}>
+          <button
+            className="btn-glitch"
+            onClick={resetGame}
+            style={buttonFontStyle}
+          >
             Reset Game
           </button>
           <Link
@@ -522,7 +566,9 @@ function XsAndOsGame() {
               textDecoration: "none",
             }}
           >
-            <button className="btn-glitch">How it Works</button>
+            <button className="btn-glitch" style={buttonFontStyle}>
+              How it Works
+            </button>
           </Link>
         </Stack>
         <div>
@@ -547,6 +593,10 @@ function XsAndOsGame() {
             // spacing={1}
             alignItems="center"
             justifyContent="center"
+            style={{
+              marginTop:
+                dimensions.width > 600 && dimensions.height < 444 ? "" : "10px",
+            }}
           >
             <Stack
               direction="row"
