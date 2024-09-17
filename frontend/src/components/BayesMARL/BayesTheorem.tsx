@@ -60,10 +60,11 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
           overflow: "hidden",
           paddingLeft: "5px",
           paddingRight: "20px",
-          paddingTop: "20px",
+          paddingTop: "4px",
           paddingBottom: "0px",
           marginBottom: "0px",
-          // background: "#ddd",
+          background: "rgba(0,0,0,0.85)",
+          color: "#ffffff"
         }}
       >
         <h3
