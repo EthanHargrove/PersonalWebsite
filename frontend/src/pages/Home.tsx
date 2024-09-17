@@ -22,19 +22,6 @@ function Home() {
     height: window.innerHeight,
   });
 
-  // const handleResize = () => {
-  //   setDimensions({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //   });
-  // };
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
   const debounce = (func: any, wait: any) => {
     let timeout: any;
     return (...args: any[]) => {

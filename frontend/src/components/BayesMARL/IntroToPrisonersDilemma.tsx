@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Box, Paper, Typography, Grid, Stack } from "@mui/material";
 
 interface PlaceholderProps {
@@ -11,19 +11,31 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
     height: window.innerHeight,
   });
 
-  useEffect(() => {
-    const handleResize = () => {
+  const debounce = (func: any, wait: any) => {
+    let timeout: any;
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const handleResize = useCallback(
+    debounce(() => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    };
+    }, 1000),
+    []
+  );
 
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   const [selectedCell, setSelectedCell] = useState<number>(-1);
 
