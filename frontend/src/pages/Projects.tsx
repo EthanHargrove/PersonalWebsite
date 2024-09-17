@@ -47,8 +47,8 @@ function Projects() {
           description="Second card."
           button1Title="Coming Soon"
           button1Link=""
-          button2Title="Coming Soon"
-          button2Link=""
+          button2Title="How it Works"
+          button2Link="/bayesian-multi-agent-reinforcement-learning"
         />
       ),
     },
@@ -127,9 +127,15 @@ function Projects() {
 
   return (
     <>
-      <div className="cyberpunk-background" />
+      <div
+        className="cyberpunk-background"
+        style={{ marginLeft: "-8px", marginTop: "-7px" }}
+      />
       <Navbar active="projects" />
-      <div className="content" style={{ overflow: "hidden" }}>
+      <div
+        className="content"
+        style={{ overflow: "hidden", paddingTop: "25px" }}
+      >
         <div>
           <Carousel3D
             cards={cards}

@@ -1,15 +1,6 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 
-// const Example = () => {
-//   return (
-//     <div className="grid min-h-[200px] place-content-center bg-neutral-900 p-4">
-//       <EncryptButton />
-//     </div>
-//   );
-// };
-
-// const TARGET_TEXT = "Encrypt data";
 const CYCLES_PER_LETTER = 2;
 const SHUFFLE_TIME = 30;
 

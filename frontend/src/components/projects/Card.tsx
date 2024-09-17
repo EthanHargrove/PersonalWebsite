@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
@@ -22,8 +22,40 @@ interface CardProps {
 function Card(props: CardProps) {
   const [show, setShown] = useState(false);
 
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const debounce = (func: any, wait: any) => {
+    let timeout: any;
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const handleResize = useCallback(
+    debounce(() => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }, 1000),
+    []
+  );
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
+
   const cardStyle = useSpring({
     from: {
+      maxHeight: "50vh",
       opacity: 0.5,
       transform: "scale(0.5)",
       boxShadow: show
@@ -31,8 +63,9 @@ function Card(props: CardProps) {
         : `0 0 10px 5px ${props.colour}`,
     },
     to: {
+      maxHeight: "50vh",
       opacity: 1,
-      height: "363px",
+      // height: "363px",
       transform: show ? "scale(1.05)" : "scale(1)",
       boxShadow: show
         ? `0 0 20px 10px ${props.colour}`
@@ -41,9 +74,38 @@ function Card(props: CardProps) {
   });
 
   const imgStyle = {
+    maxHeight: "40vh",
+    maxWidth: "40vh",
     boxShadow: show
       ? `0 0 8px 4px ${props.colour}`
       : `0 0 4px 2px ${props.colour}`,
+  };
+
+  const shortTitleStyle = {
+    margin: 0,
+    marginTop: "1rem",
+    marginBottom: "0px",
+    fontSize:
+      dimensions.width < 444
+        ? ""
+        : `clamp(10px, 1.875rem, ${dimensions.height * 0.06}px)`,
+  };
+
+  const longTitleStyle = {
+    margin: 0,
+    marginTop: "1rem",
+    marginBottom: "0px",
+    fontSize:
+      dimensions.width < 444
+        ? ""
+        : `clamp(8px, 1.45rem, ${dimensions.height * 0.0525}px)`,
+  };
+
+  const buttonStyle = {
+    fontSize:
+      dimensions.width < 444
+        ? ""
+        : `clamp(2px, 0.66rem, ${dimensions.height * 0.03}px)`,
   };
 
   return (
@@ -61,15 +123,30 @@ function Card(props: CardProps) {
           alt="Project"
         />
       </div>
-      {!props.longTitle && <h2 className="text-center">{props.title}</h2>}
-      {props.longTitle && <h4 className="text-center">{props.title}</h4>}
-      <Stack direction="row" alignItems="center" justifyContent="space-evenly">
+      {!props.longTitle && (
+        <h2 className="text-center" style={shortTitleStyle}>
+          {props.title}
+        </h2>
+      )}
+      {props.longTitle && (
+        <h4 className="text-center" style={longTitleStyle}>
+          {props.title}
+        </h4>
+      )}
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-evenly"
+        padding={0}
+        margin={0}
+      >
         <Link to={props.button1Link} className="link">
           <button
             className={`btn-glitch ${
               props.button2Title === "Coming Soon" ? "disabled" : ""
             }`}
             disabled={props.button1Title === "Coming Soon"}
+            style={buttonStyle}
           >
             {props.button1Title}
           </button>
@@ -80,6 +157,7 @@ function Card(props: CardProps) {
               props.button2Title === "Coming Soon" ? "disabled" : ""
             }`}
             disabled={props.button2Title === "Coming Soon"}
+            style={buttonStyle}
           >
             {props.button2Title}
           </button>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { Stack } from "@mui/material";
 
@@ -10,19 +10,31 @@ function Education() {
     height: window.innerHeight,
   });
 
-  useEffect(() => {
-    const handleResize = () => {
+  const debounce = (func: any, wait: any) => {
+    let timeout: any;
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const handleResize = useCallback(
+    debounce(() => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    };
+    }, 1000),
+    []
+  );
 
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   const titleStyle = useSpring({
     from: {
@@ -33,14 +45,14 @@ function Education() {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: dimensions.width < 900 ? 550 : 375,
+    delay: dimensions.width < dimensions.height ? 550 : 375,
   });
 
   const bathStyle = useSpring({
     from: {
       opacity: 0,
       transform: "scale(0.5)",
-      width: dimensions.width < 900 ? "100%" : "",
+      width: dimensions.width < dimensions.height ? "100%" : "",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -48,19 +60,19 @@ function Education() {
     to: {
       opacity: 1,
       transform: "scale(1)",
-      width: dimensions.width < 900 ? "100%" : "",
+      width: dimensions.width < dimensions.height ? "100%" : "",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },
-    delay: dimensions.width < 900 ? 700 : 500,
+    delay: dimensions.width < dimensions.height ? 700 : 500,
   });
 
   const uoftStyle = useSpring({
     from: {
       opacity: 0,
       transform: "scale(0.5)",
-      width: dimensions.width < 900 ? "100%" : "",
+      width: dimensions.width < dimensions.height ? "100%" : "",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -68,12 +80,12 @@ function Education() {
     to: {
       opacity: 1,
       transform: "scale(1)",
-      width: dimensions.width < 900 ? "100%" : "",
+      width: dimensions.width < dimensions.height ? "100%" : "",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
     },
-    delay: dimensions.width < 900 ? 850 : 500,
+    delay: dimensions.width < dimensions.height ? 850 : 500,
   });
 
   return (
@@ -87,8 +99,8 @@ function Education() {
         </h2>
       </animated.div>
       <Stack
-        direction={{ xs: "column", md: "row" }}
-        spacing={{ xs: 4, md: 1 }}
+        direction={dimensions.width > dimensions.height ? "row" : "column"}
+        spacing={dimensions.width > dimensions.height ? 1 : 4}
         alignItems="center"
         justifyContent="space-evenly"
       >

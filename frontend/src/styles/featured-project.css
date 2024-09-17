@@ -23,13 +23,15 @@
   .project-buttons {
     display: flex;
     justify-content: center;
+    margin: 0px;
+    padding: 0px;
   }
   
   .project-button {
     background-color: #007bff;
-    color: #fff;
+    /* color: #fff; */
     border: none;
-    border-radius: 5px;
+    /* border-radius: 50%; */
     padding: 10px 20px;
     margin: 0 10px;
     text-decoration: none;

@@ -1,5 +1,5 @@
 // External imports
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // Internal imports
 import Navbar from "../components/Navbar";
 import "../styles/main.css";
@@ -23,6 +23,37 @@ function CV() {
     //   favicon.href = "/path/to/new/icon.png"; // Change path to your new favicon
     // }
   }, []);
+
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  const debounce = (func: any, wait: any) => {
+    let timeout: any;
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const handleResize = useCallback(
+    debounce(() => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }, 1000),
+    []
+  );
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   const CertImage = styled("img")(({ theme }) => ({
     height: "50vh",
@@ -136,7 +167,13 @@ function CV() {
         },
       },
       {
-        breakpoint: 710,
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2.33,
+        },
+      },
+      {
+        breakpoint: 444,
         settings: {
           slidesToShow: 1.75,
           autoplay: false,
@@ -149,30 +186,16 @@ function CV() {
     dots: false,
     arrows: false,
     infinite: true,
-    slidesToShow: 2,
+    slidesToShow: dimensions.width < dimensions.height ? 1 : 2,
     slidesToScroll: 1,
-    autoplay: true,
+    // autoplay: true,
     speed: 6000,
     autoplaySpeed: 6000,
     easing: "linear",
     pauseOnHover: true,
     swipeToSlide: true,
     rtl: true,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-      {
-        breakpoint: 710,
-        settings: {
-          slidesToShow: 1,
-          autoplay: false,
-        },
-      },
-    ],
+    autoplay: dimensions.width < 444 ? false : true,
   };
 
   return (

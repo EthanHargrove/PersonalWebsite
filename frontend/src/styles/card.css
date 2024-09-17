@@ -2,6 +2,7 @@
   display: block;
   background-color: var(--dark-grey);
   width: 16rem;
+  max-width: 60vh;
   height: fit-content !important;
   padding: 0 2rem 2rem 2rem;
   border-radius: 10px;
@@ -9,7 +10,7 @@
   margin-top: 2.5rem;
 }
 
-.card h2 {
+/* .card h2 {
   margin: 0;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
@@ -19,7 +20,7 @@
   margin: 0;
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-}
+} */
   
 .card img {
   height: 256px;

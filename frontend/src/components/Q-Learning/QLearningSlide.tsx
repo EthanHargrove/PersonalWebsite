@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { Tabs, Tab } from "@mui/material";
 
@@ -10,19 +10,31 @@ const QLearningSlide: React.FC = () => {
     height: window.innerHeight,
   });
 
-  useEffect(() => {
-    const handleResize = () => {
+  const debounce = (func: any, wait: any) => {
+    let timeout: any;
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const handleResize = useCallback(
+    debounce(() => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    };
+    }, 1000),
+    []
+  );
 
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   const mathFontSize = Math.min(Math.max(dimensions.width * 0.0225, 12), dimensions.height * 0.035);
   const textFontSize = Math.min(Math.max(dimensions.width * 0.019, 12), dimensions.height * 0.03);

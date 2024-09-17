@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Slider from "react-slick";
 import { useSpring, animated } from "react-spring";
 
@@ -17,19 +17,31 @@ function Banner(props: BannerProps) {
     height: window.innerHeight,
   });
 
-  useEffect(() => {
-    const handleResize = () => {
+  const debounce = (func: any, wait: any) => {
+    let timeout: any;
+    return (...args: any[]) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
+  };
+
+  const handleResize = useCallback(
+    debounce(() => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    };
+    }, 1000),
+    []
+  );
 
+  useEffect(() => {
     window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   const titleStyle = useSpring({
     from: {
@@ -40,7 +52,7 @@ function Banner(props: BannerProps) {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: dimensions.width ? 1000 : 0,
+    delay: dimensions.width < dimensions.height ? 1000 : 0,
   });
 
   const contentStyle = useSpring({
@@ -52,7 +64,7 @@ function Banner(props: BannerProps) {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: dimensions.width ? 1150 : 800,
+    delay: dimensions.width < dimensions.height ? 1150 : 800,
   });
 
   return (
