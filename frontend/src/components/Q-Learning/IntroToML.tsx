@@ -30,7 +30,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
 
   const stageWidth = dimensions.width * 0.9;
   const stageHeight = dimensions.height * 0.9;
-  const rectWidth = Math.max(stageWidth * 0.5, 260);
+  const rectWidth = Math.min(Math.max(stageWidth * 0.5, 260), dimensions.height * 0.65);
   const rectHeight = rectWidth / 5;
   const cornerRadius = rectHeight / 7;
   const rectX = (stageWidth - rectWidth) / 2;
@@ -48,7 +48,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
 
   const circleRadius = Math.max(
     Math.min(dimensions.width * 0.055, dimensions.height * 0.085),
-    45
+    dimensions.height * 0.05
   );
   const circleY =
     dimensions.width > 444
@@ -91,11 +91,11 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
     ];
   };
 
-  const titleFontSize = circleRadius * 0.28;
+  const titleFontSize = circleRadius * 0.27;
   const titleY = circleY + circleRadius * 1.1;
   const infoY =
     dimensions.width > 444
-      ? titleY + 1.7 * circleRadius
+      ? titleY + 1.65 * circleRadius
       : titleY + 2.25 * circleRadius;
 
   return (
@@ -159,7 +159,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
                   x={rectX + circleSpacing - circleRadius - 10}
                   y={infoY - circleRadius * 0.725}
                   width={rectWidth - 2 * (circleSpacing - circleRadius - 10)}
-                  height={circleRadius * 4}
+                  height={circleRadius * 3.75}
                   cornerRadius={[
                     circle.title === "Supervised\nLearning" ? 0 : circleRadius,
                     circle.title === "Reinforcement\nLearning"
@@ -182,7 +182,7 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
                   x={circle.x - circleRadius - 10}
                   y={circleY}
                   width={2 * circleRadius + 20}
-                  height={circleRadius * 4}
+                  height={circleRadius * 3.75}
                   fill={circle.displayInfo ? "#b85959" : ""}
                 />
                 <Image

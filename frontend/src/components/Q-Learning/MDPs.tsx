@@ -34,18 +34,18 @@ const MDPs: React.FC<MDPsProps> = () => {
   const stageHeight = dimensions.height * 0.9;
 
   // Determine Agent box params
-  const agentWidth = Math.max(stageWidth * 0.225, 135);
-  const agentHeight = Math.max(agentWidth / 3.1, 55);
+  const agentWidth = Math.min(Math.max(stageWidth * 0.225, 135), dimensions.height * 0.375);
+  const agentHeight = Math.min(Math.max(agentWidth / 3.1, 55), dimensions.height * 0.125);
   const agentX = (stageWidth - agentWidth) / 2;
   // const agentY = 66.7;
   const agentY =
-    dimensions.width < 444 ? dimensions.height * 0.2 : dimensions.height * 0.1;
+    dimensions.width < 444 ? dimensions.height * 0.2 : dimensions.height * 0.09;
 
   // Determine Environment box params
   const envWidth = agentWidth;
   const envHeight = agentHeight;
   const envX = (stageWidth - envWidth) / 2;
-  const envY = agentY + envHeight + agentHeight;
+  const envY = agentY + envHeight + 0.8 * agentHeight;
 
   // Set arrow params
   const pointerWidth = Math.min(stageWidth * 0.02, 10);
@@ -498,7 +498,7 @@ const MDPs: React.FC<MDPsProps> = () => {
                 : envY + envHeight + 2 * textOffset
             }
             height={
-              dimensions.width < 444 ? agentHeight * 4.1 : agentHeight * 3
+              dimensions.width < 444 ? agentHeight * 4.1 : agentHeight * 2.825
             }
             width={agentWidth * 2.55}
             cornerRadius={envHeight / 6}

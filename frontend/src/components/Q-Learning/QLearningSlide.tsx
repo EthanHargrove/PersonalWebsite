@@ -24,8 +24,8 @@ const QLearningSlide: React.FC = () => {
     };
   }, []);
 
-  const mathFontSize = Math.max(dimensions.width * 0.0225, 12);
-  const textFontSize = Math.max(dimensions.width * 0.019, 12);
+  const mathFontSize = Math.min(Math.max(dimensions.width * 0.0225, 12), dimensions.height * 0.035);
+  const textFontSize = Math.min(Math.max(dimensions.width * 0.019, 12), dimensions.height * 0.03);
   const mathJaxStyles = `
     .MathJax {
       font-size: ${mathFontSize}px !important;

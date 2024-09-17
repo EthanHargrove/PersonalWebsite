@@ -88,7 +88,7 @@ const TipsAndTricks: React.FC = () => {
           <li>The number of possible states increases each turn</li>
         </ul>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <ComposedChart width={600} height={250} data={data}>
+          <ComposedChart width={dimensions.width < 444 ? dimensions.width * 0.8 : dimensions.width * 0.5} height={dimensions.width < 444 ? dimensions.width * 0.8 : dimensions.height * 0.4} data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="turn" />
             <YAxis yAxisId="left" />
