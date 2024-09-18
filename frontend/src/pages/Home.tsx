@@ -36,7 +36,7 @@ function Home() {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
+    }, 250),
     []
   );
 

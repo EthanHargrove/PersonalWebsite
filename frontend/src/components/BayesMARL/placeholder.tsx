@@ -28,7 +28,7 @@ const Placeholder: React.FC<PlaceholderProps> = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
+    }, 10),
     []
   );
 

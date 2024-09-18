@@ -28,7 +28,7 @@ const BayesTheoremLore: React.FC<BayesTheoremLoreProps> = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
+    }, 10),
     []
   );
 

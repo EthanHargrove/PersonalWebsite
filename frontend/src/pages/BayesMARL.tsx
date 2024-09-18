@@ -32,7 +32,7 @@ const BayesMARL = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
+    }, 10),
     []
   );
 
@@ -72,7 +72,10 @@ const BayesMARL = () => {
                   style={{
                     color: "#ffffff",
                     textShadow: "2px 2px 4px #000000",
-                    fontSize: dimensions.width < 444 ? "1rem" : "3rem",
+                    fontSize:
+                      Math.min(dimensions.width, dimensions.height) < 444
+                        ? "2rem"
+                        : "3rem",
                   }}
                 >
                   Bayesian MARL:

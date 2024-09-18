@@ -25,7 +25,7 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
+    }, 10),
     []
   );
 
@@ -57,13 +57,17 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
   );
 
   const cellHeaderFontSize: number =
-    dimensions.width < 444 ? cellHeight * 0.175 : cellHeight * 0.25;
+    dimensions.width < 444 ? cellHeight * 0.175 : cellHeight * 0.29;
   const cellContentFontSize: number =
-    dimensions.width < 444 ? cellHeight * 0.175 : cellHeight * 0.225;
+    dimensions.width < 444 ? cellHeight * 0.175 : cellHeight * 0.29;
   const rewardTextFontSize: number =
-    dimensions.width < 444 ? cellWidth * 0.155 : cellWidth * 0.125;
+    Math.min(dimensions.width, dimensions.height) < 444
+      ? cellWidth * 0.166
+      : cellWidth * 0.125;
   const callToActionFontSize: number =
-    dimensions.width < 444 ? cellWidth * 0.11 : cellWidth * 0.09;
+    Math.min(dimensions.width, dimensions.height) < 444
+      ? cellWidth * 0.115
+      : cellWidth * 0.09;
   const titleFontSize: number =
     dimensions.width < 444
       ? 1.5 * rewardTextFontSize
@@ -263,8 +267,8 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
               component="img"
               src={prisonerAImg}
               sx={{
-                width: Math.min(cellWidth * 1.5, dimensions.height * 0.25),
-                height: Math.min(cellWidth * 1.5, dimensions.height * 0.25),
+                width: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
+                height: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
               }}
             />
             <p
@@ -284,8 +288,8 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
               component="img"
               src={prisonerBImg}
               sx={{
-                width: Math.min(cellWidth * 1.5, dimensions.height * 0.25),
-                height: Math.min(cellWidth * 1.5, dimensions.height * 0.25),
+                width: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
+                height: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
               }}
             />
             <p
@@ -494,7 +498,7 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
           textAlign="center"
           fontSize={callToActionFontSize}
           sx={{
-            mt: 1,
+            mt: dimensions.height < 444 ? -1 : 1,
             color: "var(--neon-orange)",
             fontFamily: "SpaceGrotesk",
           }}

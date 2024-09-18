@@ -28,7 +28,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
+    }, 0),
     []
   );
 
@@ -64,7 +64,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
           paddingBottom: "0px",
           marginBottom: "0px",
           background: "rgba(0,0,0,0.85)",
-          color: "#ffffff"
+          color: "#ffffff",
         }}
       >
         <h3
