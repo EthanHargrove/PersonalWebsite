@@ -36,7 +36,7 @@ function Home() {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 250),
+    }, 10),
     []
   );
 
@@ -66,7 +66,7 @@ function Home() {
     from: {
       opacity: 0,
       transform: "scale(0.5)",
-      width: dimensions.width < dimensions.height ? "100%" : "",
+      // width: dimensions.width < dimensions.height + 50 ? "100%" : "",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -74,7 +74,7 @@ function Home() {
     to: {
       opacity: 1,
       transform: "scale(1)",
-      width: dimensions.width < dimensions.height ? "100%" : "",
+      // width: dimensions.width < dimensions.height + 50 ? "100%" : "",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -110,9 +110,12 @@ function Home() {
         direction="column"
         spacing={0}
         justifyContent="center"
-        style={{ height: "90vh" }}
-        paddingTop={2}
-        paddingBottom={2}
+        alignItems="space-evenly"
+        style={{
+          height: dimensions.width < dimensions.height + 50 ? "80vh" : "80vh",
+        }}
+        paddingTop={`${Math.min(50, dimensions.height / 10)}px`}
+        paddingBottom={"20px"}
       >
         <animated.div style={titleStyle}>
           <h1
@@ -130,12 +133,14 @@ function Home() {
           </h1>
         </animated.div>
         <Stack
-          direction={dimensions.width > dimensions.height ? "row" : "column"}
-          spacing={dimensions.width > dimensions.height ? 0 : 10}
+          direction={
+            dimensions.width > dimensions.height + 50 ? "row" : "column"
+          }
+          spacing={dimensions.width > dimensions.height + 50 ? 0 : 4}
           padding={0}
           alignItems="center"
           justifyContent="space-evenly"
-          // style={{ height: "100%" }}
+          style={{ height: "100%", marginBottom: "0px", paddingBottom: "0px" }}
         >
           <animated.div style={animationStyle1}>
             <FeaturedProject

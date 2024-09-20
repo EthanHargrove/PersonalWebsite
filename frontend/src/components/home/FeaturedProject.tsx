@@ -43,7 +43,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 250);
+    }, 10);
 
     debouncedResize();
   }, []);
@@ -65,12 +65,43 @@ function FeaturedProject(props: FeaturedProjectProps) {
   //   };
   // }, []);
 
+  let cardWidth: number;
+  let cardHeight: number;
+  if (dimensions.width <= 600) {
+    cardWidth =
+      dimensions.width < dimensions.height + 50
+        ? dimensions.width * 0.7
+        : dimensions.width * 0.33;
+    cardHeight = Math.min(dimensions.height * 0.265, 250);
+  } else if (dimensions.width <= 900) {
+    cardWidth =
+      dimensions.width < dimensions.height + 50
+        ? Math.min(dimensions.width * 0.8, 500)
+        : dimensions.width * 0.33;
+    const recommendedHeight =
+      dimensions.width < dimensions.height + 50
+        ? dimensions.height * 0.25
+        : dimensions.height * 0.4;
+    cardHeight = Math.min(Math.max(recommendedHeight, 150), 600);
+  } else {
+    cardWidth =
+      dimensions.width < dimensions.height + 50
+        ? Math.min(dimensions.width * 0.8, 700)
+        : Math.min(dimensions.width * 0.38, 475);
+    cardHeight = Math.max(dimensions.height * 0.33, 250);
+  }
+  const imageHeight = Math.min(0.6 * cardHeight, 0.5 * cardWidth);
+  const imageWidth = Math.min(0.6 * cardHeight, 0.5 * cardWidth);
+  const fontSize =
+    dimensions.width < dimensions.height + 50
+      ? 0.00017 * cardHeight * cardWidth
+      : 0.00017 * cardHeight * cardWidth;
+  const titleFontSize = 0.045 * cardWidth;
+  const buttonFontSize = fontSize;
+
   const CardContainer = styled(Box)(({ theme }) => ({
-    width:
-      dimensions.width < dimensions.height
-        ? "80%"
-        : `${dimensions.width * 0.33}px`,
-    height: `${Math.min(dimensions.height * 0.4, 250)}px`,
+    width: `${cardWidth}px`,
+    height: `${cardHeight}px`,
     // backgroundColor: "#181818",
     backgroundColor: "#202020",
     boxShadow: "0 0 20px var(--neon-purple)",
@@ -85,92 +116,60 @@ function FeaturedProject(props: FeaturedProjectProps) {
       paddingRight: theme.spacing(2),
       paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
-      width:
-        dimensions.width < dimensions.height
-          ? "80%"
-          : `${dimensions.width * 0.33}px`,
-      height: `${Math.min(dimensions.height * 0.265, 250)}px`,
-    },
-    [theme.breakpoints.only("md")]: {
-      height: `${Math.min(dimensions.height * 0.5, 250)}px`,
-      width:
-        dimensions.width < dimensions.height
-          ? `${Math.min(dimensions.width * 0.38, 400)}px`
-          : `${dimensions.width * 0.33}px`,
-    },
-    [theme.breakpoints.up("lg")]: {
-      height: `${Math.min(dimensions.height * 0.5, 300)}px`,
-      width: `${Math.min(dimensions.width * 0.38, 475)}px`,
     },
   }));
 
   const ImageContainer = styled("img")(({ theme }) => ({
-    height: `${Math.min(dimensions.height * 0.2, 200)}px`,
-    width: `${Math.min(dimensions.height * 0.2, 200)}px`,
+    height: `${imageHeight}px`,
+    width: `${imageWidth}px`,
     borderRadius: "10px",
     boxShadow: "0 0 10px var(--neon-purple)",
-    [theme.breakpoints.down("sm")]: {
-      height: `${Math.min(dimensions.width * 0.265 * 0.4, 200)}px`,
-      width: `${Math.min(dimensions.width * 0.265 * 0.4, 200)}px`,
-    },
-    [theme.breakpoints.only("md")]: {
-      height: `${Math.min(
-        Math.min(dimensions.height * 0.5, 350) * 0.6,
-        175
-      )}px`,
-      width: `${Math.min(Math.min(dimensions.height * 0.5, 350) * 0.6, 175)}px`,
-    },
-    [theme.breakpoints.up("lg")]: {
-      height: `${Math.min(
-        Math.min(dimensions.height * 0.5, 350) * 0.6,
-        190
-      )}px`,
-      width: `${Math.min(Math.min(dimensions.height * 0.5, 350) * 0.6, 190)}px`,
-    },
   }));
 
   const TextContainer = styled("p")(({ theme }) => ({
-    fontSize: `${Math.min(dimensions.height * 0.0275)}px`,
+    // fontSize: `${Math.min(dimensions.height * 0.015)}px`,
+    fontSize: `${fontSize}px`,
     textShadow: "0 0 15px #ffffff",
-    [theme.breakpoints.down("sm")]: {
-      fontSize: `${dimensions.height * 0.015}px`,
-    },
-    [theme.breakpoints.only("md")]: {
-      fontSize: `${Math.min(
-        dimensions.width * 0.014,
-        dimensions.height * 0.03
-      )}px`,
-    },
-    [theme.breakpoints.up("lg")]: {
-      fontSize: `${Math.min(
-        Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
-        17
-      )}px`,
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   fontSize: `${dimensions.height * 0.015}px`,
+    // },
+    // [theme.breakpoints.only("md")]: {
+    //   fontSize: `${Math.min(
+    //     dimensions.width * 0.014,
+    //     dimensions.height * 0.03
+    //   )}px`,
+    // },
+    // [theme.breakpoints.up("lg")]: {
+    //   fontSize: `${Math.min(
+    //     Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
+    //     17
+    //   )}px`,
+    // },
   }));
 
   const TitleContainer = styled("h3")(({ theme }) => ({
-    fontSize: `${dimensions.height * 0.0375}px`,
+    // fontSize: `${dimensions.height * 0.02}px`,
+    fontSize: `${titleFontSize}px`,
     letterSpacing: "0.4rem",
     margin: 0,
     padding: 0,
     [theme.breakpoints.down("sm")]: {
-      fontSize: `${dimensions.height * 0.02}px`,
+      // fontSize: `${dimensions.height * 0.02}px`,
       letterSpacing: "0.4rem",
     },
     [theme.breakpoints.only("md")]: {
       letterSpacing: "0.66rem",
-      fontSize: `${Math.min(
-        dimensions.width * 0.018,
-        dimensions.height * 0.04
-      )}px`,
+      // fontSize: `${Math.min(
+      //   dimensions.width * 0.018,
+      //   dimensions.height * 0.04
+      // )}px`,
     },
     [theme.breakpoints.up("lg")]: {
       letterSpacing: "0.66rem",
-      fontSize: `${Math.min(
-        dimensions.width * 0.0175,
-        dimensions.height * 0.06
-      )}px`,
+      // fontSize: `${Math.min(
+      //   dimensions.width * 0.0175,
+      //   dimensions.height * 0.06
+      // )}px`,
     },
   }));
 
@@ -184,30 +183,31 @@ function FeaturedProject(props: FeaturedProjectProps) {
     boxShadow: "0 0 20px var(--neon-purple)",
     outline: "1px solid var(--neon-purple)",
     textDecoration: "none",
-    fontSize: `${dimensions.height * 0.0275}px`,
-    minWidth: `${Math.max(
-      dimensions.width * 0.085,
-      dimensions.height * 0.085
-    )}px`,
+    fontSize: `${buttonFontSize}px`,
+    // fontSize: `${dimensions.height * 0.0275}px`,
+    // minWidth: `${Math.max(
+    //   dimensions.width * 0.085,
+    //   dimensions.height * 0.085
+    // )}px`,
     ":hover": {
       backgroundColor: "var(--neon-purple)",
       cursor: "pointer",
     },
-    [theme.breakpoints.down("sm")]: {
-      fontSize: `${dimensions.height * 0.015}px`,
-    },
-    [theme.breakpoints.only("md")]: {
-      fontSize: `${Math.min(
-        dimensions.width * 0.014,
-        dimensions.height * 0.03
-      )}px`,
-    },
-    [theme.breakpoints.up("lg")]: {
-      fontSize: `${Math.min(
-        Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
-        17
-      )}px`,
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   fontSize: `${dimensions.height * 0.015}px`,
+    // },
+    // [theme.breakpoints.only("md")]: {
+    //   fontSize: `${Math.min(
+    //     dimensions.width * 0.014,
+    //     dimensions.height * 0.03
+    //   )}px`,
+    // },
+    // [theme.breakpoints.up("lg")]: {
+    //   fontSize: `${Math.min(
+    //     Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
+    //     17
+    //   )}px`,
+    // },
   }));
 
   const ProjectsButton = styled("button")(({ theme }) => ({
@@ -220,27 +220,27 @@ function FeaturedProject(props: FeaturedProjectProps) {
     boxShadow: "0 0 20px var(--neon-orange)",
     outline: "1px solid var(--neon-orange)",
     borderRadius: "20px",
-    fontSize: `${dimensions.height * 0.0275}px`,
-    minWidth: `${Math.max(
-      dimensions.width * 0.085,
-      dimensions.height * 0.085
-    )}px`,
+    fontSize: `${buttonFontSize}px`,
+    // minWidth: `${Math.max(
+    //   dimensions.width * 0.085,
+    //   dimensions.height * 0.085
+    // )}px`,
     ":hover": { backgroundColor: "var(--neon-orange)", cursor: "pointer" },
-    [theme.breakpoints.down("sm")]: {
-      fontSize: `${dimensions.height * 0.015}px`,
-    },
-    [theme.breakpoints.only("md")]: {
-      fontSize: `${Math.min(
-        dimensions.width * 0.014,
-        dimensions.height * 0.03
-      )}px`,
-    },
-    [theme.breakpoints.up("lg")]: {
-      fontSize: `${Math.min(
-        Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
-        17
-      )}px`,
-    },
+    // [theme.breakpoints.down("sm")]: {
+    //   fontSize: `${dimensions.height * 0.015}px`,
+    // },
+    // [theme.breakpoints.only("md")]: {
+    //   fontSize: `${Math.min(
+    //     dimensions.width * 0.014,
+    //     dimensions.height * 0.03
+    //   )}px`,
+    // },
+    // [theme.breakpoints.up("lg")]: {
+    //   fontSize: `${Math.min(
+    //     Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
+    //     17
+    //   )}px`,
+    // },
   }));
 
   return (
