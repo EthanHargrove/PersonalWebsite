@@ -128,7 +128,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
 
   const TextContainer = styled("p")(({ theme }) => ({
     // fontSize: `${Math.min(dimensions.height * 0.015)}px`,
-    fontSize: `${fontSize}px`,
+    fontSize: `clamp(10px, ${fontSize}px, 24px)`,
     textShadow: "0 0 15px #ffffff",
     // [theme.breakpoints.down("sm")]: {
     //   fontSize: `${dimensions.height * 0.015}px`,
@@ -149,10 +149,11 @@ function FeaturedProject(props: FeaturedProjectProps) {
 
   const TitleContainer = styled("h3")(({ theme }) => ({
     // fontSize: `${dimensions.height * 0.02}px`,
-    fontSize: `${titleFontSize}px`,
+    fontSize: `clamp(12px, ${titleFontSize}px, 32px)`,
     letterSpacing: "0.4rem",
     margin: 0,
     padding: 0,
+    paddingBottom: theme.spacing(1),
     [theme.breakpoints.down("sm")]: {
       // fontSize: `${dimensions.height * 0.02}px`,
       letterSpacing: "0.4rem",
@@ -246,7 +247,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
   return (
     <CardContainer>
       <Stack
-        spacing={{ xs: 1, lg: 2 }}
+        spacing={0}
         alignItems="center"
         justifyContent="space-evenly"
         height="100%"
