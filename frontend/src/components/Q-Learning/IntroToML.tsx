@@ -3,6 +3,7 @@ import { Stage, Layer, Circle, Arrow, Text, Rect, Image } from "react-konva";
 import useImage from "use-image";
 
 import PlayAgainstAI from "./PlayAgainstAI";
+import { info } from "console";
 
 interface IntroToMLProps {
   defaultParadigm: string;
@@ -28,19 +29,23 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
     };
   }, []);
 
-  const stageWidth = dimensions.width * 0.9;
-  const stageHeight = dimensions.height * 0.9;
+  const stageWidth = dimensions.width * 1;
+  const stageHeight = dimensions.height * 1;
+
+  // Title rectangle properties
   const rectWidth = Math.min(
-    Math.max(stageWidth * 0.5, 260),
-    dimensions.height * 0.65
+    Math.max(stageWidth * 0.5, 350),
+    dimensions.height
   );
-  const rectHeight = rectWidth / 5;
+  const rectHeight = Math.min(rectWidth / 4.5, stageHeight * 0.15);
   const cornerRadius = rectHeight / 7;
   const rectX = (stageWidth - rectWidth) / 2;
   const rectY =
     dimensions.width < 444
       ? dimensions.height * 0.125
-      : dimensions.height * 0.1;
+      : Math.max(dimensions.height * 0.1, 58);
+
+  // Title
   const fontSize = rectWidth * 0.075;
   const letterSpacing = fontSize * 0.15;
 
@@ -49,39 +54,42 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
   const [image2] = useImage("./images/unsupervised_learning.png");
   const [image3] = useImage("./images/reinforcement_learning.png");
 
-  const circleRadius = Math.max(
-    Math.min(dimensions.width * 0.055, dimensions.height * 0.085),
-    dimensions.height * 0.05
-  );
+  // const circleRadius = Math.max(
+  //   Math.min(dimensions.width * 0.055, dimensions.height * 0.085),
+  //   dimensions.height * 0.05
+  // );
+
+  const circleRadius = Math.min(rectHeight * 0.75, stageWidth / 8);
   const circleY =
-    dimensions.width > 444
+    Math.min(dimensions.width, dimensions.height) > 444
       ? rectY + rectHeight + circleRadius * 1.9
-      : rectY + rectHeight + dimensions.height * 0.135;
-  const circleSpacing = dimensions.width > 444 ? rectWidth / 8 : 20;
+      : rectY + rectHeight + dimensions.height * 0.135 + 5;
+  const circleSpacing =
+    Math.min(dimensions.width, dimensions.height) > 444 ? rectWidth / 8 : 20;
+  const lineSpacing =
+    Math.min(dimensions.height, dimensions.width) > 444 ? "\n\n\n" : "\n\n";
+
   const circles = [
     {
-      x: rectX + circleSpacing,
+      x: rectX + rectWidth / 2 - circleRadius * 2 - circleSpacing,
       image: image1,
       title: "Supervised\nLearning",
       displayInfo: currentParadigm === "Supervised\nLearning",
-      infoText:
-        "• Trained on labelled data\n\n\n• Model learns the relationship between inputs and outputs by identifying patterns in the training data\n\n\n• Once trained, the model can predict outputs for new, unseen inputs",
+      infoText: `• Trained on labelled data${lineSpacing}• Model learns the relationship between inputs and outputs by identifying patterns in the training data${lineSpacing}• Once trained, the model can predict outputs for new, unseen inputs`,
     },
     {
       x: rectX + rectWidth / 2,
       image: image2,
       title: "Unsupervised\nLearning",
       displayInfo: currentParadigm === "Unsupervised\nLearning",
-      infoText:
-        "• Trained on unlabelled data\n\n\n• Model aims to identify patterns, structures, or relationships within the data\n\n\n• Often used for clustering, dimensionality reduction, and anomaly detection",
+      infoText: `• Trained on unlabelled data${lineSpacing}• Model aims to identify patterns, structures, or relationships within the data${lineSpacing}• Often used for clustering, dimensionality reduction, and anomaly detection`,
     },
     {
-      x: rectX + rectWidth - circleSpacing,
+      x: rectX + rectWidth / 2 + circleRadius * 2 + circleSpacing,
       image: image3,
       title: "Reinforcement\nLearning",
       displayInfo: currentParadigm === "Reinforcement\nLearning",
-      infoText:
-        "• Learning from experience, through trial and error\n\n\n• An agent interacts with an environemnt, receives rewards based on actions taken, and uses those rewards to inform future decisions\n\n\n• Often used to solve complex control problems",
+      infoText: `• Learning from experience, through trial and error${lineSpacing}• An agent interacts with an environemnt, receives rewards based on actions taken, and uses those rewards to inform future decisions${lineSpacing}• Often used to solve complex control problems`,
     },
   ];
 
@@ -94,15 +102,46 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
     ];
   };
 
-  const titleFontSize = circleRadius * 0.27;
+  const titleFontSize = Math.min(circleRadius * 0.26, 24);
   const titleY = circleY + circleRadius * 1.1;
+
+  // const infoRectX = rectX + circleSpacing - circleRadius - 10;
+  const infoRectX =
+    rectX +
+    rectWidth / 2 -
+    circleRadius * 2 -
+    circleSpacing -
+    circleRadius -
+    10;
+
+  // const infoRectWidth = rectWidth - 2 * (circleSpacing - circleRadius - 10);
+  const infoRectWidth =
+    rectX +
+    rectWidth / 2 +
+    circleRadius * 3 +
+    circleSpacing +
+    10 -
+    (rectX + rectWidth / 2 - circleRadius * 3 - circleSpacing - 10);
+  const infoRectHeight =
+    Math.min(dimensions.height, dimensions.width) < 444
+      ? circleRadius * 2.9
+      : circleRadius * 3.6;
+
   const infoY =
     dimensions.width > 444
-      ? titleY + 1.65 * circleRadius
-      : titleY + 2.25 * circleRadius;
+      ? Math.min(
+          titleY + 1.65 * circleRadius,
+          stageHeight - infoRectHeight + 20
+        )
+      : Math.min(titleY + 2.25 * circleRadius, stageHeight - infoRectHeight);
+
+  const infoRectY =
+    dimensions.width < 444
+      ? infoY - circleRadius * 0.6
+      : infoY - circleRadius * 0.55;
 
   return (
-    <div className="section">
+    <div className="section" style={{ margin: 0, padding: 0 }}>
       <div
         className="blur-background"
         style={{
@@ -159,10 +198,10 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
               <React.Fragment key={index}>
                 {/* info background */}
                 <Rect
-                  x={rectX + circleSpacing - circleRadius - 10}
-                  y={infoY - circleRadius * 0.725}
-                  width={rectWidth - 2 * (circleSpacing - circleRadius - 10)}
-                  height={circleRadius * 3.75}
+                  x={infoRectX}
+                  y={infoRectY}
+                  width={infoRectWidth}
+                  height={infoRectHeight}
                   cornerRadius={[
                     circle.title === "Supervised\nLearning" ? 0 : circleRadius,
                     circle.title === "Reinforcement\nLearning"
@@ -210,27 +249,29 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
                     container.style.cursor = "default";
                   }}
                 />
-                <Arrow
-                  points={[
-                    rectX + rectWidth / 2,
-                    rectY + rectHeight,
-                    controlPoints[0].x,
-                    controlPoints[0].y,
-                    controlPoints[1].x,
-                    controlPoints[1].y,
-                    circle.x,
-                    circleY -
-                      circleRadius -
-                      5 -
-                      Math.min(stageHeight, stageWidth) * 0.015,
-                  ]}
-                  pointerLength={10}
-                  pointerWidth={10}
-                  fill="black"
-                  stroke="black"
-                  strokeWidth={2}
-                  tension={0.5}
-                />
+                {dimensions.height > 444 && (
+                  <Arrow
+                    points={[
+                      rectX + rectWidth / 2,
+                      rectY + rectHeight,
+                      controlPoints[0].x,
+                      controlPoints[0].y,
+                      controlPoints[1].x,
+                      controlPoints[1].y,
+                      circle.x,
+                      circleY -
+                        circleRadius -
+                        5 -
+                        Math.min(stageHeight, stageWidth) * 0.015,
+                    ]}
+                    pointerLength={10}
+                    pointerWidth={10}
+                    fill="black"
+                    stroke="black"
+                    strokeWidth={2}
+                    tension={0.5}
+                  />
+                )}
                 {/* title */}
                 <Text
                   x={circle.x - circleRadius - 10}
@@ -260,12 +301,10 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
                 />
                 {/* info text */}
                 <Text
-                  x={rectX + circleSpacing - circleRadius + 5}
+                  x={infoRectX + 10}
                   y={infoY}
                   text={circle.displayInfo ? circle.infoText : ""}
-                  width={
-                    rectWidth - 2 * (circleSpacing - circleRadius - 10) - 20
-                  }
+                  width={infoRectWidth - 20}
                   fontSize={titleFontSize}
                   fontFamily="SpaceGrotesk"
                   wrap="word"

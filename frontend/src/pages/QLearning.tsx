@@ -60,12 +60,13 @@ const QLearning = () => {
                         : "url(./images/ChessBot.png)",
                   }}
                 />
-                <h1
+                <h2
                   className="heading"
                   style={{
                     margin: 0,
                     textAlign: "center",
                     color: "#ffffff",
+                    // WebkitTextStroke: `${shadowWidth}px ${shadowColor}`,
                     textShadow: `
                       -${shadowWidth}px -${shadowWidth}px 0 ${shadowColor}, /* Top-left */
                       ${shadowWidth}px -${shadowWidth}px 0 ${shadowColor},  /* Top-right */
@@ -79,7 +80,7 @@ const QLearning = () => {
                   }}
                 >
                   An Introduction to Reinforcement Learning
-                </h1>
+                </h2>
               </div>
               <IntroToML defaultParadigm={"Reinforcement\nLearning"} />
               <MDPs />
