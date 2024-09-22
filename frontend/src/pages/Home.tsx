@@ -1,5 +1,5 @@
 // External imports
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSpring, animated } from "react-spring";
 import { Stack } from "@mui/material";
 
@@ -22,33 +22,19 @@ function Home() {
     height: window.innerHeight,
   });
 
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(
-    debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 10),
-    []
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const titleStyle = useSpring({
     from: {

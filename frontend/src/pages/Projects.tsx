@@ -52,23 +52,6 @@ function Projects() {
         />
       ),
     },
-    // {
-    //   key: 2,
-    //   content: (
-    //     <Card
-    //       slide={2}
-    //       colour="var(--neon-green)"
-    //       imagen="./images/AoC-2023.png"
-    //       page="/tic-tac-toe"
-    //       title="Haskell: AoC 2023"
-    //       description="Second card."
-    //       button1Title="Coming Soon"
-    //       button1Link=""
-    //       button2Title="Coming Soon"
-    //       button2Link=""
-    //     />
-    //   ),
-    // },
     {
       key: 2,
       content: (

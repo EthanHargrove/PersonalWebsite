@@ -1,9 +1,6 @@
 // External imports
-import React, { useState, useLayoutEffect } from "react";
-import { useSpring, animated } from "react-spring";
-import { Canvas } from "@react-three/fiber";
-import { Grid, Typography } from "@mui/material";
-import Slider from "@mui/material-next/Slider";
+import React from "react";
+import { Grid } from "@mui/material";
 // Internal imports
 import "../../styles/main.css";
 import "../../styles/sudoku.css";

@@ -1,5 +1,5 @@
 // External imports
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // Internal imports
 import Navbar from "../components/Navbar";
 import "../styles/main.css";
@@ -29,31 +29,19 @@ function CV() {
     height: window.innerHeight,
   });
 
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(
-    debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
-    []
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const CertImage = styled("img")(({ theme }) => ({
     height: "50vh",
@@ -127,12 +115,6 @@ function CV() {
       background="#FFFFFF"
       textColour="#F1502F"
     />,
-    // <SkillsCard
-    //   imagen="./images/Haskell.png"
-    //   title="Haskell"
-    //   background="#d3d3d3"
-    //   textColour="#5e5086"
-    // />,
   ];
 
   const skillsSettings = {

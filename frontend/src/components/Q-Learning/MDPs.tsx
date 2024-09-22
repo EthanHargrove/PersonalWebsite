@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Stage, Layer, Rect, Text, Arrow, Line, Image } from "react-konva";
 import { Tooltip } from "@mui/material";
 import useImage from "use-image";
@@ -16,38 +16,32 @@ const MDPs: React.FC<MDPsProps> = () => {
     height: window.innerHeight,
   });
 
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(
-    debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
-    []
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const stageWidth = dimensions.width * 1;
   const stageHeight = dimensions.height * 0.9;
 
   // Determine Agent box params
-  const agentWidth = Math.min(Math.max(stageWidth * 0.225, 135), dimensions.height * 0.375);
-  const agentHeight = Math.min(Math.max(agentWidth / 3.1, 55), dimensions.height * 0.125);
+  const agentWidth = Math.min(
+    Math.max(stageWidth * 0.225, 135),
+    dimensions.height * 0.375
+  );
+  const agentHeight = Math.min(
+    Math.max(agentWidth / 3.1, 55),
+    dimensions.height * 0.125
+  );
   const agentX = (stageWidth - agentWidth) / 2;
   // const agentY = 66.7;
   const agentY =

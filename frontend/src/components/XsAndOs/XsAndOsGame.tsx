@@ -1,10 +1,5 @@
 // External imports
-import React, {
-  useCallback,
-  useState,
-  useLayoutEffect,
-  useEffect,
-} from "react";
+import React, { useState, useLayoutEffect, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Typography, Switch, Stack, Tooltip } from "@mui/material";
 import Slider from "@mui/material-next/Slider";
@@ -73,31 +68,19 @@ function XsAndOsGame() {
     height: window.innerHeight,
   });
 
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(
-    debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
-    []
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const fontStyle = {
     fontFamily: "SpaceGrotesk",

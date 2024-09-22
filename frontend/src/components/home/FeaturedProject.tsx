@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Stack, Box } from "@mui/material";
 import { styled } from "@mui/system";
@@ -22,48 +22,19 @@ function FeaturedProject(props: FeaturedProjectProps) {
     height: window.innerHeight,
   });
 
-  // const handleResize = () => {
-  //   setDimensions({
-  //     width: window.innerWidth,
-  //     height: window.innerHeight,
-  //   });
-  // };
-
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(() => {
-    const debouncedResize = debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 10);
+    };
 
-    debouncedResize();
-  }, []);
-
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
-
-  // useEffect(() => {
-  //   window.addEventListener("resize", handleResize);
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   let cardWidth: number;
   let cardHeight: number;
@@ -102,7 +73,6 @@ function FeaturedProject(props: FeaturedProjectProps) {
   const CardContainer = styled(Box)(({ theme }) => ({
     width: `${cardWidth}px`,
     height: `${cardHeight}px`,
-    // backgroundColor: "#181818",
     backgroundColor: "#202020",
     boxShadow: "0 0 20px var(--neon-purple)",
     paddingLeft: theme.spacing(3),
@@ -127,50 +97,24 @@ function FeaturedProject(props: FeaturedProjectProps) {
   }));
 
   const TextContainer = styled("p")(({ theme }) => ({
-    // fontSize: `${Math.min(dimensions.height * 0.015)}px`,
     fontSize: `clamp(10px, ${fontSize}px, 24px)`,
     textShadow: "0 0 15px #ffffff",
-    // [theme.breakpoints.down("sm")]: {
-    //   fontSize: `${dimensions.height * 0.015}px`,
-    // },
-    // [theme.breakpoints.only("md")]: {
-    //   fontSize: `${Math.min(
-    //     dimensions.width * 0.014,
-    //     dimensions.height * 0.03
-    //   )}px`,
-    // },
-    // [theme.breakpoints.up("lg")]: {
-    //   fontSize: `${Math.min(
-    //     Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
-    //     17
-    //   )}px`,
-    // },
   }));
 
   const TitleContainer = styled("h3")(({ theme }) => ({
-    // fontSize: `${dimensions.height * 0.02}px`,
     fontSize: `clamp(12px, ${titleFontSize}px, 32px)`,
     letterSpacing: "0.4rem",
     margin: 0,
     padding: 0,
     paddingBottom: theme.spacing(1),
     [theme.breakpoints.down("sm")]: {
-      // fontSize: `${dimensions.height * 0.02}px`,
       letterSpacing: "0.4rem",
     },
     [theme.breakpoints.only("md")]: {
       letterSpacing: "0.66rem",
-      // fontSize: `${Math.min(
-      //   dimensions.width * 0.018,
-      //   dimensions.height * 0.04
-      // )}px`,
     },
     [theme.breakpoints.up("lg")]: {
       letterSpacing: "0.66rem",
-      // fontSize: `${Math.min(
-      //   dimensions.width * 0.0175,
-      //   dimensions.height * 0.06
-      // )}px`,
     },
   }));
 
@@ -185,30 +129,10 @@ function FeaturedProject(props: FeaturedProjectProps) {
     outline: "1px solid var(--neon-purple)",
     textDecoration: "none",
     fontSize: `${buttonFontSize}px`,
-    // fontSize: `${dimensions.height * 0.0275}px`,
-    // minWidth: `${Math.max(
-    //   dimensions.width * 0.085,
-    //   dimensions.height * 0.085
-    // )}px`,
     ":hover": {
       backgroundColor: "var(--neon-purple)",
       cursor: "pointer",
     },
-    // [theme.breakpoints.down("sm")]: {
-    //   fontSize: `${dimensions.height * 0.015}px`,
-    // },
-    // [theme.breakpoints.only("md")]: {
-    //   fontSize: `${Math.min(
-    //     dimensions.width * 0.014,
-    //     dimensions.height * 0.03
-    //   )}px`,
-    // },
-    // [theme.breakpoints.up("lg")]: {
-    //   fontSize: `${Math.min(
-    //     Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
-    //     17
-    //   )}px`,
-    // },
   }));
 
   const ProjectsButton = styled("button")(({ theme }) => ({
@@ -222,26 +146,7 @@ function FeaturedProject(props: FeaturedProjectProps) {
     outline: "1px solid var(--neon-orange)",
     borderRadius: "20px",
     fontSize: `${buttonFontSize}px`,
-    // minWidth: `${Math.max(
-    //   dimensions.width * 0.085,
-    //   dimensions.height * 0.085
-    // )}px`,
     ":hover": { backgroundColor: "var(--neon-orange)", cursor: "pointer" },
-    // [theme.breakpoints.down("sm")]: {
-    //   fontSize: `${dimensions.height * 0.015}px`,
-    // },
-    // [theme.breakpoints.only("md")]: {
-    //   fontSize: `${Math.min(
-    //     dimensions.width * 0.014,
-    //     dimensions.height * 0.03
-    //   )}px`,
-    // },
-    // [theme.breakpoints.up("lg")]: {
-    //   fontSize: `${Math.min(
-    //     Math.min(dimensions.width * 0.013, dimensions.height * 0.04),
-    //     17
-    //   )}px`,
-    // },
   }));
 
   return (

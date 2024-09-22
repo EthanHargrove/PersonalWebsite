@@ -1,7 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
-import { Stage, Layer, Rect, Text, Arrow, Line, Image } from "react-konva";
-import { Tooltip } from "@mui/material";
-import useImage from "use-image";
+import React, { useState, useEffect } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 interface BayesTheoremProps {
@@ -14,31 +11,19 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
     height: window.innerHeight,
   });
 
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(
-    debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 0),
-    []
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const fontStyle = {
     fontSize: Math.min(dimensions.width * 0.0325, dimensions.height * 0.0275),

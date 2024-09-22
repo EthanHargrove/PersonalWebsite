@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Stage, Layer, Circle, Arrow, Text, Rect, Image } from "react-konva";
 import useImage from "use-image";
 
@@ -14,35 +14,26 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
     height: window.innerHeight,
   });
 
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(
-    debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
-    []
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const stageWidth = dimensions.width * 0.9;
   const stageHeight = dimensions.height * 0.9;
-  const rectWidth = Math.min(Math.max(stageWidth * 0.5, 260), dimensions.height * 0.65);
+  const rectWidth = Math.min(
+    Math.max(stageWidth * 0.5, 260),
+    dimensions.height * 0.65
+  );
   const rectHeight = rectWidth / 5;
   const cornerRadius = rectHeight / 7;
   const rectX = (stageWidth - rectWidth) / 2;

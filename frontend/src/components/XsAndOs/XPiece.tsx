@@ -1,6 +1,5 @@
 import React from "react";
 import { Shape } from "three";
-import { useSpring, animated } from "@react-spring/three";
 
 interface XPieceProps {
   x: number;

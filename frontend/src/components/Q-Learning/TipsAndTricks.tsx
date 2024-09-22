@@ -19,31 +19,19 @@ const TipsAndTricks: React.FC = () => {
     height: window.innerHeight,
   });
 
-  const debounce = (func: any, wait: any) => {
-    let timeout: any;
-    return (...args: any[]) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), wait);
-    };
-  };
-
-  const handleResize = useCallback(
-    debounce(() => {
+  useEffect(() => {
+    const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }, 1000),
-    []
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("resize", handleResize);
-
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const data = [
     { turn: 1, states: 1, actions: 9 },
@@ -100,7 +88,19 @@ const TipsAndTricks: React.FC = () => {
           <li>The number of possible states increases each turn</li>
         </ul>
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <ComposedChart width={dimensions.width < 444 ? dimensions.width * 0.8 : dimensions.width * 0.5} height={dimensions.width < 444 ? dimensions.width * 0.8 : dimensions.height * 0.4} data={data}>
+          <ComposedChart
+            width={
+              dimensions.width < 444
+                ? dimensions.width * 0.8
+                : dimensions.width * 0.5
+            }
+            height={
+              dimensions.width < 444
+                ? dimensions.width * 0.8
+                : dimensions.height * 0.4
+            }
+            data={data}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="turn" />
             <YAxis yAxisId="left" />
