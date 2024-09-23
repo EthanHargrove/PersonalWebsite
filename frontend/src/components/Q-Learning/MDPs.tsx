@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Stage, Layer, Rect, Text, Arrow, Line, Image } from "react-konva";
-import { Tooltip } from "@mui/material";
+import { textFieldClasses, Tooltip } from "@mui/material";
 import useImage from "use-image";
 
 import PlayAgainstAI from "./PlayAgainstAI";
@@ -31,7 +31,7 @@ const MDPs: React.FC<MDPsProps> = () => {
   }, []);
 
   const stageWidth = dimensions.width * 1;
-  const stageHeight = dimensions.height * 0.9;
+  const stageHeight = dimensions.height * 1;
 
   // Determine Agent box params
   const agentWidth = Math.min(
@@ -44,8 +44,12 @@ const MDPs: React.FC<MDPsProps> = () => {
   );
   const agentX = (stageWidth - agentWidth) / 2;
   // const agentY = 66.7;
-  const agentY =
-    dimensions.width < 444 ? dimensions.height * 0.2 : dimensions.height * 0.09;
+  const agentY = Math.max(
+    dimensions.height < 444 ? 70 : dimensions.height * 0.2,
+    Math.max(dimensions.height * 0.09, 60) +
+      agentHeight +
+      Math.min(stageWidth * 0.02, 10)
+  );
 
   // Determine Environment box params
   const envWidth = agentWidth;
@@ -102,14 +106,11 @@ const MDPs: React.FC<MDPsProps> = () => {
   const textOffset = pointerWidth;
 
   // Explainer text
-  var explainerText;
-  if (dimensions.width < 444) {
-    explainerText =
-      "• The agent interacts with the environment\n\n\n• Observes the result of those actions\n\n\n• Receives a reward based on the result of the action\n\n\n• Uses those rewards to inform future decisions\n\n\n• Next state depends only on the current state and action\n\n\n• Agent balances discovering the results of new actions (exploration) and using known high-reward actions (exploitation)";
-  } else {
-    explainerText =
-      "• The agent interacts with the environment\n\n• Observes the result of those actions\n\n• Receives a reward based on the result of the action\n\n• Uses those rewards to inform future decisions\n\n• Next state depends only on the current state and action\n\n• Agent balances discovering the results of new actions (exploration) and using known high-reward actions (exploitation)";
-  }
+  const explainerSpacing =
+    dimensions.height < 444 || dimensions.height * 1.5 < dimensions.width
+      ? "\n\n"
+      : "\n\n\n";
+  const explainerText = `• The agent interacts with the environment${explainerSpacing}• Observes the result of those actions${explainerSpacing}• Receives a reward based on the result of the action${explainerSpacing}• Uses those rewards to inform future decisions${explainerSpacing}• Next state depends only on the current state and action${explainerSpacing}• Agent balances discovering the results of new actions (exploration) and using known high-reward actions (exploitation)`;
 
   const explainerFontSize =
     dimensions.width < 444
@@ -147,7 +148,7 @@ const MDPs: React.FC<MDPsProps> = () => {
   let treeImageDim;
   let treeImageMulti;
 
-  if (dimensions.width > 444) {
+  if (Math.min(dimensions.width, dimensions.height) > 444) {
     // Agent
     agentImageMulti = 0.75;
     agentImageDim = agentHeight * agentImageMulti;
@@ -186,7 +187,7 @@ const MDPs: React.FC<MDPsProps> = () => {
   treeImageY = envY + ((1 - treeImageMulti) / 3) * envHeight;
 
   return (
-    <div className="section">
+    <div className="section" style={{ margin: 0, padding: 0 }}>
       <div
         className="blur-background"
         style={{
@@ -225,11 +226,11 @@ const MDPs: React.FC<MDPsProps> = () => {
       </Tooltip>
       <Stage width={stageWidth} height={stageHeight}>
         <Layer>
-          {dimensions.width < 444 && (
+          {stageHeight > 444 && (
             <>
               <Rect
                 x={(stageWidth - 2 * agentWidth) / 2}
-                y={dimensions.height * 0.066}
+                y={Math.max(dimensions.height * 0.09, 60)}
                 width={2 * agentWidth}
                 height={agentHeight}
                 cornerRadius={agentHeight / 6}
@@ -240,7 +241,7 @@ const MDPs: React.FC<MDPsProps> = () => {
               <Text
                 text="Markov Decision Process (MDP)"
                 x={(stageWidth - 2 * agentWidth) / 2}
-                y={dimensions.height * 0.066}
+                y={Math.max(dimensions.height * 0.09, 60)}
                 width={2 * agentWidth}
                 height={agentHeight}
                 fontSize={1.8 * labelFontSize}
@@ -493,37 +494,54 @@ const MDPs: React.FC<MDPsProps> = () => {
             shadowColor="#ffffff"
           />
           <Rect
-            x={
-              dimensions.width < 444
-                ? arrow3_p2_x - 4 * textOffset
-                : arrow3_p2_x - 5.75 * textOffset
-            }
+            // x={
+            //   dimensions.width < 444
+            //     ? arrow3_p2_x - 4 * textOffset
+            //     : arrow3_p2_x - 5.75 * textOffset
+            // }
+            x={dimensions.width / 2 - (2 * textOffset + agentWidth * 2.55) / 2}
             y={
               dimensions.width < 444
                 ? envY + envHeight + 6 * textOffset
                 : envY + envHeight + 2 * textOffset
             }
             height={
-              dimensions.width < 444 ? agentHeight * 4.1 : agentHeight * 2.825
+              (dimensions.height < 444 ||
+              dimensions.height * 1.5 < dimensions.width
+                ? agentHeight * 2.5
+                : dimensions.width < 444
+                ? agentHeight * 3.6
+                : agentHeight * 3.3) +
+              2 * textOffset
             }
-            width={agentWidth * 2.55}
+            width={2 * textOffset + agentWidth * 2.55}
             cornerRadius={envHeight / 6}
             fill="#ffffff"
             opacity={0.25}
           />
           <Text
             text={explainerText}
+            // x={
+            //   dimensions.width < 444
+            //     ? arrow3_p2_x - 3 * textOffset
+            //     : arrow3_p2_x - 4.75 * textOffset
+            // }
             x={
-              dimensions.width < 444
-                ? arrow3_p2_x - 3 * textOffset
-                : arrow3_p2_x - 4.75 * textOffset
+              textOffset +
+              dimensions.width / 2 -
+              (2 * textOffset + agentWidth * 2.55) / 2
             }
             y={
               dimensions.width < 444
                 ? envY + envHeight + 7 * textOffset
-                : envY + envHeight + 3.5 * textOffset
+                : envY + envHeight + 3 * textOffset
             }
-            height={stageHeight}
+            height={
+              dimensions.height < 444 ||
+              dimensions.height * 1.5 < dimensions.width
+                ? agentHeight * 2.825
+                : agentHeight * 3.9
+            }
             width={agentWidth * 2.55}
             fontFamily="SpaceGrotesk"
             wrap="word"
