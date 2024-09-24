@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { Tabs, Tab } from "@mui/material";
 
-import PlayAgainstAI from "./PlayAgainstAI";
-
 const QLearningSlide: React.FC = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -26,12 +24,18 @@ const QLearningSlide: React.FC = () => {
 
   const mathFontSize = Math.min(
     Math.max(dimensions.width * 0.0225, 12),
-    dimensions.height * 0.035
-  );
-  const textFontSize = Math.min(
-    Math.max(dimensions.width * 0.019, 12),
     dimensions.height * 0.03
   );
+  // const textFontSize = Math.min(
+  //   Math.max(dimensions.width * 0.019, 12),
+  //   dimensions.height * 0.024
+  // );
+
+  const textFontSize = Math.min(
+    0.015 * dimensions.height + 0.005 * dimensions.width,
+    24
+  );
+
   const mathJaxStyles = `
     .MathJax {
       font-size: ${mathFontSize}px !important;
@@ -202,8 +206,17 @@ const QLearningSlide: React.FC = () => {
     ),
   };
 
+  const boxWidth =
+    dimensions.width < 444
+      ? 0.92 * dimensions.width
+      : dimensions.width > 900
+      ? 60 * dimensions.width
+      : 80 * dimensions.width;
+
+  const boxHeight = textFontSize * 38;
+
   return (
-    <div className="section">
+    <div className="section" style={{ margin: 0, padding: 0 }}>
       <div
         className="background"
         style={{
@@ -213,7 +226,6 @@ const QLearningSlide: React.FC = () => {
               : "url(./images/QLandscape.png)",
         }}
       />
-      <PlayAgainstAI dark={false} />
       <style>{mathJaxStyles}</style>
       <div
         style={{
@@ -228,13 +240,15 @@ const QLearningSlide: React.FC = () => {
           style={{
             color: "var(--neon-pink)",
             paddingTop: "10px",
+            paddingBottom: "0px",
+            marginBottom: 0,
             paddingLeft: "10px",
           }}
         >
           Q-Learning
         </h3>
         <MathJaxContext>
-          <ul>
+          <ul style={{ marginTop: 0, paddingTop: 0, fontSize: textFontSize }}>
             <li style={{ color: "var(--neon-pink)" }}>
               <p style={{ color: "#ffffff", fontSize: textFontSize }}>
                 Q-Learning is a reinforcement learning algorithm that aims to

@@ -4,8 +4,6 @@ import { Tabs, Tab } from "@mui/material";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 
-import PlayAgainstAI from "./PlayAgainstAI";
-
 const XsAndOsEnv: React.FC = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -47,7 +45,6 @@ const XsAndOsEnv: React.FC = () => {
   const gameName = ["Xs and Os", "Noughts and Crosses", "Tic-Tac-Toe"];
   return (
     <div className="section" style={{ background: "#ffffff" }}>
-      <PlayAgainstAI dark={true} />
       {/* <div style={{ position: "absolute", top: 50, left: 5 }}>
         <ButtonGroup orientation="vertical">
           <Button

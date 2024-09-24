@@ -1,0 +1,25 @@
+#fp-nav ul li:hover a span,
+#fp-nav ul li a span,
+.fp-slidesNav ul li:hover a span,
+.fp-slidesNav ul li a span {
+  background: radial-gradient(circle, #00FFFF, #FF1493);
+}
+
+#fp-nav ul li .fp-tooltip {
+  color: "#ffffff";
+  text-shadow:
+    -1px -1px 0 #000000, 
+    1px -1px 0 #000000,  
+    -1px 1px 0 #000000,  
+    1px 1px 0 #000000;   
+  font-family: 'SpaceGrotesk';
+  font-size: 16px;
+}
+
+#fp-nav ul li:hover a.active span,
+#fp-nav ul li a.active span,
+.fp-slidesNav ul li:hover a.active span,
+.fp-slidesNav ul li a.active span {
+  background: radial-gradient(circle, #FF1493, #00FFFF);
+
+}

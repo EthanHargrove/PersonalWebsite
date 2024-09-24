@@ -11,8 +11,6 @@ import {
 } from "recharts";
 import { Stack, Tabs, Tab } from "@mui/material";
 
-import PlayAgainstAI from "./PlayAgainstAI";
-
 const TipsAndTricks: React.FC = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -56,7 +54,6 @@ const TipsAndTricks: React.FC = () => {
               : "url(./images/ExplorationLandscape.png)",
         }}
       />
-      <PlayAgainstAI dark={false} />
       <div
         style={{
           background: "rgba(255, 255, 255, 0.75)",

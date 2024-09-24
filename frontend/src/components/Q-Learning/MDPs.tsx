@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Stage, Layer, Rect, Text, Arrow, Line, Image } from "react-konva";
-import { textFieldClasses, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import useImage from "use-image";
 
-import PlayAgainstAI from "./PlayAgainstAI";
 interface MDPsProps {
   // Define the props for the component here
 }
@@ -44,12 +43,15 @@ const MDPs: React.FC<MDPsProps> = () => {
   );
   const agentX = (stageWidth - agentWidth) / 2;
   // const agentY = 66.7;
-  const agentY = Math.max(
-    dimensions.height < 444 ? 70 : dimensions.height * 0.2,
-    Math.max(dimensions.height * 0.09, 60) +
-      agentHeight +
-      Math.min(stageWidth * 0.02, 10)
-  );
+  const agentY =
+    dimensions.height < 444
+      ? 70
+      : Math.max(
+          dimensions.height * 0.2,
+          Math.max(dimensions.height * 0.09, 60) +
+            agentHeight +
+            Math.min(stageWidth * 0.02, 10)
+        );
 
   // Determine Environment box params
   const envWidth = agentWidth;
@@ -197,7 +199,6 @@ const MDPs: React.FC<MDPsProps> = () => {
               : "url(./images/NNLandscape.png)",
         }}
       />
-      <PlayAgainstAI dark={true} />
       <Tooltip
         title={agentTooltipText}
         open={showActionTooltip}
@@ -510,8 +511,8 @@ const MDPs: React.FC<MDPsProps> = () => {
               dimensions.height * 1.5 < dimensions.width
                 ? agentHeight * 2.5
                 : dimensions.width < 444
-                ? agentHeight * 3.6
-                : agentHeight * 3.3) +
+                ? agentHeight * 3.8
+                : agentHeight * 3.55) +
               2 * textOffset
             }
             width={2 * textOffset + agentWidth * 2.55}

@@ -7,7 +7,9 @@ import MDPs from "../components/Q-Learning/MDPs";
 import QLearningSlide from "../components/Q-Learning/QLearningSlide";
 import XsAndOsEnv from "../components/Q-Learning/XsAndOsEnv";
 import TipsAndTricks from "../components/Q-Learning/TipsAndTricks";
+import XsAndOsGame from "../components/XsAndOs/XsAndOsGame";
 import "../styles/gnn.css";
+import "../styles/overrides.css";
 
 const QLearning = () => {
   useEffect(() => {
@@ -42,7 +44,17 @@ const QLearning = () => {
       <Navbar active="" />
       <ReactFullpage
         credits={{ enabled: false, label: "" }}
-        navigation={dimensions.width > 444}
+        navigation={Math.min(dimensions.width, dimensions.height) > 444}
+        navigationTooltips={[
+          "Title",
+          "Intro to ML",
+          "MDPs",
+          "Q-Learning",
+          "Xs and Os",
+          "Tips and Tricks",
+          "Play Against AI",
+        ]}
+        keyboardScrolling={true}
         scrollingSpeed={1000}
         render={({ state, fullpageApi }) => {
           return (
@@ -60,7 +72,7 @@ const QLearning = () => {
                         : "url(./images/ChessBot.png)",
                   }}
                 />
-                <h2
+                <h3
                   className="heading"
                   style={{
                     margin: 0,
@@ -73,64 +85,32 @@ const QLearning = () => {
                       -${shadowWidth}px ${shadowWidth}px 0 ${shadowColor},  /* Bottom-left */
                       ${shadowWidth}px ${shadowWidth}px 0 ${shadowColor}   /* Bottom-right */
                     `,
-                    backgroundColor:
-                      dimensions.width < 444
-                        ? "rgba(0, 0, 0, 0.75)"
-                        : "transparent",
+                    backgroundColor: "rgba(0, 0, 0, 0.75)",
                   }}
                 >
-                  An Introduction to Reinforcement Learning
-                </h2>
+                  An Introduction to Reinforcement Learning: Q-Learning for Xs
+                  and Os
+                </h3>
               </div>
-              <IntroToML defaultParadigm={"Reinforcement\nLearning"} />
+              <IntroToML
+                defaultParadigm={"Reinforcement\nLearning"}
+                fullpageApi={fullpageApi}
+              />
               <MDPs />
               <QLearningSlide />
-              <TipsAndTricks />
               <XsAndOsEnv />
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
+              <TipsAndTricks />
+              <div className="section" style={{ margin: 0, padding: 0 }}>
+                <div
+                  className="blur-background"
+                  style={{
+                    backgroundImage:
+                      dimensions.width < 444
+                        ? "url(./images/CyberpunkBackground.png)"
+                        : "url(./images/CyberpunkBackground.png)",
+                  }}
+                />
+                <XsAndOsGame />
               </div>
               <div className="section" style={{ background: "#ab4f6e" }}>
                 Section 3

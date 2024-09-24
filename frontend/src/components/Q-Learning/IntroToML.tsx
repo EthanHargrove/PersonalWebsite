@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Stage, Layer, Circle, Arrow, Text, Rect, Image } from "react-konva";
 import useImage from "use-image";
 
-import PlayAgainstAI from "./PlayAgainstAI";
-import { info } from "console";
-
 interface IntroToMLProps {
   defaultParadigm: string;
+  fullpageApi: any;
 }
-function IntroToML({ defaultParadigm }: IntroToMLProps) {
+function IntroToML({ defaultParadigm, fullpageApi }: IntroToMLProps) {
   const [currentParadigm, setCurrentParadigm] = useState(defaultParadigm);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -28,6 +26,21 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowDown") {
+        fullpageApi.moveSectionDown();
+      } else if (event.key === "ArrowUp") {
+        fullpageApi.moveSectionUp();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [fullpageApi]);
 
   const stageWidth = dimensions.width * 1;
   const stageHeight = dimensions.height * 1;
@@ -151,7 +164,6 @@ function IntroToML({ defaultParadigm }: IntroToMLProps) {
               : "url(./images/NNLandscape.png)",
         }}
       />
-      <PlayAgainstAI dark={true} />
       <Stage width={stageWidth} height={stageHeight}>
         <Layer>
           <Rect
