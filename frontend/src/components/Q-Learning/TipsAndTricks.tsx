@@ -9,6 +9,8 @@ import {
   Line,
   Label,
   ComposedChart,
+  LineChart,
+  TooltipProps,
 } from "recharts";
 import { Stack, Tabs, Tab } from "@mui/material";
 
@@ -64,8 +66,64 @@ const TipsAndTricks: React.FC = () => {
     { turn: 9, states: 390, actions: 1 },
   ];
 
-  const fontSize = Math.min(dimensions.width / 30, dimensions.height / 30);
-  const axisLabelFontSize = 16;
+  const fontSize =
+    Math.min(dimensions.height, dimensions.width) < 444
+      ? Math.min(dimensions.width / 30, dimensions.height / 33)
+      : Math.min(dimensions.width / 50, dimensions.height / 40);
+  const axisLabelFontSize = fontSize + 2;
+
+  const generateData = () => {
+    const data = [];
+    for (let t = 0; t <= 1000; t += 10) {
+      const linearDecay = Math.max(1 - t / 1000, 0);
+      const exponentialDecay = Math.exp(-0.005 * t);
+      const constantDecay = 0.1;
+
+      data.push({
+        t,
+        linear: linearDecay,
+        exponential: exponentialDecay,
+        constant: constantDecay,
+      });
+    }
+    return data;
+  };
+
+  const εData = generateData();
+
+  interface CustomTooltipProps extends TooltipProps<number, string> {
+    active?: boolean;
+    payload?: any[];
+    label?: string;
+  }
+
+  const CustomTooltip: React.FC<CustomTooltipProps> = ({
+    active,
+    payload,
+    label,
+  }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div
+          style={{
+            height: "auto",
+            width: "auto",
+            paddingLeft: "10px",
+            paddingRight: "10px",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+          }}
+        >
+          <p style={{ color: "#804A00" }}>Turn Number: {label}</p>
+          {payload.map((entry, index) => (
+            <p key={`item-${index}`} style={{ color: entry.color }}>
+              {entry.name}: {entry.value}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div className="section" style={{ margin: 0, padding: 0 }}>
@@ -87,27 +145,17 @@ const TipsAndTricks: React.FC = () => {
               : "85vw",
           height:
             Math.min(dimensions.width, dimensions.height) < 444
-              ? `${dimensions.height - 55 - 20}px`
+              ? dimensions.height < dimensions.width
+                ? `${dimensions.height - 45 - 10}px`
+                : `${dimensions.height * 0.75}px`
               : "82vh",
           paddingLeft: "5px",
           paddingRight: "15px",
           paddingBottom: "0px",
-          marginTop: "55px",
+          marginTop: "45px",
           marginBottom: "0px",
         }}
       >
-        {/* <h3
-          style={{
-            color: "#804A00",
-            paddingTop: "10px",
-            paddingLeft: "10px",
-            paddingBottom: "6px",
-            marginBottom: 0,
-          }}
-        >
-          Tricks for Exploration
-        </h3> */}
-
         <Tabs
           value={tab}
           onChange={handleTabChange}
@@ -156,15 +204,36 @@ const TipsAndTricks: React.FC = () => {
                 fontSize: fontSize,
               }}
             >
+              {dimensions.height > 444 && <br />}
               <li>
                 <strong>Exploration</strong>: taking a new action to potentially
                 discover a more optimal strategy
               </li>
+              <br />
+              <br />
               <li>
                 <strong>Exploitation</strong>: using the current best-known
                 actions to maximize rewards based on past experience
               </li>
-              <li>The number of possible states increases each turn</li>
+              <br />
+              <br />
+              <li>
+                <strong>Exploring too much</strong> is inefficient as too much
+                time and resources are spent on suboptimal strategies
+              </li>
+              <br />
+              <br />
+              <li>
+                <strong>Exploiting too much</strong> can lead to getting stuck
+                in a local optima
+              </li>
+              <br />
+              <br />
+              <li>
+                <strong>Balance</strong>: Finding the right balance between
+                exploration and exploitation is key to optimizing both learning
+                and performance.
+              </li>
             </ul>
           </>
         )}
@@ -175,36 +244,51 @@ const TipsAndTricks: React.FC = () => {
                 color: "#804A00",
                 paddingTop: "6px",
                 marginTop: 0,
+                paddingBottom: 0,
+                marginBottom: 0,
                 fontSize: fontSize,
               }}
             >
+              <li>
+                Xs and Os is a delayed rewards problem. Non-zero rewards are
+                only received when a game ends, the agent needs time to
+                propagate the reward backward to learn which earlier actions
+                contributed to the final outcome
+              </li>
               <li>
                 The number of possible states for a given turn is highest in the
                 mid-to-late game
               </li>
               <li>
-                Non-zero rewards are only received when a game ends, needs time
-                to propagate backwards
-              </li>
-              <li>
-                Therefore starting from a random state rather than the beginning
-                of the game will allow for more efficient exploration
+                Starting from a random state instead of the beginning allows the
+                agent to explore a wider range of scenarios and learn more
+                efficiently by directly encountering mid-game and endgame
+                situations
               </li>
             </ul>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                paddingTop: 0,
+                marginTop: 0,
+              }}
+            >
               <ComposedChart
                 width={
-                  dimensions.width < 444
+                  Math.min(dimensions.width, dimensions.height) < 444
                     ? dimensions.width * 0.99
                     : dimensions.width * 0.8
                 }
                 height={
-                  dimensions.width < 444
-                    ? dimensions.width * 0.8
+                  Math.min(dimensions.width, dimensions.height) < 444
+                    ? dimensions.height < dimensions.width
+                      ? dimensions.width * dimensions.height * 0.00055
+                      : dimensions.width * dimensions.height * 0.0008
                     : dimensions.height * 0.4
                 }
                 data={data}
-                margin={{ top: 0, right: 20, left: 20, bottom: 20 }}
+                margin={{ top: 0, right: 20, left: 20, bottom: 0 }}
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -215,7 +299,7 @@ const TipsAndTricks: React.FC = () => {
                 <XAxis dataKey="turn" stroke={"#804A00"} fontSize={fontSize}>
                   <Label
                     value={"Turn Number"}
-                    offset={2}
+                    offset={-5}
                     position="bottom"
                     stroke={"#804A00"}
                     fontSize={axisLabelFontSize}
@@ -248,7 +332,7 @@ const TipsAndTricks: React.FC = () => {
                     fontSize={axisLabelFontSize}
                   />
                 </YAxis>
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} />
                 <Legend
                   verticalAlign="top"
                   layout={"horizontal"}
@@ -283,15 +367,101 @@ const TipsAndTricks: React.FC = () => {
               }}
             >
               <li>
-                Starting from a randomly selected mid-game state rather than the
-                beginning of the game
+                <strong>ε-greedy strategy</strong>: the agent chooses a random
+                action with probability ε and the best-known action with
+                probability 1-ε
               </li>
               <li>
-                Non-zero rewards are only received when a game ends, needs time
-                to propagate backwards
+                <strong>ε-scheduling</strong>: starting with a high ε for early
+                episodes of training and decreasing ε over time
               </li>
-              <li>The number of possible states increases each turn</li>
+              <li>
+                The less the agent knows, the more it explores. The more the
+                agent knows, the more it exploits.
+              </li>
             </ul>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <LineChart
+                data={εData}
+                margin={{
+                  top: 5,
+                  right: 20,
+                  left: 20,
+                  bottom: 20,
+                }}
+                width={
+                  Math.min(dimensions.width, dimensions.height) < 444
+                    ? dimensions.width * 0.99
+                    : dimensions.width * 0.8
+                }
+                height={
+                  Math.min(dimensions.width, dimensions.height) < 444
+                    ? dimensions.height < dimensions.width
+                      ? dimensions.width * dimensions.height * 0.00055
+                      : dimensions.width * dimensions.height * 0.0008
+                    : dimensions.height * 0.4
+                }
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="t" stroke={"#804A00"} fontSize={fontSize}>
+                  <Label
+                    value={"Episode"}
+                    offset={2}
+                    position="bottom"
+                    stroke={"#804A00"}
+                    fontSize={axisLabelFontSize}
+                  />
+                </XAxis>
+                <YAxis stroke={"#804A00"} fontSize={fontSize}>
+                  <Label
+                    value={"ε"}
+                    offset={-10}
+                    position="left"
+                    stroke={"#804A00"}
+                    angle={270}
+                    style={{ textAnchor: "middle" }}
+                    fontSize={axisLabelFontSize}
+                  />
+                </YAxis>
+                <Legend
+                  verticalAlign="top"
+                  layout={"horizontal"}
+                  wrapperStyle={{ fontSize: "16px" }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="linear"
+                  stroke="#556B2F"
+                  strokeWidth={3}
+                  name="Linear Decay"
+                  dot={false}
+                  activeDot={false}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="exponential"
+                  stroke="#311D3F"
+                  strokeWidth={3}
+                  name="Exponential Decay"
+                  dot={false}
+                  activeDot={false}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="constant"
+                  stroke="#AE0A1E"
+                  strokeWidth={3}
+                  name="Constant ε"
+                  dot={false}
+                  activeDot={false}
+                />
+              </LineChart>
+            </div>
           </>
         )}
       </div>

@@ -146,7 +146,7 @@ const QLearningSlide: React.FC = () => {
               The Temporal Difference (TD) Error
               <MathJax inline>
                 {
-                  "\\(\\;\\bigl(R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t)\\bigr)\\;\\)"
+                  "\\(\\;\\Bigl[R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t)\\Bigr]\\;\\)"
                 }
               </MathJax>
               is the difference between the estimated Q-value and the target
@@ -264,7 +264,7 @@ const QLearningSlide: React.FC = () => {
           </ul>
           <MathJax inline dynamic={true}>
             {
-              "\\[Q(S_t, A_t) \\leftarrow Q(S_t,A_t) + \\alpha (R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t))\\]"
+              "\\[Q(S_t, A_t) \\leftarrow Q(S_t,A_t) + \\alpha \\Bigl[R_{t+1} + \\gamma \\, \\max\\limits_{a} \\, Q(S_{t+1},a) - Q(S_t,A_t)\\Bigr]\\]"
             }
           </MathJax>
         </MathJaxContext>
