@@ -71,6 +71,7 @@ const TipsAndTricks: React.FC = () => {
       ? Math.min(dimensions.width / 30, dimensions.height / 33)
       : Math.min(dimensions.width / 50, dimensions.height / 40);
   const axisLabelFontSize = fontSize + 2;
+  const tickFontSize = fontSize * 0.7;
 
   const generateData = () => {
     const data = [];
@@ -148,7 +149,7 @@ const TipsAndTricks: React.FC = () => {
               ? dimensions.height < dimensions.width
                 ? `${dimensions.height - 45 - 10}px`
                 : `${dimensions.height * 0.75}px`
-              : "82vh",
+              : dimensions.height * 0.5 + dimensions.width * 0.2,
           paddingLeft: "5px",
           paddingRight: "15px",
           paddingBottom: "0px",
@@ -204,7 +205,7 @@ const TipsAndTricks: React.FC = () => {
                 fontSize: fontSize,
               }}
             >
-              {dimensions.height > 444 && <br />}
+              <br />
               <li>
                 <strong>Exploration</strong>: taking a new action to potentially
                 discover a more optimal strategy
@@ -288,7 +289,15 @@ const TipsAndTricks: React.FC = () => {
                     : dimensions.height * 0.4
                 }
                 data={data}
-                margin={{ top: 0, right: 20, left: 20, bottom: 0 }}
+                margin={{
+                  top: 0,
+                  right: 20,
+                  left: 20,
+                  bottom:
+                    Math.min(dimensions.height, dimensions.width) < 444
+                      ? 0
+                      : 20,
+                }}
               >
                 <CartesianGrid
                   strokeDasharray="3 3"
@@ -296,7 +305,11 @@ const TipsAndTricks: React.FC = () => {
                   fillOpacity={0.8}
                   stroke={"#804A00"}
                 />
-                <XAxis dataKey="turn" stroke={"#804A00"} fontSize={fontSize}>
+                <XAxis
+                  dataKey="turn"
+                  stroke={"#804A00"}
+                  fontSize={tickFontSize}
+                >
                   <Label
                     value={"Turn Number"}
                     offset={-5}
@@ -309,7 +322,7 @@ const TipsAndTricks: React.FC = () => {
                   yAxisId="left"
                   orientation="right"
                   stroke={"#804A00"}
-                  fontSize={fontSize}
+                  fontSize={tickFontSize}
                 >
                   <Label
                     value={"Unique States"}
@@ -321,7 +334,11 @@ const TipsAndTricks: React.FC = () => {
                     fontSize={axisLabelFontSize}
                   />
                 </YAxis>
-                <YAxis yAxisId="right" stroke={"#804A00"} fontSize={fontSize}>
+                <YAxis
+                  yAxisId="right"
+                  stroke={"#804A00"}
+                  fontSize={tickFontSize}
+                >
                   <Label
                     value={"Unique Actions"}
                     offset={-10}
@@ -396,19 +413,24 @@ const TipsAndTricks: React.FC = () => {
                 }}
                 width={
                   Math.min(dimensions.width, dimensions.height) < 444
-                    ? dimensions.width * 0.99
+                    ? Math.min(dimensions.width * 0.99, dimensions.height * 1.2)
                     : dimensions.width * 0.8
                 }
                 height={
                   Math.min(dimensions.width, dimensions.height) < 444
                     ? dimensions.height < dimensions.width
-                      ? dimensions.width * dimensions.height * 0.00055
+                      ? dimensions.width * dimensions.height * 0.00063
                       : dimensions.width * dimensions.height * 0.0008
                     : dimensions.height * 0.4
                 }
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="t" stroke={"#804A00"} fontSize={fontSize}>
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  fill="#ffffff"
+                  fillOpacity={0.8}
+                  stroke={"#804A00"}
+                />
+                <XAxis dataKey="t" stroke={"#804A00"} fontSize={tickFontSize}>
                   <Label
                     value={"Episode"}
                     offset={2}
@@ -417,7 +439,7 @@ const TipsAndTricks: React.FC = () => {
                     fontSize={axisLabelFontSize}
                   />
                 </XAxis>
-                <YAxis stroke={"#804A00"} fontSize={fontSize}>
+                <YAxis stroke={"#804A00"} fontSize={tickFontSize}>
                   <Label
                     value={"ε"}
                     offset={-10}
@@ -431,7 +453,7 @@ const TipsAndTricks: React.FC = () => {
                 <Legend
                   verticalAlign="top"
                   layout={"horizontal"}
-                  wrapperStyle={{ fontSize: "16px" }}
+                  wrapperStyle={{ fontSize: fontSize }}
                 />
                 <Line
                   type="monotone"

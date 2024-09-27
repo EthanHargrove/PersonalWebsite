@@ -51,7 +51,7 @@ const QLearning = () => {
           "MDPs",
           "Q-Learning",
           "Xs and Os",
-          "Tips and Tricks",
+          "Exploration",
           "Play Against AI",
         ]}
         keyboardScrolling={true}
