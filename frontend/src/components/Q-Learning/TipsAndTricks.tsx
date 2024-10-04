@@ -12,7 +12,7 @@ import {
   LineChart,
   TooltipProps,
 } from "recharts";
-import { Stack, Tabs, Tab } from "@mui/material";
+import { Stack, Tabs, Tab, List, ListItem } from "@mui/material";
 
 const TipsAndTricks: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -40,20 +40,6 @@ const TipsAndTricks: React.FC = () => {
     setTab(newValue);
   };
 
-  const tabStyles = {
-    backgroundColor: "#804A00",
-    color: "#ffffff",
-    textTransform: "none",
-    minWidth: dimensions.width < 444 ? 20 : 100,
-    width:
-      Math.min(dimensions.width, dimensions.height) < 444
-        ? dimensions.width / 3.25
-        : dimensions.width / 4,
-    borderTop: "2px solid #ffffff",
-    fontSize:
-      Math.min(dimensions.height, dimensions.width) < 444 ? "16px" : "18px",
-  };
-
   const data = [
     { turn: 1, states: 1, actions: 9 },
     { turn: 2, states: 9, actions: 8 },
@@ -68,10 +54,25 @@ const TipsAndTricks: React.FC = () => {
 
   const fontSize =
     Math.min(dimensions.height, dimensions.width) < 444
-      ? Math.min(dimensions.width / 30, dimensions.height / 33)
-      : Math.min(dimensions.width / 50, dimensions.height / 40);
+      ? dimensions.height < dimensions.width
+        ? dimensions.height / 30
+        : Math.min(dimensions.width / 30, dimensions.height / 33)
+      : Math.min(dimensions.width / 40, dimensions.height / 35);
   const axisLabelFontSize = fontSize + 2;
   const tickFontSize = fontSize * 0.7;
+
+  const tabStyles = {
+    backgroundColor: "#804A00",
+    color: "#ffffff",
+    textTransform: "none",
+    minWidth: dimensions.width < 444 ? 20 : 100,
+    width:
+      Math.min(dimensions.width, dimensions.height) < 444
+        ? dimensions.width / 3.25
+        : dimensions.width / 4,
+    borderTop: "2px solid #ffffff",
+    fontSize: axisLabelFontSize,
+  };
 
   const generateData = () => {
     const data = [];
@@ -148,12 +149,17 @@ const TipsAndTricks: React.FC = () => {
             Math.min(dimensions.width, dimensions.height) < 444
               ? dimensions.height < dimensions.width
                 ? `${dimensions.height - 45 - 10}px`
-                : `${dimensions.height * 0.75}px`
-              : dimensions.height * 0.5 + dimensions.width * 0.2,
+                : `${dimensions.height * 0.8}px`
+              : dimensions.height < dimensions.width
+              ? dimensions.height * 0.5 + dimensions.width * 0.2
+              : dimensions.height * 0.85,
           paddingLeft: "5px",
           paddingRight: "15px",
           paddingBottom: "0px",
-          marginTop: "45px",
+          marginTop:
+            Math.min(dimensions.height, dimensions.width) < 444
+              ? "45px"
+              : "65px",
           marginBottom: "0px",
         }}
       >
@@ -196,7 +202,7 @@ const TipsAndTricks: React.FC = () => {
           />
         </Tabs>
         {tab === 0 && (
-          <>
+          <Stack justifyContent="center" alignItems="center" height="80%">
             <ul
               style={{
                 color: "#804A00",
@@ -205,94 +211,118 @@ const TipsAndTricks: React.FC = () => {
                 fontSize: fontSize,
               }}
             >
-              <br />
-              <li>
+              <li style={{ marginTop: "5%", marginBottom: "5%" }}>
                 <strong>Exploration</strong>: taking a new action to potentially
                 discover a more optimal strategy
               </li>
-              <br />
-              <br />
-              <li>
+              <li style={{ marginBottom: "5%" }}>
                 <strong>Exploitation</strong>: using the current best-known
                 actions to maximize rewards based on past experience
               </li>
-              <br />
-              <br />
-              <li>
+              <li style={{ marginBottom: "5%" }}>
                 <strong>Exploring too much</strong> is inefficient as too much
                 time and resources are spent on suboptimal strategies
               </li>
-              <br />
-              <br />
-              <li>
+              <li style={{ marginBottom: "5%" }}>
                 <strong>Exploiting too much</strong> can lead to getting stuck
                 in a local optima
               </li>
-              <br />
-              <br />
-              <li>
+              <li style={{ marginBottom: "5%" }}>
                 <strong>Balance</strong>: Finding the right balance between
                 exploration and exploitation is key to optimizing both learning
                 and performance.
               </li>
             </ul>
-          </>
+          </Stack>
         )}
         {tab === 1 && (
-          <>
-            <ul
+          <Stack
+            direction={dimensions.height < dimensions.width ? "row" : "column"}
+            justifyContent="center"
+            alignItems="center"
+            height="80%"
+          >
+            <div
               style={{
-                color: "#804A00",
-                paddingTop: "6px",
-                marginTop: 0,
-                paddingBottom: 0,
-                marginBottom: 0,
-                fontSize: fontSize,
+                width: dimensions.height < dimensions.width ? "50%" : "auto",
               }}
             >
-              <li>
-                Xs and Os is a delayed rewards problem. Non-zero rewards are
-                only received when a game ends, the agent needs time to
-                propagate the reward backward to learn which earlier actions
-                contributed to the final outcome
-              </li>
-              <li>
-                The number of possible states for a given turn is highest in the
-                mid-to-late game
-              </li>
-              <li>
-                Starting from a random state instead of the beginning allows the
-                agent to explore a wider range of scenarios and learn more
-                efficiently by directly encountering mid-game and endgame
-                situations
-              </li>
-            </ul>
+              <ul
+                style={{
+                  color: "#804A00",
+                  paddingTop: "6px",
+                  marginTop: 0,
+                  paddingBottom: 0,
+                  marginBottom: 10,
+                  fontSize: fontSize,
+                }}
+              >
+                <li
+                  style={{
+                    marginBottom:
+                      dimensions.height < dimensions.width &&
+                      dimensions.height > 444
+                        ? "4%"
+                        : "0%",
+                  }}
+                >
+                  Xs and Os is a delayed rewards problem. Non-zero rewards are
+                  only received when a game ends, the agent needs time to
+                  propagate the reward backward to learn which earlier actions
+                  contributed to the final outcome
+                </li>
+                <li
+                  style={{
+                    marginBottom:
+                      dimensions.height < dimensions.width &&
+                      dimensions.height > 444
+                        ? "4%"
+                        : "0%",
+                  }}
+                >
+                  The number of possible states for a given turn is highest in
+                  the mid-to-late game
+                </li>
+                <li>
+                  Starting from a random state instead of the beginning allows
+                  the agent to explore a wider range of scenarios and learn more
+                  efficiently by directly encountering mid-game and endgame
+                  situations
+                </li>
+              </ul>
+            </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
+                alignItems: "center",
                 paddingTop: 0,
                 marginTop: 0,
+                width: dimensions.height < dimensions.width ? "50%" : "auto",
               }}
             >
               <ComposedChart
                 width={
                   Math.min(dimensions.width, dimensions.height) < 444
-                    ? dimensions.width * 0.99
-                    : dimensions.width * 0.8
+                    ? dimensions.height > dimensions.width
+                      ? dimensions.width * 0.99
+                      : dimensions.width * 0.5
+                    : dimensions.height > dimensions.width
+                    ? dimensions.width * 0.8
+                    : dimensions.width * 0.4
                 }
                 height={
                   Math.min(dimensions.width, dimensions.height) < 444
                     ? dimensions.height < dimensions.width
-                      ? dimensions.width * dimensions.height * 0.00055
+                      ? dimensions.height - 125
                       : dimensions.width * dimensions.height * 0.0008
                     : dimensions.height * 0.4
                 }
                 data={data}
                 margin={{
-                  top: 0,
-                  right: 20,
-                  left: 20,
+                  top: 5,
+                  right: 10,
+                  left: 10,
                   bottom:
                     Math.min(dimensions.height, dimensions.width) < 444
                       ? 0
@@ -311,8 +341,8 @@ const TipsAndTricks: React.FC = () => {
                   fontSize={tickFontSize}
                 >
                   <Label
-                    value={"Turn Number"}
-                    offset={-5}
+                    value={"Turn"}
+                    offset={-10}
                     position="bottom"
                     stroke={"#804A00"}
                     fontSize={axisLabelFontSize}
@@ -326,7 +356,7 @@ const TipsAndTricks: React.FC = () => {
                 >
                   <Label
                     value={"Unique States"}
-                    offset={5}
+                    offset={0}
                     position="right"
                     stroke={"#804A00"}
                     angle={90}
@@ -341,7 +371,7 @@ const TipsAndTricks: React.FC = () => {
                 >
                   <Label
                     value={"Unique Actions"}
-                    offset={-10}
+                    offset={-25}
                     position="left"
                     stroke={"#804A00"}
                     angle={270}
@@ -371,36 +401,59 @@ const TipsAndTricks: React.FC = () => {
                 />
               </ComposedChart>
             </div>
-          </>
+          </Stack>
         )}
         {tab === 2 && (
-          <>
-            <ul
+          <Stack
+            direction={dimensions.height < dimensions.width ? "row" : "column"}
+            height="80%"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <div
               style={{
-                color: "#804A00",
-                paddingTop: "6px",
-                marginTop: 0,
-                fontSize: fontSize,
+                width: dimensions.height < dimensions.width ? "50%" : "auto",
               }}
             >
-              <li>
-                <strong>ε-greedy strategy</strong>: the agent chooses a random
-                action with probability ε and the best-known action with
-                probability 1-ε
-              </li>
-              <li>
-                <strong>ε-scheduling</strong>: starting with a high ε for early
-                episodes of training and decreasing ε over time
-              </li>
-              <li>
-                The less the agent knows, the more it explores. The more the
-                agent knows, the more it exploits.
-              </li>
-            </ul>
+              <ul
+                style={{
+                  color: "#804A00",
+                  paddingTop: "6px",
+                  marginTop: 0,
+                  fontSize: fontSize,
+                }}
+              >
+                <li
+                  style={{
+                    marginBottom:
+                      dimensions.height < dimensions.width ? "10%" : "4%",
+                  }}
+                >
+                  <strong>ε-greedy strategy</strong>: the agent chooses a random
+                  action with probability ε and the best-known action with
+                  probability 1-ε
+                </li>
+                <li
+                  style={{
+                    marginBottom:
+                      dimensions.height < dimensions.width ? "10%" : "4%",
+                  }}
+                >
+                  <strong>ε-scheduling</strong>: starting with a high ε for
+                  early episodes of training and decreasing ε over time
+                </li>
+                <li>
+                  The less the agent knows, the more it explores. The more the
+                  agent knows, the more it exploits.
+                </li>
+              </ul>
+            </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
+                width: dimensions.height < dimensions.width ? "50%" : "auto",
               }}
             >
               <LineChart
@@ -413,13 +466,17 @@ const TipsAndTricks: React.FC = () => {
                 }}
                 width={
                   Math.min(dimensions.width, dimensions.height) < 444
-                    ? Math.min(dimensions.width * 0.99, dimensions.height * 1.2)
-                    : dimensions.width * 0.8
+                    ? dimensions.height > dimensions.width
+                      ? dimensions.width * 0.99
+                      : dimensions.width * 0.5
+                    : dimensions.height > dimensions.width
+                    ? dimensions.width * 0.8
+                    : dimensions.width * 0.4
                 }
                 height={
                   Math.min(dimensions.width, dimensions.height) < 444
                     ? dimensions.height < dimensions.width
-                      ? dimensions.width * dimensions.height * 0.00063
+                      ? dimensions.height - 115
                       : dimensions.width * dimensions.height * 0.0008
                     : dimensions.height * 0.4
                 }
@@ -484,7 +541,7 @@ const TipsAndTricks: React.FC = () => {
                 />
               </LineChart>
             </div>
-          </>
+          </Stack>
         )}
       </div>
     </div>

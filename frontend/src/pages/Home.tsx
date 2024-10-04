@@ -131,7 +131,7 @@ function Home() {
           <animated.div style={animationStyle1}>
             <FeaturedProject
               title="About Me"
-              imagen="./images/tic-tac-toe.png"
+              imagen="./images/EthanSquare.jpeg"
               subtitle="Machine Learning Professional"
               blurb="Passionately creating AI solutions to optimize complex decision-making"
               leftButtonText="CV"

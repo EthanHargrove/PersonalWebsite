@@ -63,11 +63,13 @@ function FeaturedProject(props: FeaturedProjectProps) {
   }
   const imageHeight = Math.min(0.6 * cardHeight, 0.5 * cardWidth);
   const imageWidth = Math.min(0.6 * cardHeight, 0.5 * cardWidth);
-  const fontSize =
+  const titleFontSize = 0.045 * cardWidth;
+  const fontSize = Math.min(
     dimensions.width < dimensions.height + 50
       ? 0.00017 * cardHeight * cardWidth
-      : 0.00017 * cardHeight * cardWidth;
-  const titleFontSize = 0.045 * cardWidth;
+      : 0.00017 * cardHeight * cardWidth,
+    0.9 * titleFontSize
+  );
   const buttonFontSize = fontSize;
 
   const CardContainer = styled(Box)(({ theme }) => ({

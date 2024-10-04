@@ -40,7 +40,7 @@ function Banner(props: BannerProps) {
       opacity: 1,
       transform: "scale(1)",
     },
-    delay: dimensions.width < dimensions.height ? 1000 : 0,
+    delay: dimensions.width < dimensions.height ? 1000 : 750,
   });
 
   const contentStyle = useSpring({

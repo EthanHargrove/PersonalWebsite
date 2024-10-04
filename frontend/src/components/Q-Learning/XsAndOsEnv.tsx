@@ -1,8 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
-import { Tabs, Tab } from "@mui/material";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import React, { useEffect, useState } from "react";
+import { Stack } from "@mui/material";
 
 const XsAndOsEnv: React.FC = () => {
   const [dimensions, setDimensions] = useState({
@@ -24,47 +21,46 @@ const XsAndOsEnv: React.FC = () => {
     };
   }, []);
 
-  const [tab, setTab] = React.useState(0);
-  const [dialect, setDialect] = React.useState(0);
-
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTab(newValue);
-  };
-
-  const tabStyles = {
-    backgroundColor: "#f0f0f0",
-    color: "#000000",
-    fontWeight: "bold",
-  };
-
-  const handleDialectChange = (dialectValue: number) => {
-    console.log(dialectValue);
-    setDialect(dialectValue);
-  };
-
-  const gameName = ["Xs and Os", "Noughts and Crosses", "Tic-Tac-Toe"];
   return (
-    <div className="section" style={{ background: "#ffffff" }}>
-      {/* <div style={{ position: "absolute", top: 50, left: 5 }}>
-        <ButtonGroup orientation="vertical">
-          <Button
-            key={0}
-            onClick={() => handleDialectChange(0)}
-          >{`🇨🇦/🇮🇪`}</Button>
-          <Button key={1} onClick={() => handleDialectChange(1)}>{`🇬🇧`}</Button>
-          <Button key={2} onClick={() => handleDialectChange(2)}>{`🇺🇸`}</Button>
-        </ButtonGroup>
-      </div> */}
-      <h3>{gameName[dialect]} Environment</h3>
-      <Tabs
-        value={tab}
-        onChange={handleTabChange}
-        TabIndicatorProps={{ style: { backgroundColor: "#000000" } }}
-      >
-        <Tab label={"Tab 1"} value={0} style={tabStyles} />
-        <Tab label={"Tab 2"} value={1} style={tabStyles} />
-      </Tabs>
-      <h3>{tab}</h3>
+    <div className="section" style={{ margin: 0, padding: 0 }}>
+      <div
+        className="blur-background"
+        style={{
+          backgroundImage:
+            dimensions.width < 444
+              ? "url(./images/NNPortrait.png)"
+              : "url(./images/NNLandscape.png)",
+        }}
+      />
+      <Stack>
+        <h3>Xs and Os</h3>
+        <ul>
+          <li>
+            Players alternate turns, aiming to get three marks in a row on a 3x3
+            grid.
+          </li>
+          <li>Rewards:</li>
+          <ul>
+            <li>Win: +1</li>
+            <li>Loss: -1</li>
+            <li>Draw: 0</li>
+          </ul>
+          <li>
+            The agent was trained by playing against itself using a single
+            Q-table
+          </li>
+          <li>
+            <strong>Potential improvement</strong>: The state space could be
+            reduced by using symmetries, grouping equivalent board
+            configurations together (e.g., rotations and reflections).
+          </li>
+          <li>
+            <strong>Limitations:</strong> Q-learning may struggle in multi-agent
+            scenarios due to the non-stationary environment, where each agent's
+            strategy evolves, complicating convergence to optimal policies.
+          </li>
+        </ul>
+      </Stack>
     </div>
   );
 };

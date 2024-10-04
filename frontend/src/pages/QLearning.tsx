@@ -112,9 +112,6 @@ const QLearning = () => {
                 />
                 <XsAndOsGame />
               </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
             </ReactFullpage.Wrapper>
           );
         }}

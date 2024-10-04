@@ -56,6 +56,24 @@ function Projects() {
       key: 2,
       content: (
         <Card
+          slide={1}
+          colour="var(--neon-purple)"
+          imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png"
+          page="/tic-tac-toe"
+          title="XAI: Sudoku Solver"
+          longTitle={false}
+          description="Third card."
+          button1Title="Try It Out"
+          button1Link="/sudoku"
+          button2Title="How It Works"
+          button2Link=""
+        />
+      ),
+    },
+    {
+      key: 3,
+      content: (
+        <Card
           slide={3}
           colour="var(--neon-pink)"
           imagen="./images/trappist1.png"
@@ -71,7 +89,7 @@ function Projects() {
       ),
     },
     {
-      key: 3,
+      key: 4,
       content: (
         <Card
           slide={4}
@@ -85,24 +103,6 @@ function Projects() {
           button1Link="https://github.com/EthanHargrove/PersonalWebsite"
           button2Title="Legacy Site"
           button2Link="https://github.com/EthanHargrove/ethanhargrove.com"
-        />
-      ),
-    },
-    {
-      key: 4,
-      content: (
-        <Card
-          slide={1}
-          colour="var(--neon-purple)"
-          imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png"
-          page="/tic-tac-toe"
-          title="XAI: Sudoku Solver"
-          longTitle={false}
-          description="Third card."
-          button1Title="Try It Out"
-          button1Link="/sudoku"
-          button2Title="How It Works"
-          button2Link=""
         />
       ),
     },

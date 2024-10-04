@@ -72,7 +72,11 @@ function IntroToML({ defaultParadigm, fullpageApi }: IntroToMLProps) {
   //   dimensions.height * 0.05
   // );
 
-  const circleRadius = Math.min(rectHeight * 0.75, stageWidth / 8);
+  const circleRadius =
+    Math.min(dimensions.width, dimensions.height) < 444
+      ? Math.min(rectHeight * 0.75, stageWidth / 8)
+      : Math.min(rectHeight * 0.75, Math.min(stageWidth, stageHeight) / 12);
+
   const circleY =
     Math.min(dimensions.width, dimensions.height) > 444
       ? rectY + rectHeight + circleRadius * 1.9

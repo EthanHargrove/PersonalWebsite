@@ -202,7 +202,7 @@ const MDPs: React.FC<MDPsProps> = () => {
       <Tooltip
         title={agentTooltipText}
         open={showActionTooltip}
-        placement="bottom"
+        placement="top"
       >
         <div
           style={{
