@@ -189,7 +189,7 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
       <div
         style={{
           overflow: "hidden",
-          background: "rgba(0, 0, 0, 0.4)",
+          background: "rgba(0, 0, 0, 0.66)",
           // width: dimensions.width < 444 ? "92vw" : "85vw",
           // height: dimensions.width < 444 ? "480px" : "82vh",
           paddingLeft: dimensions.width < 444 ? "1px" : "30px",
@@ -235,8 +235,19 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
               fontSize: rewardTextFontSize,
             }}
           >
-            Complexity can be increased by playing for multiple rounds and
-            adding a chance that a player's intended action is misinterpreted
+            The <strong>Socially Optimal Outcome</strong> is the scenario that
+            maximizes total collective reward. Here this is achieved when both
+            players <strong>cooperate</strong>.
+          </li>
+          <li
+            style={{
+              color: "var(--neon-orange)",
+              fontSize: rewardTextFontSize,
+            }}
+          >
+            A <strong>Nash Equilibrium</strong> is a situation where no player
+            can improve their outcome by changing their strategy alone. Here
+            this occurs when both players <strong>defect</strong>.
           </li>
         </ul>
         <div

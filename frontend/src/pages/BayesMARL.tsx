@@ -3,6 +3,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 
 import Navbar from "../components/Navbar";
 import IntroToPrisonersDilemma from "../components/BayesMARL/IntroToPrisonersDilemma";
+import Axelrod from "../components/BayesMARL/Axelrod";
 import BayesTheoremLore from "../components/BayesMARL/BayesTheoremLore";
 import BayesTheorem from "../components/BayesMARL/BayesTheorem";
 import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
@@ -37,8 +38,17 @@ const BayesMARL = () => {
       <Navbar active="" />
       <ReactFullpage
         credits={{ enabled: false, label: "" }}
-        navigation={dimensions.width > 444}
+        navigation={Math.min(dimensions.width, dimensions.height) > 444}
+        navigationTooltips={[
+          "Title",
+          "Prisoner's Dilemma",
+          "Axelrod's Tournament",
+          "Bayes' Theorem",
+          "Belief Over Policies",
+          "Value of Information",
+        ]}
         scrollingSpeed={1000}
+        keyboardScrolling={true}
         render={({ state, fullpageApi }) => {
           return (
             <ReactFullpage.Wrapper>
@@ -72,58 +82,10 @@ const BayesMARL = () => {
                 </h1>
               </div>
               <IntroToPrisonersDilemma />
+              <Axelrod />
               <BayesTheorem />
               <BeliefOverPolicies />
               <BayesTheoremLore />
-
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
-              <div className="section" style={{ background: "#ffffff" }}>
-                Section 1
-              </div>
-              <div className="section" style={{ background: "#000000" }}>
-                Section 2
-              </div>
-              <div className="section" style={{ background: "#ab4f6e" }}>
-                Section 3
-              </div>
             </ReactFullpage.Wrapper>
           );
         }}
