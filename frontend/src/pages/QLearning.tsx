@@ -50,8 +50,8 @@ const QLearning = () => {
           "Intro to ML",
           "MDPs",
           "Q-Learning",
-          "Xs and Os",
           "Exploration",
+          "Xs and Os",
           "Play Against AI",
         ]}
         keyboardScrolling={true}
@@ -98,8 +98,8 @@ const QLearning = () => {
               />
               <MDPs />
               <QLearningSlide />
-              <XsAndOsEnv />
               <TipsAndTricks />
+              <XsAndOsEnv />
               <div className="section" style={{ margin: 0, padding: 0 }}>
                 <div
                   className="blur-background"
