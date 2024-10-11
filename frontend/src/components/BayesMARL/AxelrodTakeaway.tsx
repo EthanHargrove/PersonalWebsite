@@ -5,7 +5,7 @@ interface PlaceholderProps {
   // Define the props for the component here
 }
 
-const Axelrod: React.FC<PlaceholderProps> = () => {
+const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -63,7 +63,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
             // fontSize: titleFontSize,
           }}
         >
-          Axelrod's Tournament
+          Results
         </h3>
         <ul
           style={{
@@ -79,9 +79,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
               //   fontSize: rewardTextFontSize,
             }}
           >
-            Dr. Robert Axelrod, a Professor of Political Science and Public
-            Policy, organized a tournament in 1980 to find the best strategy for
-            the repeated Prisoner's Dilemma
+            A few categories of strategies emerged from Axelrod's tournament:
           </li>
           <li
             style={{
@@ -89,8 +87,12 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
               //   fontSize: rewardTextFontSize,
             }}
           >
-            Fourteen different strategies were submitted by various game theory
-            researchers
+            The winner of Axelrod's tournament was{" "}
+            <strong>
+              <em>Tit For Tat</em>
+            </strong>
+            , a strategy that cooperates the first round, then mirrors the
+            opponent's previous action
           </li>
           <li
             style={{
@@ -98,7 +100,8 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
               //   fontSize: rewardTextFontSize,
             }}
           >
-            Each strategy played against each other strategy for 200 rounds
+            Tit For Tat and the other most successful strategies were nice,
+            retalitory, forgiving, and clear
           </li>
         </ul>
       </div>
@@ -106,4 +109,4 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
   );
 };
 
-export default Axelrod;
+export default AxelrodTakeaway;

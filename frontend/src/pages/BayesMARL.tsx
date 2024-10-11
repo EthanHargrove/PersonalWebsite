@@ -4,6 +4,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import Navbar from "../components/Navbar";
 import IntroToPrisonersDilemma from "../components/BayesMARL/IntroToPrisonersDilemma";
 import Axelrod from "../components/BayesMARL/Axelrod";
+import AxelrodTakeaway from "../components/BayesMARL/AxelrodTakeaway";
 import BayesTheoremLore from "../components/BayesMARL/BayesTheoremLore";
 import BayesTheorem from "../components/BayesMARL/BayesTheorem";
 import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
@@ -83,6 +84,7 @@ const BayesMARL = () => {
               </div>
               <IntroToPrisonersDilemma />
               <Axelrod />
+              <AxelrodTakeaway />
               <BayesTheorem />
               <BeliefOverPolicies />
               <BayesTheoremLore />
