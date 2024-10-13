@@ -80,6 +80,22 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
             }}
           >
             A few categories of strategies emerged from Axelrod's tournament:
+            <ul>
+              <li>
+                <strong>Nice/Nasty</strong>: does the strategy defect
+                unprovoked?
+              </li>
+              <li>
+                <strong>Retalitory</strong>: does the strategy respond in kind?
+              </li>
+              <li>
+                <strong>Forgiving</strong>: does the strategy cooperate after a
+                defection?
+              </li>
+              <li>
+                <strong>Clear</strong>: does the strategy have a clear pattern?
+              </li>
+            </ul>
           </li>
           <li
             style={{
@@ -100,8 +116,10 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
               //   fontSize: rewardTextFontSize,
             }}
           >
-            Tit For Tat and the other most successful strategies were nice,
-            retalitory, forgiving, and clear
+            Tit For Tat and the other most successful strategies were
+            <strong>
+              <em> nice, retalitory, forgiving, and clear</em>
+            </strong>
           </li>
         </ul>
       </div>

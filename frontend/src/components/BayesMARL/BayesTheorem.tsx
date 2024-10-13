@@ -76,7 +76,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
           </MathJax>
           <ul style={{ paddingBottom: 0, marginBottom: 0 }}>
             <li style={fontStyle}>
-              Prior{" "}
+              <strong>Prior</strong>{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(A)\\)"}
               </MathJax>
@@ -87,7 +87,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
               )
             </li>
             <li style={fontStyle}>
-              Likelihood{" "}
+              <strong>Likelihood</strong>{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(B \\mid A)\\)"}
               </MathJax>
@@ -102,7 +102,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
               ) is true
             </li>
             <li style={fontStyle}>
-              Posterior{" "}
+              <strong>Posterior</strong>{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(A \\mid B)\\)"}
               </MathJax>
@@ -110,7 +110,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
               accounting for the newly observed data
             </li>
             <li style={fontStyle}>
-              Evidence{" "}
+              <strong>Evidence</strong>{" "}
               <MathJax inline dynamic={true}>
                 {"\\(P(B)\\)"}
               </MathJax>

@@ -8,6 +8,7 @@ import AxelrodTakeaway from "../components/BayesMARL/AxelrodTakeaway";
 import BayesTheoremLore from "../components/BayesMARL/BayesTheoremLore";
 import BayesTheorem from "../components/BayesMARL/BayesTheorem";
 import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
+import HBA from "../components/BayesMARL/HBA";
 import "../styles/gnn.css";
 
 const BayesMARL = () => {
@@ -44,9 +45,11 @@ const BayesMARL = () => {
           "Title",
           "Prisoner's Dilemma",
           "Axelrod's Tournament",
+          "Axelrod's Results",
           "Bayes' Theorem",
           "Belief Over Policies",
           "Value of Information",
+          "HBA",
         ]}
         scrollingSpeed={1000}
         keyboardScrolling={true}
@@ -88,6 +91,7 @@ const BayesMARL = () => {
               <BayesTheorem />
               <BeliefOverPolicies />
               <BayesTheoremLore />
+              <HBA />
             </ReactFullpage.Wrapper>
           );
         }}

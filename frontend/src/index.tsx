@@ -14,12 +14,6 @@ import BayesMARL from "./pages/BayesMARL";
 function setDefaultTitleAndFavicon() {
   // Change document title
   document.title = "Ethan Hargrove";
-
-  // Change favicon
-  // const favicon = document.querySelector('link[rel="icon"]');
-  // if (favicon) {
-  //   favicon.setAttribute('href', '/path/to/default/icon.png'); // Change path to your default favicon
-  // }
 }
 
 document.addEventListener("DOMContentLoaded", setDefaultTitleAndFavicon);
