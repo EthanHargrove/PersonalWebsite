@@ -9,6 +9,7 @@ import BayesTheoremLore from "../components/BayesMARL/BayesTheoremLore";
 import BayesTheorem from "../components/BayesMARL/BayesTheorem";
 import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
 import HBA from "../components/BayesMARL/HBA";
+import ActionProbabilities from "../components/BayesMARL/ActionProbabilities";
 import "../styles/gnn.css";
 
 const BayesMARL = () => {
@@ -50,6 +51,7 @@ const BayesMARL = () => {
           "Belief Over Policies",
           "Value of Information",
           "HBA",
+          "Action Probabilities",
         ]}
         scrollingSpeed={1000}
         keyboardScrolling={true}
@@ -92,6 +94,7 @@ const BayesMARL = () => {
               <BeliefOverPolicies />
               <BayesTheoremLore />
               <HBA />
+              <ActionProbabilities />
             </ReactFullpage.Wrapper>
           );
         }}
