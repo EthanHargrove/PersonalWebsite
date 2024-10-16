@@ -32,13 +32,24 @@ const ActionProbabilities: React.FC<PlaceholderProps> = () => {
     <div className="section" style={{ background: "#ffffff" }}>
       <div style={{ overflow: "hidden" }}>
         <h3 className="heading" style={{ textAlign: "center" }}>
-          Action Probabilities
+          Calculating Action Probabilities
         </h3>
         <MathJaxContext>
           <ul>
             <li>
-              We initialize the class with a list of policies (types) and some
-              expected noise
+              We initialize the class with a set of opponent's potential
+              policies (types)
+            </li>
+            <li>
+              Action probabilities are used as the likelihood in the Bayesian
+              update{" "}
+            </li>
+            <li>
+              We expect some noise,{" "}
+              <MathJax inline dynamic={true}>
+                {"\\(N\\)"}
+              </MathJax>{" "}
+              , the probability that a player's intended action is flipped
             </li>
             <li>If the opponent's policy is deterministic:</li>
             <ul>
@@ -47,18 +58,22 @@ const ActionProbabilities: React.FC<PlaceholderProps> = () => {
             <li>If the opponent's policy is stochastic:</li>
             <ul>
               <li>
-                Determine the policy's action{" "}
-                <MathJax inline dynamic={true}>
-                  {"\\(N\\)"}
-                </MathJax>{" "}
-                times
+                Monte Carlo sample the policy to estimate the true cooperation
+                rate given the history
               </li>
               <li>
                 Use the law of total probability to determine the expected
-                observed rate from the this true rate
+                observed rate from this true rate
               </li>
               <MathJax inline dynamic={true}>
-                {"\\[\\text{obs_rate} = \\text{}\\]"}
+                {
+                  "\\[\\text{obs_rate} = (1 - N) \\times \\text{true_rate} + N \\times (1-\\text{true_rate})\\]"
+                }
+              </MathJax>
+              <MathJax inline dynamic={true}>
+                {
+                  "\\[\\text{obs_rate} = \\text{true_rate} \\times (1 - 2 \\times N) + N\\]"
+                }
               </MathJax>
             </ul>
           </ul>

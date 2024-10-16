@@ -40,17 +40,17 @@ const HBA: React.FC<PlaceholderProps> = () => {
   const matrices = [
     [["P(\\pi_1)", "P(\\pi_2)"]],
     [
-      ["P(C|H_O, \\pi_1)", "P(D|H_O, \\pi_1)"],
-      ["P(C|H_O, \\pi_2)", "P(D|H_O, \\pi_2)"],
+      ["\\pi_1(C|h)", "\\pi_1(D|h)"],
+      ["\\pi_2(C|h)", "\\pi_2(D|h)"],
     ],
     [
       [
-        "3 + \\text{max}[Q(H_A+C,\\; H_O+C,\\; d-1)]",
-        "5+\\text{max}[Q(H_A+D,\\; H_O+C,\\; d-1)]",
+        "3 + \\text{max}[Q(h_A+C,\\; h_O+C,\\; d-1)]",
+        "5+\\text{max}[Q(h_A+D,\\; h_O+C,\\; d-1)]",
       ],
       [
-        "0+\\text{max}[Q(H_A+C,\\; H_O+D,\\; d-1)]",
-        "1+\\text{max}[Q(H_A+D,\\; H_O+D,\\; d-1)]",
+        "0+\\text{max}[Q(h_A+C,\\; h_O+D,\\; d-1)]",
+        "1+\\text{max}[Q(h_A+D,\\; h_O+D,\\; d-1)]",
       ],
     ],
     [["0", "0"]],
