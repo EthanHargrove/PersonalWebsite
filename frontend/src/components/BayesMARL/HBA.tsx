@@ -38,7 +38,7 @@ const HBA: React.FC<PlaceholderProps> = () => {
   };
 
   const matrices = [
-    [["P(\\pi_1)", "P(\\pi_2)"]],
+    [["P(\\pi_1|h)", "P(\\pi_2|h)"]],
     [
       ["\\pi_1(C|h)", "\\pi_1(D|h)"],
       ["\\pi_2(C|h)", "\\pi_2(D|h)"],
@@ -104,7 +104,7 @@ const HBA: React.FC<PlaceholderProps> = () => {
   };
 
   const latexExpression = `
-    Q(H_A,\\; H_O,\\; d) =
+    Q(h_A,\\; h_O,\\; d) =
     ${generateLatexMatrixNoLabels(matrices[0], false)} 
     \\bullet
     ${generateLatexMatrixNoLabels(matrices[1], true)} 
@@ -125,6 +125,7 @@ const HBA: React.FC<PlaceholderProps> = () => {
         </h3>
         <MathJaxContext>
           <MathJax inline dynamic={true} style={fontStyle}>
+            {`\\[\\text{expected value} = \\text{belief over opponent's policy} \\bullet \\text{action probabilities for opponent's potential policies} \\bullet \\text{immediate reward + expected value}\\]`}
             {`\\[ ${latexExpression} \\]`}
             {`\\[ ${latexExpression2} \\]`}
           </MathJax>
