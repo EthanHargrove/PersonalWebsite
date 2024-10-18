@@ -5,9 +5,10 @@ import Navbar from "../components/Navbar";
 import IntroToPrisonersDilemma from "../components/BayesMARL/IntroToPrisonersDilemma";
 import Axelrod from "../components/BayesMARL/Axelrod";
 import AxelrodTakeaway from "../components/BayesMARL/AxelrodTakeaway";
-import BayesTheoremLore from "../components/BayesMARL/BayesTheoremLore";
+import ValueOfInformation from "../components/BayesMARL/ValueOfInformation";
 import BayesTheorem from "../components/BayesMARL/BayesTheorem";
 import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
+import HBAIntro from "../components/BayesMARL/HBAIntro";
 import HBA from "../components/BayesMARL/HBA";
 import ActionProbabilities from "../components/BayesMARL/ActionProbabilities";
 import "../styles/gnn.css";
@@ -47,10 +48,11 @@ const BayesMARL = () => {
           "Prisoner's Dilemma",
           "Axelrod's Tournament",
           "Axelrod's Results",
+          "HBA Intro",
+          "Value of Information",
+          "HBA Implementation",
           "Bayes' Theorem",
           "Belief Over Policies",
-          "Value of Information",
-          "HBA",
           "Action Probabilities",
         ]}
         scrollingSpeed={1000}
@@ -87,13 +89,14 @@ const BayesMARL = () => {
                   <br /> For the Prisoner's Dilemma
                 </h1>
               </div>
-              <IntroToPrisonersDilemma />
+              <IntroToPrisonersDilemma fullpageApi={fullpageApi} />
               <Axelrod />
               <AxelrodTakeaway />
+              <HBAIntro />
+              <ValueOfInformation />
+              <HBA />
               <BayesTheorem />
               <BeliefOverPolicies />
-              <BayesTheoremLore />
-              <HBA />
               <ActionProbabilities />
             </ReactFullpage.Wrapper>
           );

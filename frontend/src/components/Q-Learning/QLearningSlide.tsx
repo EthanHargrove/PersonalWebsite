@@ -67,8 +67,8 @@ const QLearningSlide: React.FC = () => {
         <ul>
           <li style={{ color: "var(--neon-pink)" }}>
             <p style={{ color: "#ffffff", fontSize: textFontSize }}>
-              <MathJax inline>{"\\(Q(S_t, A_t)\\)"}</MathJax>: the expected
-              cumulative reward for taking action{" "}
+              <MathJax inline>{"\\(Q(S_t, A_t)\\)"}</MathJax>: the Q-value, the
+              expected cumulative reward for taking action{" "}
               <MathJax inline>{"\\(A\\)"}</MathJax> in state{" "}
               <MathJax inline>{"\\(S\\)"}</MathJax> (at time ‘t'), and then
               following the optimal policy thereafter
@@ -119,8 +119,8 @@ const QLearningSlide: React.FC = () => {
           </li>
           <li style={{ color: "var(--neon-pink)" }}>
             <p style={{ color: "#ffffff", fontSize: textFontSize }}>
-              Determines how much newly acquired information overrides the old
-              information when updating the Q-values
+              Determines how much the newly acquired information overrides the
+              old information when updating the Q-values
             </p>
           </li>
           <li style={{ color: "var(--neon-pink)" }}>

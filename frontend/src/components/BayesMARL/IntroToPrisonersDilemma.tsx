@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Box, Paper, Typography, Grid, Stack } from "@mui/material";
 
-interface PlaceholderProps {
-  // Define the props for the component here
+interface IntroToPrisonersDilemmaProps {
+  fullpageApi: any;
 }
 
-const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
+function IntroToPrisonersDilemma({
+  fullpageApi,
+}: IntroToPrisonersDilemmaProps) {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -24,6 +26,27 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (fullpageApi) {
+      fullpageApi.moveTo(1);
+    }
+  }, [fullpageApi]);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowDown") {
+        fullpageApi.moveSectionDown();
+      } else if (event.key === "ArrowUp") {
+        fullpageApi.moveSectionUp();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [fullpageApi]);
 
   const [selectedCell, setSelectedCell] = useState<number>(-1);
 
@@ -507,6 +530,6 @@ const IntroToPrisonersDilemma: React.FC<PlaceholderProps> = () => {
       </div>
     </div>
   );
-};
+}
 
 export default IntroToPrisonersDilemma;

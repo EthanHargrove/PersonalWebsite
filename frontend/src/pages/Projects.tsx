@@ -110,9 +110,16 @@ function Projects() {
 
   return (
     <>
-      <div
+      {/* <div
         className="cyberpunk-background"
         style={{ marginLeft: "-8px", marginTop: "-7px" }}
+      /> */}
+      <div
+        className="blur-background"
+        style={{
+          position: "fixed",
+          backgroundImage: "url(./images/CyberpunkBackground.png)",
+        }}
       />
       <Navbar active="projects" />
       <div

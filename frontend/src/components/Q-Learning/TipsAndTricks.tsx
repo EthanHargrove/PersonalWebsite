@@ -462,7 +462,7 @@ const TipsAndTricks: React.FC = () => {
                   top: 5,
                   right: 20,
                   left: 20,
-                  bottom: 20,
+                  bottom: 30,
                 }}
                 width={
                   Math.min(dimensions.width, dimensions.height) < 444

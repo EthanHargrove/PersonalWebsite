@@ -245,7 +245,7 @@ const MDPs: React.FC<MDPsProps> = () => {
                 y={Math.max(dimensions.height * 0.09, 60)}
                 width={2 * agentWidth}
                 height={agentHeight}
-                fontSize={1.8 * labelFontSize}
+                fontSize={1 * labelFontSize}
                 fontFamily="SpaceGrotesk"
                 align="center"
                 verticalAlign="middle"

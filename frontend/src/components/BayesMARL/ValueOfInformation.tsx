@@ -5,7 +5,7 @@ interface BayesTheoremLoreProps {
   // Define the props for the component here
 }
 
-const BayesTheoremLore: React.FC<BayesTheoremLoreProps> = () => {
+const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -59,4 +59,4 @@ const BayesTheoremLore: React.FC<BayesTheoremLoreProps> = () => {
   );
 };
 
-export default BayesTheoremLore;
+export default ValueOfInformation;

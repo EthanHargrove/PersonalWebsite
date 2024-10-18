@@ -6,7 +6,7 @@
     height: 3rem;
 
     background: transparent;
-    z-index: 20;
+    z-index: 300;
 
     display: flex;
     justify-content: center;

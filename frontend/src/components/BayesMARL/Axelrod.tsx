@@ -89,7 +89,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
               //   fontSize: rewardTextFontSize,
             }}
           >
-            Fourteen different strategies were submitted by various game theory
+            14 different strategies were submitted by various game theory
             researchers
           </li>
           <li
@@ -101,6 +101,16 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
             Each strategy played against each other strategy for 200 rounds
           </li>
         </ul>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img
+            src="./images/axelrod_tournament.png"
+            style={{
+              height: Math.min(dimensions.width, dimensions.height) * 0.5,
+              width: Math.min(dimensions.width, dimensions.height) * 0.5,
+            }}
+            alt="Axelrod Tournament"
+          />
+        </div>
       </div>
     </div>
   );

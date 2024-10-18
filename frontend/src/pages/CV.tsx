@@ -182,7 +182,14 @@ function CV() {
 
   return (
     <>
-      <div className="cyberpunk-background" style={{ marginTop: "-65px" }} />
+      {/* <div className="cyberpunk-background" style={{ marginTop: "-65px" }} /> */}
+      <div
+        className="blur-background"
+        style={{
+          position: "fixed",
+          backgroundImage: "url(./images/CyberpunkBackground.png)",
+        }}
+      />
       <Navbar active="CV" />
       <WorkExperience />
       <Education />

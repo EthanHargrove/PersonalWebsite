@@ -90,7 +90,14 @@ function Home() {
 
   return (
     <>
-      <div className="cyberpunk-background" style={{ marginTop: "0px" }} />
+      {/* <div className="cyberpunk-background" style={{ marginTop: "0px" }} /> */}
+      <div
+        className="blur-background"
+        style={{
+          position: "fixed",
+          backgroundImage: "url(./images/CyberpunkBackground.png)",
+        }}
+      />
       <Navbar active="home" />
       <Stack
         direction="column"

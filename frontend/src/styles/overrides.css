@@ -2,7 +2,7 @@
 #fp-nav ul li a span,
 .fp-slidesNav ul li:hover a span,
 .fp-slidesNav ul li a span {
-  background: radial-gradient(circle, #00FFFF, #FF1493);
+  background: radial-gradient(circle, #00FFFF, #FF1493) !important;
 }
 
 #fp-nav ul li .fp-tooltip {
@@ -20,6 +20,6 @@
 #fp-nav ul li a.active span,
 .fp-slidesNav ul li:hover a.active span,
 .fp-slidesNav ul li a.active span {
-  background: radial-gradient(circle, #FF1493, #00FFFF);
+  background: radial-gradient(circle, #FF1493, #00FFFF) !important;
 
 }

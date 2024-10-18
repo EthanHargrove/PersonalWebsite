@@ -121,11 +121,11 @@ const HBA: React.FC<PlaceholderProps> = () => {
     <div className="section" style={{ background: "#ffffff" }}>
       <div style={{ overflow: "hidden" }}>
         <h3 className="heading" style={{ textAlign: "center" }}>
-          Harsanyi–Bellman Ad Hoc Coordination (HBA)
+          HBA Implementation for the Prisoner's Dilemma
         </h3>
         <MathJaxContext>
           <MathJax inline dynamic={true} style={fontStyle}>
-            {`\\[\\text{expected value} = \\text{belief over opponent's policy} \\bullet \\text{action probabilities for opponent's potential policies} \\bullet \\text{immediate reward + expected value}\\]`}
+            {`\\[\\text{expected value} = \\text{belief over opponent's policy} \\bullet \\text{action probabilities for opponent's potential policies} \\bullet (\\text{immediate reward + discounted expected value of next state})\\]`}
             {`\\[ ${latexExpression} \\]`}
             {`\\[ ${latexExpression2} \\]`}
           </MathJax>

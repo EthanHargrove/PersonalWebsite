@@ -28,6 +28,12 @@ function IntroToML({ defaultParadigm, fullpageApi }: IntroToMLProps) {
   }, []);
 
   useEffect(() => {
+    if (fullpageApi) {
+      fullpageApi.moveTo(1);
+    }
+  }, [fullpageApi]);
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowDown") {
         fullpageApi.moveSectionDown();
