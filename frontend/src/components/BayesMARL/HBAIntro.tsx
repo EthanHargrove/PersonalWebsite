@@ -87,11 +87,6 @@ const HBAIntro: React.FC<PlaceholderProps> = () => {
             Coordination (HBA) algorithm.
           </li>
         </ul>
-        <MathJaxContext>
-          <MathJax inline dynamic={true} style={fontStyle}>
-            {`\\[\\]`}
-          </MathJax>
-        </MathJaxContext>
       </div>
     </div>
   );
