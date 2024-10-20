@@ -63,7 +63,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
             // fontSize: titleFontSize,
           }}
         >
-          Results
+          Axelrod's Results
         </h3>
         <ul
           style={{

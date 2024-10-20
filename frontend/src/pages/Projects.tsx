@@ -45,8 +45,8 @@ function Projects() {
           title="Bayesian MARL: The Prisoner's Dilemma"
           longTitle={true}
           description="Second card."
-          button1Title="Coming Soon"
-          button1Link=""
+          button1Title="Play Against AI"
+          button1Link="/play-prisoners-dilemma"
           button2Title="How it Works"
           button2Link="/bayesian-multi-agent-reinforcement-learning"
         />

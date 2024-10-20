@@ -32,9 +32,9 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
     backgroundColor: "var(--neon-pink)",
     color: "#ffffff",
     textTransform: "none",
-    minWidth: dimensions.width < 444 ? 20 : 100,
+    // minWidth: dimensions.width < 444 ? 20 : 100,
     width:
-      dimensions.width < 444 ? dimensions.width / 9.5 : dimensions.width / 12.5,
+      dimensions.width < 444 ? dimensions.width / 10 : dimensions.width / 15,
     borderTop: "2px solid #ffffff",
   };
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -52,9 +52,10 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
       </MathJaxContext>
     ),
     2: "A specific agent in the set of all other agents",
-    3: "Bayesian belief over the other agents' policies given the history",
-    4: "The action value ",
-    5: (
+    3: "The next state and action",
+    4: "Bayesian belief over the other agents' policies given the history",
+    5: "The action value ",
+    6: (
       <MathJaxContext>
         The probability of agent
         <MathJax inline dynamic>
@@ -67,7 +68,7 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
         given the history
       </MathJaxContext>
     ),
-    6: (
+    7: (
       <MathJaxContext>
         The environment's transition function, the probability of transitioning
         to a new state,{" "}
@@ -87,6 +88,14 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
           {" "}
           {"\\(a\\)"}
           {"."}
+        </MathJax>
+      </MathJaxContext>
+    ),
+    8: (
+      <MathJaxContext>
+        The environment's reward function, the reward received by agent
+        <MathJax inline dynamic>
+          {"\\(\\;i\\)"}
         </MathJax>
       </MathJaxContext>
     ),
@@ -147,27 +156,39 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
               sx={tabStyles}
             />
             <Tab
-              label={<MathJax>{"\\( P(\\pi_{-i}|h) \\)"}</MathJax>}
+              label={<MathJax>{"\\( s^{\\prime}/\\,a^{\\prime} \\)"}</MathJax>}
               value={3}
               key="tab-3"
               sx={tabStyles}
             />
             <Tab
-              label={<MathJax>{"\\( Q(h, a) \\)"}</MathJax>}
+              label={<MathJax>{"\\( P(\\pi_{-i}|h) \\)"}</MathJax>}
               value={4}
               key="tab-4"
               sx={tabStyles}
             />
             <Tab
-              label={<MathJax>{"\\( \\pi_{j}(a_{j}|h) \\)"}</MathJax>}
+              label={<MathJax>{"\\( Q(h, a) \\)"}</MathJax>}
               value={5}
               key="tab-5"
               sx={tabStyles}
             />
             <Tab
-              label={<MathJax>{"\\( \\mathcal{T} \\)"}</MathJax>}
+              label={<MathJax>{"\\( \\pi_{j}(a_{j}|h) \\)"}</MathJax>}
               value={6}
               key="tab-6"
+              sx={tabStyles}
+            />
+            <Tab
+              label={<MathJax>{"\\( \\mathcal{T} \\)"}</MathJax>}
+              value={7}
+              key="tab-7"
+              sx={tabStyles}
+            />
+            <Tab
+              label={<MathJax>{"\\( R \\)"}</MathJax>}
+              value={8}
+              key="tab-8"
               sx={tabStyles}
             />
           </Tabs>

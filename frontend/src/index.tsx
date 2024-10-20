@@ -10,6 +10,7 @@ import Sudoku from "./pages/Sudoku";
 import GraphNeuralNetworks from "./pages/GraphNeuralNetworks";
 import QLearning from "./pages/QLearning";
 import BayesMARL from "./pages/BayesMARL";
+import PrisonersDilemmaGame from "./components/BayesMARL/PrisonersDilemmaGame";
 
 function setDefaultTitleAndFavicon() {
   // Change document title
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/bayesian-multi-agent-reinforcement-learning",
     element: <BayesMARL />,
+  },
+  {
+    path: "/play-prisoners-dilemma",
+    element: <PrisonersDilemmaGame />,
   },
 ]);
 

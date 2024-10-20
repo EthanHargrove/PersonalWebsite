@@ -1,8 +1,9 @@
 # External Imports
 from flask import Flask, jsonify, render_template, request
+import axelrod as axl
 
 # Internal imports
-from api import (
+from sudoku_api import (
     generate_sudoku,
     update_notes,
     naked_singles,
@@ -11,6 +12,8 @@ from api import (
     naked_pairs,
     hidden_pairs,
 )
+from prisoners_dilemma_api import initialize_agent
+from BayesianTypeBasedReasoning import BayesianTypeBasedReasoning
 
 app = Flask(
     __name__,
@@ -25,6 +28,7 @@ def index():
     return render_template("index.html")
 
 
+# Sudoku API
 @app.route("/api/sudoku/generate", methods=["GET"])
 def api_generate_sudoku():
     puzzle = generate_sudoku().tolist()
@@ -117,6 +121,49 @@ def api_hidden_pairs():
             "notes": new_notes.tolist(),
             "changes": changes.tolist(),
             "numChanges": int(num_changes),
+        }
+    )
+
+
+# Prisoner's Dilemma API
+agent = BayesianTypeBasedReasoning([axl.TitForTat])
+opp = axl.Cooperator()
+
+
+@app.route("/api/prisoners_dilemma/initialize", methods=["POST"])
+def api_prisoners_dilemma_initialize():
+    global agent
+    global opp
+
+    data = request.get_json()
+    agent, opp = initialize_agent(data["policies"], data["opponent"])
+
+    return jsonify({"prior": agent.prior.tolist()})
+
+
+@app.route("/api/prisoners_dilemma/play", methods=["POST"])
+def api_prisoners_dilemma_play():
+    data = request.get_json()
+    if "move" in data.keys():
+        if data["move"] == "C":
+            opp_move = axl.Action.C
+        else:
+            opp_move = axl.Action.D
+    else:
+        opp_move = opp.strategy(agent)
+
+    agent_move = agent.strategy(opp)
+
+    agent.update_history(agent_move, opp_move)
+    opp.update_history(opp_move, agent_move)
+
+    new_prior = agent._update_prior(agent.prior, opp.history)
+
+    return jsonify(
+        {
+            "agent_move": str(agent_move),
+            "opp_move": str(opp_move),
+            "prior": new_prior.tolist(),
         }
     )
 
