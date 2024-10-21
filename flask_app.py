@@ -1,6 +1,7 @@
 # External Imports
 from flask import Flask, jsonify, render_template, request
 import axelrod as axl
+import numpy as np
 
 # Internal imports
 from sudoku_api import (
@@ -159,11 +160,17 @@ def api_prisoners_dilemma_play():
 
     new_prior = agent._update_prior(agent.prior, opp.history)
 
+    reward_matrix = np.array([[3, 5], [0, 1]])
+    agent_coop = int(agent_move == axl.Action.C)
+    opp_coop = int(opp_move == axl.Action.C)
+
     return jsonify(
         {
             "agent_move": str(agent_move),
             "opp_move": str(opp_move),
             "prior": new_prior.tolist(),
+            "agent_reward": reward_matrix[opp_coop, agent_coop],
+            "opp_reward": reward_matrix[agent_coop, opp_coop],
         }
     )
 
