@@ -10,7 +10,7 @@ import Sudoku from "./pages/Sudoku";
 import GraphNeuralNetworks from "./pages/GraphNeuralNetworks";
 import QLearning from "./pages/QLearning";
 import BayesMARL from "./pages/BayesMARL";
-import PrisonersDilemmaGame from "./components/BayesMARL/PrisonersDilemmaGame";
+import PrisonersDilemmaGame from "./pages/PrisonersDilemmaGame";
 
 function setDefaultTitleAndFavicon() {
   // Change document title

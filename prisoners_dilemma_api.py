@@ -43,13 +43,15 @@ def initialize_agent(chosen_policies, opponent):
         ]
         agent = BayesianTypeBasedReasoning(policies, num_iter=100, depth=6)
     else:
-        believed_policies = []
+        policies = []
         for policy in chosen_policies:
-            believed_policies.append(potential_policies[policy])
+            policies.append(potential_policies[policy])
         agent = BayesianTypeBasedReasoning(policies, num_iter=100, depth=5)
 
     opp = potential_policies[opponent]()
     if opp.classifier["stochastic"]:
         opp._random = axl.RandomGenerator()
 
-    return agent, opp
+    policy_names = [s.__name__ for s in policies]
+
+    return agent, opp, policy_names

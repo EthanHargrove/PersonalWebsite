@@ -137,9 +137,9 @@ def api_prisoners_dilemma_initialize():
     global opp
 
     data = request.get_json()
-    agent, opp = initialize_agent(data["policies"], data["opponent"])
+    agent, opp, policy_names = initialize_agent(data["policies"], data["opponent"])
 
-    return jsonify({"prior": agent.prior.tolist()})
+    return jsonify({"prior": agent.prior.tolist(), "policy_names": policy_names})
 
 
 @app.route("/api/prisoners_dilemma/play", methods=["POST"])
@@ -161,16 +161,16 @@ def api_prisoners_dilemma_play():
     new_prior = agent._update_prior(agent.prior, opp.history)
 
     reward_matrix = np.array([[3, 5], [0, 1]])
-    agent_coop = int(agent_move == axl.Action.C)
-    opp_coop = int(opp_move == axl.Action.C)
+    agent_defect = int(agent_move == axl.Action.D)
+    opp_defect = int(opp_move == axl.Action.D)
 
     return jsonify(
         {
             "agent_move": str(agent_move),
             "opp_move": str(opp_move),
             "prior": new_prior.tolist(),
-            "agent_reward": reward_matrix[opp_coop, agent_coop],
-            "opp_reward": reward_matrix[agent_coop, opp_coop],
+            "agent_reward": int(reward_matrix[opp_defect, agent_defect]),
+            "opp_reward": int(reward_matrix[agent_defect, opp_defect]),
         }
     )
 
