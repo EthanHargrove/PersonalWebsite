@@ -57,7 +57,10 @@ function PrisonersDilemmaGame() {
   const [totalOppReward, setTotalOppReward] = useState(0);
   const [prior, setPrior] = useState([]);
   const [policyNames, setPolicyNames] = useState([]);
-  const [priorPolicies, setPriorPolicies] = useState<string | string[]>([""]);
+  const [priorPolicies, setPriorPolicies] = useState<string[]>([
+    "First Tournament",
+  ]);
+  const [opponentPolicy, setOpponentPolicy] = useState("Manual");
 
   const initializeAgents = async () => {
     const body = {
@@ -198,26 +201,27 @@ function PrisonersDilemmaGame() {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const isDisabled = (option: string) => {
-    const isSpecialOptionSelected = !policies.some(
+    const isSpecialOptionSelected = priorPolicies.some(
       (item) => !policies.includes(item)
     );
-    return isSpecialOptionSelected && policies.includes(option); // Disable group 2 if group 1 is selected
+    // Disable all single policy options if a Group of policies is selected
+    if (isSpecialOptionSelected && policies.includes(option)) {
+      return true;
+    }
+    // If a group of policies is selected, disable other group of policies options
+    if (!policies.includes(option) && priorPolicies.includes(option)) {
+      return false;
+    }
+    return (
+      priorPolicies.includes(option) &&
+      priorPolicies.some((item) => !policies.includes(item))
+    );
   };
 
   return (
     <>
       <Navbar active="" />
-      <p>{priorPolicies}</p>
       <div>
-        {/* <Paper style={{ maxHeight: 300, overflow: "auto" }} elevation={3}>
-        <List>
-          {policies.map((policy, index) => (
-            <ListItem key={index}>
-              <ListItemText primary={policy} />
-            </ListItem>
-          ))}
-        </List>
-      </Paper> */}
         <Stack
           direction="row"
           justifyContent="space-evenly"
@@ -230,20 +234,27 @@ function PrisonersDilemmaGame() {
             disableClearable
             disableCloseOnSelect
             options={["First Tournament", "Representative Set", ...policies]}
+            defaultValue={["First Tournament"]}
             sx={{ width: 300, backgroundColor: "white" }}
+            value={priorPolicies}
             onChange={(event, newValue) => {
               const selectedFromGroup1 = newValue.some(
                 (val) => !policies.includes(val)
               );
 
               if (selectedFromGroup1) {
-                // If any item from group 1 is selected, clear the others and set only the group 1 item
+                // If any item from group of policies is selected, clear the others and set only the group of policies item
                 const onlyGroup1Selections = newValue.filter(
                   (val) => !policies.includes(val)
                 );
-                setPriorPolicies(onlyGroup1Selections);
+                if (onlyGroup1Selections.length > 1) {
+                  // Ensure only one item from group of policies item is selected
+                  setPriorPolicies([onlyGroup1Selections[0]]);
+                } else {
+                  setPriorPolicies(onlyGroup1Selections);
+                }
               } else {
-                // Otherwise, allow normal selection from group 2
+                // Otherwise, allow normal multiple selection of individual policies
                 setPriorPolicies(newValue);
               }
             }}
@@ -263,7 +274,7 @@ function PrisonersDilemmaGame() {
                     icon={icon}
                     checkedIcon={checkedIcon}
                     style={{ marginRight: 8 }}
-                    checked={selected}
+                    checked={priorPolicies.includes(option)}
                     disabled={isDisabled(option)}
                   />
                   {option}
@@ -275,7 +286,11 @@ function PrisonersDilemmaGame() {
             disablePortal
             disableClearable
             options={["Manual", ...policies]}
+            defaultValue="Manual"
             sx={{ width: 300, backgroundColor: "white" }}
+            onChange={(event, newValue) => {
+              setOpponentPolicy(newValue);
+            }}
             renderInput={(params) => (
               <TextField {...params} label="Player 2 Policy" />
             )}
@@ -352,14 +367,6 @@ function PrisonersDilemmaGame() {
             <Legend />
             <Bar dataKey="value" fill="#8884d8" />
           </BarChart>
-          {/* <TextField
-            fullWidth
-            variant="outlined"
-            label="Search countries"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            margin="normal"
-          /> */}
         </Stack>
       </div>
     </>
