@@ -59,6 +59,7 @@ function Card(props: CardProps) {
         ? `0 0 20px 10px ${props.colour}`
         : `0 0 10px 5px ${props.colour}`,
     },
+    delay: 50,
   });
 
   const imgStyle = {

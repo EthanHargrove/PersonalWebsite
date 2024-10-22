@@ -54,6 +54,7 @@ const BayesMARL = () => {
           "Bayes' Theorem",
           "Belief Over Policies",
           "Action Probabilities",
+          "Test It Out",
         ]}
         scrollingSpeed={1000}
         keyboardScrolling={true}

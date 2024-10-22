@@ -16,12 +16,6 @@ function CV() {
 
     // Change document title
     document.title = "Ethan Hargrove - CV";
-
-    // Change favicon
-    // const favicon = document.querySelector('link[rel="icon"]');
-    // if (favicon) {
-    //   favicon.href = "/path/to/new/icon.png"; // Change path to your new favicon
-    // }
   }, []);
 
   const [dimensions, setDimensions] = useState({
@@ -182,7 +176,6 @@ function CV() {
 
   return (
     <>
-      {/* <div className="cyberpunk-background" style={{ marginTop: "-65px" }} /> */}
       <div
         className="blur-background"
         style={{

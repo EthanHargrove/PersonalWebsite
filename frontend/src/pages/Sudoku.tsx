@@ -8,7 +8,13 @@ import SudokuGame from "../components/sudoku/SudokuGame";
 function Sudoku() {
   return (
     <>
-      <div className="cyberpunk-background"></div>
+      <div
+        className="blur-background"
+        style={{
+          position: "fixed",
+          backgroundImage: "url(./images/CyberpunkBackground.png)",
+        }}
+      />
       <Navbar active="" />
       <SudokuGame />
     </>

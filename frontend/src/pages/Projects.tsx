@@ -58,14 +58,14 @@ function Projects() {
         <Card
           slide={1}
           colour="var(--neon-purple)"
-          imagen="https://updates.theme-fusion.com/wp-content/uploads/2017/12/layer_slider_plugin_thumb.png"
+          imagen="./images/SudokuBeta.png"
           page="/tic-tac-toe"
           title="XAI: Sudoku Solver"
           longTitle={false}
           description="Third card."
           button1Title="Try It Out"
           button1Link="/sudoku"
-          button2Title="How It Works"
+          button2Title="In Beta"
           button2Link=""
         />
       ),
@@ -110,10 +110,6 @@ function Projects() {
 
   return (
     <>
-      {/* <div
-        className="cyberpunk-background"
-        style={{ marginLeft: "-8px", marginTop: "-7px" }}
-      /> */}
       <div
         className="blur-background"
         style={{

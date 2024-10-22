@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import {
   Box,
+  Button,
   Stack,
   List,
   ListItem,
@@ -30,6 +31,10 @@ import { apiCall } from "../api/api";
 import Navbar from "../components/Navbar";
 
 function PrisonersDilemmaGame() {
+  useEffect(() => {
+    // Change document title
+    document.title = "Ethan Hargrove - Prisoners Dilemma";
+  }, []);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -61,11 +66,20 @@ function PrisonersDilemmaGame() {
     "First Tournament",
   ]);
   const [opponentPolicy, setOpponentPolicy] = useState("Manual");
+  const [round, setRound] = useState(0);
+  const [showPrior, setShowPrior] = useState(true);
 
   const initializeAgents = async () => {
+    setAgentMove("");
+    setAgentReward(0);
+    setTotalAgentReward(0);
+    setOppMove("");
+    setOppReward(0);
+    setTotalOppReward(0);
+    setRound(0);
     const body = {
-      policies: ["first_tournament"],
-      opponent: "Random",
+      policies: priorPolicies,
+      opponent: opponentPolicy === "Manual" ? "Random" : opponentPolicy,
     };
 
     try {
@@ -86,14 +100,24 @@ function PrisonersDilemmaGame() {
     }
   };
 
-  const playRound = async () => {
-    const body = {};
+  useEffect(() => {
+    initializeAgents();
+  }, [priorPolicies, opponentPolicy]);
+
+  const playRound = async (move?: string) => {
+    let body;
+    if (move) {
+      body = { move: move };
+    } else {
+      body = {};
+    }
 
     try {
       setAgentMove("?");
       setAgentReward(0);
       setOppMove("?");
       setOppReward(0);
+      setRound(round + 1);
       const response = await apiCall("prisoners_dilemma/play", "POST", body);
 
       if (response) {
@@ -223,93 +247,97 @@ function PrisonersDilemmaGame() {
       <Navbar active="" />
       <div>
         <Stack
-          direction="row"
-          justifyContent="space-evenly"
-          spacing={2}
-          margin={2}
-        >
-          <Autocomplete
-            multiple
-            disablePortal
-            disableClearable
-            disableCloseOnSelect
-            options={["First Tournament", "Representative Set", ...policies]}
-            defaultValue={["First Tournament"]}
-            sx={{ width: 300, backgroundColor: "white" }}
-            value={priorPolicies}
-            onChange={(event, newValue) => {
-              const selectedFromGroup1 = newValue.some(
-                (val) => !policies.includes(val)
-              );
-
-              if (selectedFromGroup1) {
-                // If any item from group of policies is selected, clear the others and set only the group of policies item
-                const onlyGroup1Selections = newValue.filter(
-                  (val) => !policies.includes(val)
-                );
-                if (onlyGroup1Selections.length > 1) {
-                  // Ensure only one item from group of policies item is selected
-                  setPriorPolicies([onlyGroup1Selections[0]]);
-                } else {
-                  setPriorPolicies(onlyGroup1Selections);
-                }
-              } else {
-                // Otherwise, allow normal multiple selection of individual policies
-                setPriorPolicies(newValue);
-              }
-            }}
-            groupBy={(option) => {
-              return policies.includes(option)
-                ? "Individual Policies"
-                : "Sets of Policies";
-            }}
-            renderInput={(params) => (
-              <TextField {...params} label="Agent Prior Belief" />
-            )}
-            renderOption={(props, option, { selected }) => {
-              const { ...optionProps } = props;
-              return (
-                <li {...optionProps}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={priorPolicies.includes(option)}
-                    disabled={isDisabled(option)}
-                  />
-                  {option}
-                </li>
-              );
-            }}
-          />
-          <Autocomplete
-            disablePortal
-            disableClearable
-            options={["Manual", ...policies]}
-            defaultValue="Manual"
-            sx={{ width: 300, backgroundColor: "white" }}
-            onChange={(event, newValue) => {
-              setOpponentPolicy(newValue);
-            }}
-            renderInput={(params) => (
-              <TextField {...params} label="Player 2 Policy" />
-            )}
-          />
-        </Stack>
-        <Stack
           direction="column"
           justifyContent="space-evenly"
+          alignItems="center"
           height={dimensions.height * 0.9}
           spacing={2}
+          sx={{ marginTop: "60px" }}
         >
           <h1>Prisoners Dilemma Game</h1>
-          <button onClick={initializeAgents}>Initialize Agents</button>
-          <button onClick={playRound}>Play Round</button>
           <Stack
             direction="row"
             justifyContent="space-evenly"
-            alignItems="center"
             spacing={2}
+            margin={2}
+          >
+            <Autocomplete
+              multiple
+              disablePortal
+              disableClearable
+              disableCloseOnSelect
+              options={["First Tournament", "Representative Set", ...policies]}
+              defaultValue={["First Tournament"]}
+              sx={{
+                width: 500,
+                backgroundColor: "white",
+              }}
+              value={priorPolicies}
+              onChange={(event, newValue) => {
+                const selectedFromGroup1 = newValue.some(
+                  (val) => !policies.includes(val)
+                );
+
+                if (selectedFromGroup1) {
+                  // If any item from group of policies is selected, clear the others and set only the group of policies item
+                  const onlyGroup1Selections = newValue.filter(
+                    (val) => !policies.includes(val)
+                  );
+                  if (onlyGroup1Selections.length > 1) {
+                    // Ensure only one item from group of policies item is selected
+                    setPriorPolicies([onlyGroup1Selections[0]]);
+                  } else {
+                    setPriorPolicies(onlyGroup1Selections);
+                  }
+                } else {
+                  // Otherwise, allow normal multiple selection of individual policies
+                  setPriorPolicies(newValue);
+                }
+              }}
+              groupBy={(option) => {
+                return policies.includes(option)
+                  ? "Individual Policies"
+                  : "Sets of Policies";
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Agent Prior Belief" />
+              )}
+              renderOption={(props, option, { selected }) => {
+                const { ...optionProps } = props;
+                return (
+                  <li {...optionProps}>
+                    <Checkbox
+                      icon={icon}
+                      checkedIcon={checkedIcon}
+                      style={{ marginRight: 8 }}
+                      checked={priorPolicies.includes(option)}
+                      disabled={isDisabled(option)}
+                    />
+                    {option}
+                  </li>
+                );
+              }}
+            />
+            <Autocomplete
+              disablePortal
+              disableClearable
+              options={["Manual", ...policies]}
+              defaultValue="Manual"
+              sx={{ width: 500, backgroundColor: "white" }}
+              onChange={(event, newValue) => {
+                setOpponentPolicy(newValue);
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label="Player 2 Policy" />
+              )}
+            />
+          </Stack>
+          <p>Round: {round}</p>
+          <Stack
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            spacing={3}
           >
             <Stack direction="column" spacing={2}>
               <Box
@@ -331,6 +359,28 @@ function PrisonersDilemmaGame() {
               )}
             </Stack>
             <Stack direction="column" spacing={2}>
+              {opponentPolicy === "Manual" ? (
+                <Button onClick={() => playRound("C")}>Cooperate</Button>
+              ) : (
+                <Button onClick={() => playRound()}>Play Round</Button>
+              )}
+              {opponentPolicy === "Manual" ? (
+                <Button onClick={() => playRound("D")}>Defect</Button>
+              ) : (
+                <></>
+              )}
+              {showPrior ? (
+                <Button onClick={() => setShowPrior(!showPrior)}>
+                  Hide Prior
+                </Button>
+              ) : (
+                <Button onClick={() => setShowPrior(!showPrior)}>
+                  Show Prior
+                </Button>
+              )}
+              <Button onClick={initializeAgents}>Reset</Button>
+            </Stack>
+            <Stack direction="column" spacing={2}>
               <Box
                 component="img"
                 src={oppImg}
@@ -349,24 +399,26 @@ function PrisonersDilemmaGame() {
               )}
             </Stack>
           </Stack>
-          <BarChart
-            width={dimensions.width * 0.9}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip content={<CustomTooltip />} />
-            <Legend />
-            <Bar dataKey="value" fill="#8884d8" />
-          </BarChart>
+          {showPrior && (
+            <BarChart
+              width={dimensions.width * 0.8}
+              height={300}
+              data={data}
+              margin={{
+                top: 5,
+                right: 30,
+                left: 30,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" tick={false} />
+              <YAxis />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          )}
         </Stack>
       </div>
     </>

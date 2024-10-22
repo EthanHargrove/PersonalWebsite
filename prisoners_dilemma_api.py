@@ -29,10 +29,10 @@ potential_policies = {
 
 
 def initialize_agent(chosen_policies, opponent):
-    if chosen_policies == ["first_tournament"]:
+    if chosen_policies == ["First Tournament"]:
         policies = [s for s in axl.axelrod_first_strategies]
         agent = BayesianTypeBasedReasoning(policies, num_iter=100, depth=4)
-    elif chosen_policies == ["subset"]:
+    elif chosen_policies == ["Representative Set"]:
         policies = [
             axl.Grudger,
             axl.TitFor2Tats,
