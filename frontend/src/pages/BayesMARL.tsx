@@ -11,6 +11,7 @@ import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
 import HBAIntro from "../components/BayesMARL/HBAIntro";
 import HBA from "../components/BayesMARL/HBA";
 import ActionProbabilities from "../components/BayesMARL/ActionProbabilities";
+import PrisonersDilemmaGame from "./PrisonersDilemmaGame";
 import "../styles/gnn.css";
 
 const BayesMARL = () => {
@@ -99,6 +100,7 @@ const BayesMARL = () => {
               <BayesTheorem />
               <BeliefOverPolicies />
               <ActionProbabilities />
+              <PrisonersDilemmaGame />
             </ReactFullpage.Wrapper>
           );
         }}

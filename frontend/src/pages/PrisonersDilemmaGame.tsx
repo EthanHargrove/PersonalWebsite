@@ -1,5 +1,5 @@
 // External imports
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, CSSProperties } from "react";
 import {
   BarChart,
   Bar,
@@ -242,186 +242,252 @@ function PrisonersDilemmaGame() {
     );
   };
 
+  const [hoveredOption, setHoveredOption] = React.useState(null);
+
+  const handleMouseEnter = (option: any) => {
+    setHoveredOption(option);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredOption(null);
+  };
+
   return (
-    <>
+    <div className="section">
+      <div
+        className="background"
+        style={{
+          backgroundImage:
+            dimensions.width < 444
+              ? "url(./images/PrisonCellPortrait.png)"
+              : "url(./images/PrisonCellLandscape.png)",
+        }}
+      />
       <Navbar active="" />
-      <div>
+      <Stack
+        direction="column"
+        justifyContent="space-evenly"
+        alignItems="center"
+        height={dimensions.height * 0.9}
+        spacing={2}
+        sx={{ marginTop: "60px" }}
+      >
+        <h1 style={{ color: "var(--neon-orange)" }}>Prisoners Dilemma Game</h1>
         <Stack
-          direction="column"
+          direction="row"
           justifyContent="space-evenly"
-          alignItems="center"
-          height={dimensions.height * 0.9}
           spacing={2}
-          sx={{ marginTop: "60px" }}
+          margin={2}
         >
-          <h1>Prisoners Dilemma Game</h1>
-          <Stack
-            direction="row"
-            justifyContent="space-evenly"
-            spacing={2}
-            margin={2}
-          >
-            <Autocomplete
-              multiple
-              disablePortal
-              disableClearable
-              disableCloseOnSelect
-              options={["First Tournament", "Representative Set", ...policies]}
-              defaultValue={["First Tournament"]}
-              sx={{
-                width: 500,
-                backgroundColor: "white",
-              }}
-              value={priorPolicies}
-              onChange={(event, newValue) => {
-                const selectedFromGroup1 = newValue.some(
+          <Autocomplete
+            multiple
+            disablePortal
+            disableClearable
+            disableCloseOnSelect
+            options={["First Tournament", "Representative Set", ...policies]}
+            defaultValue={["First Tournament"]}
+            sx={{
+              width: 500,
+              "& .MuiAutocomplete-popupIndicator": {
+                color: "var(--neon-orange)",
+              },
+              "& .MuiChip-root": {
+                backgroundColor: "var(--neon-orange)",
+                color: "var(--dark-grey)",
+                borderRadius: "8px",
+              },
+              "& .MuiOutlinedInput-root": {
+                // Outlined variant
+                "& fieldset": {
+                  borderColor: "var(--neon-orange)",
+                },
+                "&:hover fieldset": {
+                  borderColor: "var(--neon-orange)",
+                },
+                "&.Mui-focused fieldset": {
+                  borderColor: "var(--neon-orange)",
+                },
+              },
+            }}
+            value={priorPolicies}
+            onChange={(event, newValue) => {
+              const selectedFromGroup1 = newValue.some(
+                (val) => !policies.includes(val)
+              );
+
+              if (selectedFromGroup1) {
+                // If any item from group of policies is selected, clear the others and set only the group of policies item
+                const onlyGroup1Selections = newValue.filter(
                   (val) => !policies.includes(val)
                 );
-
-                if (selectedFromGroup1) {
-                  // If any item from group of policies is selected, clear the others and set only the group of policies item
-                  const onlyGroup1Selections = newValue.filter(
-                    (val) => !policies.includes(val)
-                  );
-                  if (onlyGroup1Selections.length > 1) {
-                    // Ensure only one item from group of policies item is selected
-                    setPriorPolicies([onlyGroup1Selections[0]]);
-                  } else {
-                    setPriorPolicies(onlyGroup1Selections);
-                  }
+                if (onlyGroup1Selections.length > 1) {
+                  // Ensure only one item from group of policies item is selected
+                  setPriorPolicies([onlyGroup1Selections[0]]);
                 } else {
-                  // Otherwise, allow normal multiple selection of individual policies
-                  setPriorPolicies(newValue);
+                  setPriorPolicies(onlyGroup1Selections);
                 }
-              }}
-              groupBy={(option) => {
-                return policies.includes(option)
-                  ? "Individual Policies"
-                  : "Sets of Policies";
-              }}
-              renderInput={(params) => (
-                <TextField {...params} label="Agent Prior Belief" />
-              )}
-              renderOption={(props, option, { selected }) => {
-                const { ...optionProps } = props;
-                return (
-                  <li {...optionProps}>
-                    <Checkbox
-                      icon={icon}
-                      checkedIcon={checkedIcon}
-                      style={{ marginRight: 8 }}
-                      checked={priorPolicies.includes(option)}
-                      disabled={isDisabled(option)}
-                    />
-                    {option}
-                  </li>
-                );
-              }}
-            />
-            <Autocomplete
-              disablePortal
-              disableClearable
-              options={["Manual", ...policies]}
-              defaultValue="Manual"
-              sx={{ width: 500, backgroundColor: "white" }}
-              onChange={(event, newValue) => {
-                setOpponentPolicy(newValue);
-              }}
-              renderInput={(params) => (
-                <TextField {...params} label="Player 2 Policy" />
-              )}
-            />
-          </Stack>
-          <p>Round: {round}</p>
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            spacing={3}
-          >
-            <Stack direction="column" spacing={2}>
-              <Box
-                component="img"
-                src={agentImg}
+              } else {
+                // Otherwise, allow normal multiple selection of individual policies
+                setPriorPolicies(newValue);
+              }
+            }}
+            groupBy={(option) => {
+              return policies.includes(option)
+                ? "Individual Policies"
+                : "Sets of Policies";
+            }}
+            renderInput={(params) => (
+              <TextField
+                {...params}
                 sx={{
-                  width: dimensions.height * 0.18,
-                  height: dimensions.height * 0.18,
+                  background: "var(--dark-grey)",
+                  "& .MuiInputLabel-root": { color: "var(--neon-orange)" },
+                  "& .MuiInputBase-input": { color: "var(--neon-orange)" },
                 }}
+                label="Agent Prior Belief"
               />
-              <p>Agent Move: {agentMove}</p>
-              {totalAgentReward === 0 ? (
-                <p>Total reward: {totalAgentReward}</p>
-              ) : (
-                <p>
-                  Total reward:{" "}
-                  {`${totalAgentReward - agentReward} + ${agentReward}`}
-                </p>
-              )}
-            </Stack>
-            <Stack direction="column" spacing={2}>
-              {opponentPolicy === "Manual" ? (
-                <Button onClick={() => playRound("C")}>Cooperate</Button>
-              ) : (
-                <Button onClick={() => playRound()}>Play Round</Button>
-              )}
-              {opponentPolicy === "Manual" ? (
-                <Button onClick={() => playRound("D")}>Defect</Button>
-              ) : (
-                <></>
-              )}
-              {showPrior ? (
-                <Button onClick={() => setShowPrior(!showPrior)}>
-                  Hide Prior
-                </Button>
-              ) : (
-                <Button onClick={() => setShowPrior(!showPrior)}>
-                  Show Prior
-                </Button>
-              )}
-              <Button onClick={initializeAgents}>Reset</Button>
-            </Stack>
-            <Stack direction="column" spacing={2}>
-              <Box
-                component="img"
-                src={oppImg}
-                sx={{
-                  width: dimensions.height * 0.18,
-                  height: dimensions.height * 0.18,
-                }}
-              />
-              <p>Player 2 Move: {oppMove}</p>
-              {totalOppReward === 0 ? (
-                <p>Total reward: {totalOppReward}</p>
-              ) : (
-                <p>
-                  Total reward: {`${totalOppReward - oppReward} + ${oppReward}`}
-                </p>
-              )}
-            </Stack>
-          </Stack>
-          {showPrior && (
-            <BarChart
-              width={dimensions.width * 0.8}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 30,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" tick={false} />
-              <YAxis />
-              <Tooltip content={<CustomTooltip />} />
-              <Legend />
-              <Bar dataKey="value" fill="#8884d8" />
-            </BarChart>
-          )}
+            )}
+            renderOption={(props, option, { selected }) => {
+              const { ...optionProps } = props;
+              return (
+                <li
+                  {...optionProps}
+                  onMouseEnter={() => handleMouseEnter(option)}
+                  onMouseLeave={handleMouseLeave}
+                  style={{
+                    backgroundColor: selected
+                      ? "#000000"
+                      : hoveredOption === option
+                      ? "lightgray"
+                      : "var(--dark-grey)",
+                    color: "var(--neon-orange)",
+                    padding: "8px 16px",
+                    cursor: "pointer",
+                  }}
+                >
+                  <Checkbox
+                    icon={icon}
+                    checkedIcon={checkedIcon}
+                    style={{ marginRight: 8, color: "var(--neon-orange)" }}
+                    checked={priorPolicies.includes(option)}
+                    disabled={isDisabled(option)}
+                  />
+                  {option}
+                </li>
+              );
+            }}
+          />
+          <Autocomplete
+            disablePortal
+            disableClearable
+            options={["Manual", ...policies]}
+            defaultValue="Manual"
+            sx={{ width: 500, backgroundColor: "white" }}
+            onChange={(event, newValue) => {
+              setOpponentPolicy(newValue);
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Player 2 Policy" />
+            )}
+          />
         </Stack>
-      </div>
-    </>
+        <p style={{ color: "var(--neon-orange)" }}>Round: {round}</p>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={3}
+        >
+          <Stack direction="column" spacing={2}>
+            <Box
+              component="img"
+              src={agentImg}
+              sx={{
+                width: dimensions.height * 0.18,
+                height: dimensions.height * 0.18,
+              }}
+            />
+            <p style={{ color: "var(--neon-orange)" }}>
+              Agent Move: {agentMove}
+            </p>
+            {totalAgentReward === 0 ? (
+              <p style={{ color: "var(--neon-orange)" }}>
+                Total reward: {totalAgentReward}
+              </p>
+            ) : (
+              <p style={{ color: "var(--neon-orange)" }}>
+                Total reward:{" "}
+                {`${totalAgentReward - agentReward} + ${agentReward}`}
+              </p>
+            )}
+          </Stack>
+          <Stack direction="column" spacing={2}>
+            {opponentPolicy === "Manual" ? (
+              <Button onClick={() => playRound("C")}>Cooperate</Button>
+            ) : (
+              <Button onClick={() => playRound()}>Play Round</Button>
+            )}
+            {opponentPolicy === "Manual" ? (
+              <Button onClick={() => playRound("D")}>Defect</Button>
+            ) : (
+              <></>
+            )}
+            {showPrior ? (
+              <Button onClick={() => setShowPrior(!showPrior)}>
+                Hide Prior
+              </Button>
+            ) : (
+              <Button onClick={() => setShowPrior(!showPrior)}>
+                Show Prior
+              </Button>
+            )}
+            <Button onClick={initializeAgents}>Reset</Button>
+          </Stack>
+          <Stack direction="column" spacing={2}>
+            <Box
+              component="img"
+              src={oppImg}
+              sx={{
+                width: dimensions.height * 0.18,
+                height: dimensions.height * 0.18,
+              }}
+            />
+            <p style={{ color: "var(--neon-orange)" }}>
+              Player 2 Move: {oppMove}
+            </p>
+            {totalOppReward === 0 ? (
+              <p style={{ color: "var(--neon-orange)" }}>
+                Total reward: {totalOppReward}
+              </p>
+            ) : (
+              <p style={{ color: "var(--neon-orange)" }}>
+                Total reward: {`${totalOppReward - oppReward} + ${oppReward}`}
+              </p>
+            )}
+          </Stack>
+        </Stack>
+        {showPrior && (
+          <BarChart
+            width={dimensions.width * 0.8}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 30,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" tick={false} />
+            <YAxis />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend />
+            <Bar dataKey="value" fill="#8884d8" />
+          </BarChart>
+        )}
+      </Stack>
+    </div>
   );
 }
 
