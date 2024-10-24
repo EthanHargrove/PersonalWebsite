@@ -13,6 +13,7 @@ import {
 import {
   Box,
   Button,
+  ButtonProps,
   Stack,
   List,
   ListItem,
@@ -32,7 +33,6 @@ import { MathJax, MathJaxContext } from "better-react-mathjax";
 // Internal imports
 import { apiCall } from "../api/api";
 import Navbar from "../components/Navbar";
-import { color } from "framer-motion";
 
 function PrisonersDilemmaGame() {
   useEffect(() => {
@@ -58,8 +58,8 @@ function PrisonersDilemmaGame() {
     };
   }, []);
 
-  const [agentMove, setAgentMove] = useState("_");
-  const [oppMove, setOppMove] = useState("_");
+  const [agentMove, setAgentMove] = useState("");
+  const [oppMove, setOppMove] = useState("");
   const [agentReward, setAgentReward] = useState(0);
   const [totalAgentReward, setTotalAgentReward] = useState(0);
   const [oppReward, setOppReward] = useState(0);
@@ -74,10 +74,10 @@ function PrisonersDilemmaGame() {
   const [showPrior, setShowPrior] = useState(true);
 
   const initializeAgents = async () => {
-    setAgentMove("_");
+    setAgentMove("");
     setAgentReward(0);
     setTotalAgentReward(0);
-    setOppMove("_");
+    setOppMove("");
     setOppReward(0);
     setTotalOppReward(0);
     setRound(0);
@@ -256,22 +256,36 @@ function PrisonersDilemmaGame() {
     },
   }));
 
-  const CustomStyledButton = styled(Button)(({ theme }) => ({
-    backgroundColor: "var(--dark-grey)",
-    color: "var(--neon-orange)",
-    border: "1px solid var(--neon-orange)",
-    borderRadius: theme.shape.borderRadius * 2,
-    padding: "10px 24px",
-    width: "175px",
-    "&:hover": {
-      backgroundColor: "#3C3C3C",
-      color: "var(--neon-orange)",
-      fontWeight: 700,
-    },
-  }));
+  const fontSize = Math.min(
+    Math.min(0.05 * dimensions.width, 0.04 * dimensions.height),
+    24
+  );
+  interface CustomButtonProps extends ButtonProps {
+    colour: string;
+  }
+  const CustomStyledButton = styled(Button)<CustomButtonProps>(
+    ({ theme, ...props }) => ({
+      backgroundColor: "var(--dark-grey)",
+      color: props.colour,
+      border: `1px solid ${props.colour}`,
+      borderRadius: theme.shape.borderRadius * 2,
+      padding: "10px 24px",
+      width: fontSize * 7,
+      fontSize: fontSize * 0.5,
+      maxWidth:
+        opponentPolicy === "Manual"
+          ? dimensions.width / 3.3
+          : dimensions.width / 2.3,
+      "&:hover": {
+        backgroundColor: "#3C3C3C",
+        color: props.colour,
+        fontWeight: 700,
+      },
+    })
+  );
 
   return (
-    <div>
+    <>
       <div
         className="background"
         style={{
@@ -287,14 +301,14 @@ function PrisonersDilemmaGame() {
         direction="column"
         justifyContent="space-evenly"
         alignItems="center"
-        spacing={2}
-        sx={{ margin: 0, padding: 0, overflow: "hidden" }}
+        height={dimensions.height - 80}
+        spacing={Math.min(dimensions.height, dimensions.width) < 444 ? 1 : 2}
+        sx={{ marginTop: "50px", paddingTop: "10px", overflow: "hidden" }}
       >
-        <h1 style={{ color: "var(--neon-orange)" }}>Prisoners Dilemma Game</h1>
         <Stack
-          direction="row"
+          direction={dimensions.width < dimensions.height ? "column" : "row"}
           justifyContent="space-evenly"
-          spacing={2}
+          spacing={Math.min(dimensions.height, dimensions.width) < 444 ? 1 : 2}
           margin={2}
         >
           <Autocomplete
@@ -305,7 +319,10 @@ function PrisonersDilemmaGame() {
             options={["First Tournament", "Representative Set", ...policies]}
             defaultValue={["First Tournament"]}
             sx={{
-              width: 500,
+              width:
+                dimensions.width < dimensions.height
+                  ? dimensions.width * 0.8
+                  : Math.min(dimensions.width * 0.4, 500),
               "& .MuiAutocomplete-popupIndicator": {
                 color: "var(--neon-orange)",
               },
@@ -408,7 +425,10 @@ function PrisonersDilemmaGame() {
             options={["Manual", ...policies]}
             defaultValue="Manual"
             sx={{
-              width: 500,
+              width:
+                dimensions.width < dimensions.height
+                  ? dimensions.width * 0.8
+                  : Math.min(dimensions.width * 0.4, 500),
               "& .MuiAutocomplete-popupIndicator": {
                 color: "var(--neon-orange)",
               },
@@ -470,94 +490,265 @@ function PrisonersDilemmaGame() {
             PopperComponent={StyledPopper}
           />
         </Stack>
-        <Stack
-          direction="row"
-          justifyContent="space-evenly"
-          alignItems="center"
-          spacing={2}
-        >
-          <Stack direction="column" spacing={2}>
-            <Box
-              component="img"
-              src={agentImg}
-              sx={{
-                width: dimensions.height * 0.2,
-                height: dimensions.height * 0.2,
+        {dimensions.width > dimensions.height && (
+          <Stack
+            direction="row"
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={1}
+          >
+            <Stack direction="column" spacing={1}>
+              <Box
+                component="img"
+                src={agentImg}
+                sx={{
+                  width: dimensions.height * 0.2,
+                  height: dimensions.height * 0.2,
+                }}
+              />
+              <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                Agent Move: {agentMove}
+              </p>
+              {totalAgentReward === 0 ? (
+                <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                  Total reward: {totalAgentReward}
+                </p>
+              ) : (
+                <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                  Total reward:{" "}
+                  {`${totalAgentReward - agentReward} + ${agentReward}`}
+                </p>
+              )}
+            </Stack>
+            <Stack direction="column" alignItems="center" spacing={1}>
+              <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                Round: {round}
+              </p>
+              <Stack
+                direction={
+                  dimensions.width < dimensions.height ? "column" : "row"
+                }
+                spacing={1}
+              >
+                {opponentPolicy === "Manual" ? (
+                  <CustomStyledButton
+                    colour="var(--neon-green)"
+                    onClick={() => playRound("C")}
+                  >
+                    Cooperate
+                  </CustomStyledButton>
+                ) : (
+                  <CustomStyledButton
+                    colour="var(--neon-orange)"
+                    onClick={() => playRound()}
+                  >
+                    Play Round
+                  </CustomStyledButton>
+                )}
+                {opponentPolicy === "Manual" ? (
+                  <CustomStyledButton
+                    colour="#FF3131"
+                    onClick={() => playRound("D")}
+                  >
+                    Defect
+                  </CustomStyledButton>
+                ) : (
+                  <></>
+                )}
+                {showPrior ? (
+                  <CustomStyledButton
+                    colour="var(--neon-orange)"
+                    onClick={() => setShowPrior(!showPrior)}
+                  >
+                    Hide Belief
+                  </CustomStyledButton>
+                ) : (
+                  <CustomStyledButton
+                    colour="var(--neon-orange)"
+                    onClick={() => setShowPrior(!showPrior)}
+                  >
+                    Show Belief
+                  </CustomStyledButton>
+                )}
+              </Stack>
+              <Stack
+                direction={
+                  dimensions.width < dimensions.height ? "column" : "row"
+                }
+                spacing={1}
+              >
+                <CustomStyledButton
+                  colour="var(--neon-orange)"
+                  onClick={initializeAgents}
+                >
+                  Reset
+                </CustomStyledButton>
+                <CustomStyledButton colour="var(--neon-orange)">
+                  Explainer
+                </CustomStyledButton>
+              </Stack>
+            </Stack>
+            <Stack direction="column" alignItems="center" spacing={1}>
+              <Box
+                component="img"
+                src={oppImg}
+                sx={{
+                  width: dimensions.height * 0.2,
+                  height: dimensions.height * 0.2,
+                }}
+              />
+              <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                Player 2 Move: {oppMove}
+              </p>
+              {totalOppReward === 0 ? (
+                <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                  Total reward: {totalOppReward}
+                </p>
+              ) : (
+                <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                  Total reward: {`${totalOppReward - oppReward} + ${oppReward}`}
+                </p>
+              )}
+            </Stack>
+          </Stack>
+        )}
+        {dimensions.width < dimensions.height && (
+          <Stack
+            direction="column"
+            justifyContent="space-evenly"
+            alignItems="center"
+            spacing={1}
+          >
+            <p
+              style={{
+                marginBottom: "-35px",
+                fontSize: fontSize,
+                color: "var(--neon-orange)",
               }}
-            />
-            <p style={{ color: "var(--neon-orange)" }}>
-              Agent Move: {agentMove}
+            >
+              Round: {round}
             </p>
-            {totalAgentReward === 0 ? (
-              <p style={{ color: "var(--neon-orange)" }}>
-                Total reward: {totalAgentReward}
-              </p>
-            ) : (
-              <p style={{ color: "var(--neon-orange)" }}>
-                Total reward:{" "}
-                {`${totalAgentReward - agentReward} + ${agentReward}`}
-              </p>
-            )}
+            <Stack direction="row" spacing={4}>
+              <Stack direction="column" spacing={1}>
+                <Box
+                  component="img"
+                  src={agentImg}
+                  sx={{
+                    width: dimensions.height * 0.2,
+                    height: dimensions.height * 0.2,
+                  }}
+                />
+                <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                  Agent Move: {agentMove}
+                </p>
+                {totalAgentReward === 0 ? (
+                  <p
+                    style={{ fontSize: fontSize, color: "var(--neon-orange)" }}
+                  >
+                    Total reward: {totalAgentReward}
+                  </p>
+                ) : (
+                  <p
+                    style={{ fontSize: fontSize, color: "var(--neon-orange)" }}
+                  >
+                    Total reward:{" "}
+                    {`${totalAgentReward - agentReward} + ${agentReward}`}
+                  </p>
+                )}
+              </Stack>
+              <Stack direction="column" alignItems="center" spacing={1}>
+                <Box
+                  component="img"
+                  src={oppImg}
+                  sx={{
+                    width: dimensions.height * 0.2,
+                    height: dimensions.height * 0.2,
+                  }}
+                />
+                <p style={{ fontSize: fontSize, color: "var(--neon-orange)" }}>
+                  Player 2 Move: {oppMove}
+                </p>
+                {totalOppReward === 0 ? (
+                  <p
+                    style={{ fontSize: fontSize, color: "var(--neon-orange)" }}
+                  >
+                    Total reward: {totalOppReward}
+                  </p>
+                ) : (
+                  <p
+                    style={{ fontSize: fontSize, color: "var(--neon-orange)" }}
+                  >
+                    Total reward:{" "}
+                    {`${totalOppReward - oppReward} + ${oppReward}`}
+                  </p>
+                )}
+              </Stack>
+            </Stack>
+            <Stack direction="column" alignItems="center" spacing={1}>
+              <Stack direction={"row"} spacing={1}>
+                {opponentPolicy === "Manual" ? (
+                  <CustomStyledButton
+                    colour="var(--neon-green)"
+                    onClick={() => playRound("C")}
+                  >
+                    Cooperate
+                  </CustomStyledButton>
+                ) : (
+                  <CustomStyledButton
+                    colour="var(--neon-orange)"
+                    onClick={() => playRound()}
+                  >
+                    Play Round
+                  </CustomStyledButton>
+                )}
+                {opponentPolicy === "Manual" ? (
+                  <CustomStyledButton
+                    colour="#FF3131"
+                    onClick={() => playRound("D")}
+                  >
+                    Defect
+                  </CustomStyledButton>
+                ) : (
+                  <></>
+                )}
+                {showPrior ? (
+                  <CustomStyledButton
+                    colour="var(--neon-orange)"
+                    onClick={() => setShowPrior(!showPrior)}
+                  >
+                    Hide Belief
+                  </CustomStyledButton>
+                ) : (
+                  <CustomStyledButton
+                    colour="var(--neon-orange)"
+                    onClick={() => setShowPrior(!showPrior)}
+                  >
+                    Show Belief
+                  </CustomStyledButton>
+                )}
+              </Stack>
+              <Stack direction={"row"} spacing={1}>
+                <CustomStyledButton
+                  colour="var(--neon-orange)"
+                  onClick={initializeAgents}
+                >
+                  Reset
+                </CustomStyledButton>
+                <CustomStyledButton colour="var(--neon-orange)">
+                  Explainer
+                </CustomStyledButton>
+              </Stack>
+            </Stack>
           </Stack>
-          <Stack direction="column" alignItems="center" spacing={2}>
-            <p style={{ color: "var(--neon-orange)" }}>Round: {round}</p>
-            {opponentPolicy === "Manual" ? (
-              <CustomStyledButton onClick={() => playRound("C")}>
-                Cooperate
-              </CustomStyledButton>
-            ) : (
-              <CustomStyledButton onClick={() => playRound()}>
-                Play Round
-              </CustomStyledButton>
-            )}
-            {opponentPolicy === "Manual" ? (
-              <CustomStyledButton onClick={() => playRound("D")}>
-                Defect
-              </CustomStyledButton>
-            ) : (
-              <></>
-            )}
-            {showPrior ? (
-              <CustomStyledButton onClick={() => setShowPrior(!showPrior)}>
-                Hide Belief
-              </CustomStyledButton>
-            ) : (
-              <CustomStyledButton onClick={() => setShowPrior(!showPrior)}>
-                Show Belief
-              </CustomStyledButton>
-            )}
-            <CustomStyledButton onClick={initializeAgents}>
-              Reset
-            </CustomStyledButton>
-            <CustomStyledButton>How it works</CustomStyledButton>
-          </Stack>
-          <Stack direction="column" alignItems="center" spacing={2}>
-            <Box
-              component="img"
-              src={oppImg}
-              sx={{
-                width: dimensions.height * 0.2,
-                height: dimensions.height * 0.2,
-              }}
-            />
-            <p style={{ color: "var(--neon-orange)" }}>
-              Player 2 Move: {oppMove}
-            </p>
-            {totalOppReward === 0 ? (
-              <p style={{ color: "var(--neon-orange)" }}>
-                Total reward: {totalOppReward}
-              </p>
-            ) : (
-              <p style={{ color: "var(--neon-orange)" }}>
-                Total reward: {`${totalOppReward - oppReward} + ${oppReward}`}
-              </p>
-            )}
-          </Stack>
-        </Stack>
-        <div style={{ height: 300 }}>
+        )}
+        <div style={{ height: dimensions.height * 0.25 }}>
           {showPrior && (
             <BarChart
-              width={dimensions.width * 0.8}
+              width={
+                dimensions.width < dimensions.height
+                  ? dimensions.width * 0.95
+                  : dimensions.width * 0.8
+              }
               height={250}
               data={data}
               margin={{
@@ -576,7 +767,7 @@ function PrisonersDilemmaGame() {
           )}
         </div>
       </Stack>
-    </div>
+    </>
   );
 }
 
