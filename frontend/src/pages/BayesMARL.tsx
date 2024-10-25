@@ -11,7 +11,7 @@ import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
 import HBAIntro from "../components/BayesMARL/HBAIntro";
 import HBA from "../components/BayesMARL/HBA";
 import ActionProbabilities from "../components/BayesMARL/ActionProbabilities";
-import PrisonersDilemmaGame from "./PrisonersDilemmaGame";
+import PrisonersDilemmaGame from "../components/BayesMARL/PrisonersDilemmaGame";
 import "../styles/gnn.css";
 
 const BayesMARL = () => {
@@ -62,10 +62,7 @@ const BayesMARL = () => {
         render={({ state, fullpageApi }) => {
           return (
             <ReactFullpage.Wrapper>
-              <div
-                className="section"
-                style={{ background: "#ffffff", zIndex: -12 }}
-              >
+              <div className="section" style={{ zIndex: 12 }}>
                 <div
                   className="background"
                   style={{
@@ -100,7 +97,18 @@ const BayesMARL = () => {
               <BayesTheorem />
               <BeliefOverPolicies />
               <ActionProbabilities />
-              <PrisonersDilemmaGame />
+              <div className="section">
+                <div
+                  className="background"
+                  style={{
+                    backgroundImage:
+                      dimensions.width < 444
+                        ? "url(./images/PrisonCellPortrait.png)"
+                        : "url(./images/PrisonCellLandscape.png)",
+                  }}
+                />
+                <PrisonersDilemmaGame />
+              </div>
             </ReactFullpage.Wrapper>
           );
         }}

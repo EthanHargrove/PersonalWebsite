@@ -31,14 +31,10 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 // Internal imports
-import { apiCall } from "../api/api";
-import Navbar from "../components/Navbar";
+import { apiCall } from "../../api/api";
+import Navbar from "../Navbar";
 
 function PrisonersDilemmaGame() {
-  useEffect(() => {
-    // Change document title
-    document.title = "Ethan Hargrove - Prisoners Dilemma";
-  }, []);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -185,9 +181,16 @@ function PrisonersDilemmaGame() {
             backgroundColor: "rgba(30, 30, 30, 0.8)",
           }}
         >
-          <p style={{ color: "#ffffff" }}>{label}</p>
+          <p style={{ color: "#ffffff", marginBottom: "1px" }}>{label}</p>
           {payload.map((entry, index) => (
-            <p key={`item-${index}`} style={{ color: entry.color }}>
+            <p
+              key={`item-${index}`}
+              style={{
+                fontSize: 0.7 * fontSize,
+                color: entry.color,
+                marginTop: "1px",
+              }}
+            >
               <MathJaxContext>
                 <MathJax inline dynamic>
                   {"\\(P(\\pi|h)\\)"}
@@ -284,19 +287,18 @@ function PrisonersDilemmaGame() {
     })
   );
 
+  const mathJaxStyles = `
+    .MathJax {
+      font-size: ${0.7 * fontSize}px !important;
+    }
+    p {
+      font-size: ${0.7 * fontSize}px !important;
+}
+  `;
+
   return (
     <>
-      <div
-        className="background"
-        style={{
-          position: "fixed",
-          backgroundImage:
-            dimensions.width < 444
-              ? "url(./images/PrisonCellPortrait.png)"
-              : "url(./images/PrisonCellLandscape.png)",
-        }}
-      />
-      <Navbar active="" />
+      <style>{mathJaxStyles}</style>
       <Stack
         direction="column"
         justifyContent="space-evenly"
@@ -497,7 +499,7 @@ function PrisonersDilemmaGame() {
             alignItems="center"
             spacing={1}
           >
-            <Stack direction="column" spacing={1}>
+            <Stack direction="column" alignItems="center" spacing={1}>
               <Box
                 component="img"
                 src={agentImg}
@@ -629,7 +631,7 @@ function PrisonersDilemmaGame() {
               Round: {round}
             </p>
             <Stack direction="row" spacing={4}>
-              <Stack direction="column" spacing={1}>
+              <Stack direction="column" alignItems="center" spacing={1}>
                 <Box
                   component="img"
                   src={agentImg}
@@ -741,7 +743,13 @@ function PrisonersDilemmaGame() {
             </Stack>
           </Stack>
         )}
-        <div style={{ height: dimensions.height * 0.25 }}>
+        <div
+          style={{
+            height: dimensions.height * 0.25,
+            width:
+              dimensions.width < dimensions.height ? dimensions.width : "auto",
+          }}
+        >
           {showPrior && (
             <BarChart
               width={
@@ -753,15 +761,15 @@ function PrisonersDilemmaGame() {
               data={data}
               margin={{
                 top: 5,
-                right: 30,
-                left: 30,
+                right: 10,
+                left: -10,
                 bottom: 5,
               }}
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" tick={false} />
-              <YAxis />
-              <Tooltip content={<CustomTooltip />} />
+              <YAxis fontSize={0.5 * fontSize} />
+              <Tooltip content={<CustomTooltip />} position={{ y: 0 }} />
               <Bar dataKey="value" fill="var(--neon-orange)" />
             </BarChart>
           )}

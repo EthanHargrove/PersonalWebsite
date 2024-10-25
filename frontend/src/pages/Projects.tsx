@@ -46,7 +46,7 @@ function Projects() {
           longTitle={true}
           description="Second card."
           button1Title="Play Against AI"
-          button1Link="/play-prisoners-dilemma"
+          button1Link="/prisoners-dilemma"
           button2Title="How it Works"
           button2Link="/bayesian-multi-agent-reinforcement-learning"
         />

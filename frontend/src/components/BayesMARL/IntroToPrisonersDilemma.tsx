@@ -63,17 +63,17 @@ function IntroToPrisonersDilemma({
   );
 
   const cellHeight: number = Math.min(
-    dimensions.width < 444 ? dimensions.width / 5 : dimensions.height / 10,
-    dimensions.height / 14
+    dimensions.width < 444 ? dimensions.width / 6 : dimensions.height / 10,
+    dimensions.height / 16
   );
 
   const cellHeaderFontSize: number =
-    dimensions.width < 444 ? cellHeight * 0.175 : cellHeight * 0.29;
+    dimensions.width < 444 ? cellHeight * 0.18 : cellHeight * 0.29;
   const cellContentFontSize: number =
-    dimensions.width < 444 ? cellHeight * 0.175 : cellHeight * 0.29;
+    dimensions.width < 444 ? cellHeight * 0.18 : cellHeight * 0.29;
   const rewardTextFontSize: number =
     Math.min(dimensions.width, dimensions.height) < 444
-      ? cellWidth * 0.166
+      ? cellWidth * 0.15
       : cellWidth * 0.125;
   const callToActionFontSize: number =
     Math.min(dimensions.width, dimensions.height) < 444
@@ -199,7 +199,7 @@ function IntroToPrisonersDilemma({
       : " ";
 
   return (
-    <div className="section" style={{ background: "#ffffff", zIndex: -12 }}>
+    <div className="section">
       <div
         className="background"
         style={{
@@ -213,12 +213,11 @@ function IntroToPrisonersDilemma({
         style={{
           overflow: "hidden",
           background: "rgba(0, 0, 0, 0.66)",
-          // width: dimensions.width < 444 ? "92vw" : "85vw",
-          // height: dimensions.width < 444 ? "480px" : "82vh",
           paddingLeft: dimensions.width < 444 ? "1px" : "30px",
           paddingRight: dimensions.width < 444 ? "10px" : "35px",
-          paddingBottom: "10px",
-          marginTop: dimensions.height < dimensions.width ? "15px" : "0px",
+          paddingBottom: "5px",
+          paddingTop: "0px",
+          marginTop: dimensions.height < dimensions.width ? "15px" : "20px",
         }}
       >
         <h3
@@ -226,8 +225,8 @@ function IntroToPrisonersDilemma({
           style={{
             color: "var(--neon-orange)",
             textAlign: "center",
-            marginBottom: dimensions.width < 444 ? 0 : -10,
-            paddingBottom: dimensions.width < 444 ? 0 : -10,
+            marginBottom: dimensions.width < 444 ? 0 : -20,
+            paddingBottom: dimensions.width < 444 ? 0 : -20,
             // marginTop: 20,
             // paddingTop: 20,
             fontSize: titleFontSize,
@@ -279,9 +278,9 @@ function IntroToPrisonersDilemma({
             justifyContent: "center",
             alignItems: "center",
             marginBottom:
-              dimensions.width < 444 ? dimensions.height * 0.001 : 0,
+              dimensions.width < 444 ? dimensions.height * 0.001 : -5,
             paddingBottom:
-              dimensions.width < 444 ? dimensions.height * 0.001 : 0,
+              dimensions.width < 444 ? dimensions.height * 0.001 : -5,
           }}
         >
           <Stack spacing={0} justifyContent="flex-end">
@@ -289,8 +288,8 @@ function IntroToPrisonersDilemma({
               component="img"
               src={prisonerAImg}
               sx={{
-                width: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
-                height: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
+                width: Math.min(cellWidth * 1.45, dimensions.height * 0.18),
+                height: Math.min(cellWidth * 1.45, dimensions.height * 0.18),
               }}
             />
             <p
@@ -310,8 +309,8 @@ function IntroToPrisonersDilemma({
               component="img"
               src={prisonerBImg}
               sx={{
-                width: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
-                height: Math.min(cellWidth * 1.5, dimensions.height * 0.18),
+                width: Math.min(cellWidth * 1.45, dimensions.height * 0.18),
+                height: Math.min(cellWidth * 1.45, dimensions.height * 0.18),
               }}
             />
             <p
@@ -520,7 +519,7 @@ function IntroToPrisonersDilemma({
           textAlign="center"
           fontSize={callToActionFontSize}
           sx={{
-            mt: dimensions.height < 444 ? -1 : 1,
+            mt: -1,
             color: "var(--neon-orange)",
             fontFamily: "SpaceGrotesk",
           }}

@@ -32,8 +32,14 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
       "1px 1px 0 #FFFFFF, -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF",
   };
 
+  const titleFontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "1rem" : "2rem";
+
+  const fontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "0.8rem" : "1.5rem";
+
   return (
-    <div className="section" style={{ background: "#ffffff", zIndex: -12 }}>
+    <div className="section">
       <div
         className="background"
         style={{
@@ -47,9 +53,9 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
         style={{
           overflow: "hidden",
           background: "rgba(0, 0, 0, 0.66)",
-          paddingLeft: dimensions.width < 444 ? "1px" : "30px",
+          paddingLeft: dimensions.width < 444 ? "5px" : "30px",
           paddingRight: dimensions.width < 444 ? "10px" : "35px",
-          paddingBottom: "10px",
+          paddingBottom: "5px",
           marginTop: dimensions.height < dimensions.width ? "15px" : "0px",
         }}
       >
@@ -60,7 +66,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
             textAlign: "center",
             marginBottom: dimensions.width < 444 ? 0 : -10,
             paddingBottom: dimensions.width < 444 ? 0 : -10,
-            // fontSize: titleFontSize,
+            fontSize: titleFontSize,
           }}
         >
           Axelrod's Tournament
@@ -76,7 +82,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
           <li
             style={{
               color: "var(--neon-orange)",
-              //   fontSize: rewardTextFontSize,
+              fontSize: fontSize,
             }}
           >
             Dr. Robert Axelrod, a Professor of Political Science and Public
@@ -86,7 +92,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
           <li
             style={{
               color: "var(--neon-orange)",
-              //   fontSize: rewardTextFontSize,
+              fontSize: fontSize,
             }}
           >
             14 different strategies were submitted by various game theory
@@ -95,7 +101,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
           <li
             style={{
               color: "var(--neon-orange)",
-              //   fontSize: rewardTextFontSize,
+              fontSize: fontSize,
             }}
           >
             Each strategy played against each other strategy for 200 rounds
@@ -105,8 +111,8 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
           <img
             src="./images/axelrod_tournament.png"
             style={{
-              height: Math.min(dimensions.width, dimensions.height) * 0.5,
-              width: Math.min(dimensions.width, dimensions.height) * 0.5,
+              height: Math.min(dimensions.width, dimensions.height) * 0.4,
+              width: Math.min(dimensions.width, dimensions.height) * 0.4,
             }}
             alt="Axelrod Tournament"
           />

@@ -25,15 +25,14 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
     };
   }, []);
 
-  const fontStyle = {
-    fontFamily: "SpaceGrotesk",
-    color: "#000000",
-    textShadow:
-      "1px 1px 0 #FFFFFF, -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF",
-  };
+  const titleFontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "1rem" : "2rem";
+
+  const fontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "0.9rem" : "1.5rem";
 
   return (
-    <div className="section" style={{ background: "#ffffff", zIndex: -12 }}>
+    <div className="section">
       <div
         className="background"
         style={{
@@ -47,7 +46,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
         style={{
           overflow: "hidden",
           background: "rgba(0, 0, 0, 0.66)",
-          paddingLeft: dimensions.width < 444 ? "1px" : "30px",
+          paddingLeft: dimensions.width < 444 ? "10px" : "30px",
           paddingRight: dimensions.width < 444 ? "10px" : "35px",
           paddingBottom: "10px",
           marginTop: dimensions.height < dimensions.width ? "15px" : "0px",
@@ -60,7 +59,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
             textAlign: "center",
             marginBottom: dimensions.width < 444 ? 0 : -10,
             paddingBottom: dimensions.width < 444 ? 0 : -10,
-            // fontSize: titleFontSize,
+            fontSize: titleFontSize,
           }}
         >
           Axelrod's Results
@@ -71,6 +70,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
               dimensions.width < 444 ? dimensions.height * 0.005 : 0,
             paddingBottom:
               dimensions.width < 444 ? dimensions.height * 0.005 : 0,
+            fontSize: fontSize,
           }}
         >
           <li

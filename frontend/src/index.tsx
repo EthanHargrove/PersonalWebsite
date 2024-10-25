@@ -10,7 +10,7 @@ import Sudoku from "./pages/Sudoku";
 import GraphNeuralNetworks from "./pages/GraphNeuralNetworks";
 import QLearning from "./pages/QLearning";
 import BayesMARL from "./pages/BayesMARL";
-import PrisonersDilemmaGame from "./pages/PrisonersDilemmaGame";
+import PrisonersDilemmaPage from "./pages/PrisonersDilemmaPage";
 
 function setDefaultTitleAndFavicon() {
   // Change document title
@@ -53,8 +53,8 @@ const router = createBrowserRouter([
     element: <BayesMARL />,
   },
   {
-    path: "/play-prisoners-dilemma",
-    element: <PrisonersDilemmaGame />,
+    path: "/prisoners-dilemma",
+    element: <PrisonersDilemmaPage />,
   },
 ]);
 
