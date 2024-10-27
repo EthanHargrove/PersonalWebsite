@@ -29,6 +29,12 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
     fontSize: Math.min(dimensions.width * 0.0325, dimensions.height * 0.0275),
     paddingBottom: "10px",
   };
+
+  const mathFontSize =
+    Math.min(dimensions.width, dimensions.height) < 444
+      ? "\\normalsize"
+      : "\\Large";
+
   return (
     <div className="section" style={{ background: "#ffffff", zIndex: -12 }}>
       <div
@@ -46,7 +52,8 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
           paddingLeft: "5px",
           paddingRight: "20px",
           paddingTop: "4px",
-          paddingBottom: "0px",
+          paddingBottom: "-10px",
+          marginTop: "20px",
           marginBottom: "0px",
           background: "rgba(0,0,0,0.85)",
           color: "#ffffff",
@@ -60,25 +67,40 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
               dimensions.width * 0.055,
               dimensions.height * 0.05
             ),
+            margin: "10px",
           }}
         >
           Bayes' Theorem
         </h3>
         <MathJaxContext>
-          <ul>
+          <ul
+            style={{
+              paddingTop: 0,
+              marginTop: 0,
+              paddingBottom: 0,
+              marginBottom: 0,
+            }}
+          >
             <li style={fontStyle}>
               Calculates the probability of a hypothesis being true based on
               prior knowledge and new evidence.
             </li>
           </ul>
           <MathJax inline dynamic={true} style={fontStyle}>
-            {"\\[P(A \\mid B) = \\frac{P(B \\mid A) \\; P(A)}{P(B)} \\]"}
+            {`\\[${mathFontSize} P(A \\mid B) = \\frac{P(B \\mid A) \\; P(A)}{P(B)} \\]`}
           </MathJax>
-          <ul style={{ paddingBottom: 0, marginBottom: 0 }}>
+          <ul
+            style={{
+              paddingTop: 0,
+              marginTop: 0,
+              paddingBottom: 0,
+              marginBottom: 0,
+            }}
+          >
             <li style={fontStyle}>
               <strong>Prior</strong>{" "}
               <MathJax inline dynamic={true}>
-                {"\\(P(A)\\)"}
+                {`\\(${mathFontSize} P(A)\\)`}
               </MathJax>
               : Our initial belief about the probability of our hypothesis (
               <MathJax inline dynamic={true}>
@@ -89,30 +111,30 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
             <li style={fontStyle}>
               <strong>Likelihood</strong>{" "}
               <MathJax inline dynamic={true}>
-                {"\\(P(B \\mid A)\\)"}
+                {`\\(${mathFontSize} P(B \\mid A)\\)`}
               </MathJax>
               : The probability of observing the data (
               <MathJax inline dynamic={true}>
-                {"\\(B\\)"}
+                {`\\(${mathFontSize} B\\)`}
               </MathJax>
               ) given that our hypothesis (
               <MathJax inline dynamic={true}>
-                {"\\(A\\)"}
+                {`\\(${mathFontSize} A\\)`}
               </MathJax>
               ) is true
             </li>
             <li style={fontStyle}>
               <strong>Posterior</strong>{" "}
               <MathJax inline dynamic={true}>
-                {"\\(P(A \\mid B)\\)"}
+                {`\\(${mathFontSize} P(A \\mid B)\\)`}
               </MathJax>
               : Our updated belief about the probability of our hypothesis after
               accounting for the newly observed data
             </li>
-            <li style={fontStyle}>
+            <li style={{ ...fontStyle, paddingBottom: "0px" }}>
               <strong>Evidence</strong>{" "}
               <MathJax inline dynamic={true}>
-                {"\\(P(B)\\)"}
+                {`\\(${mathFontSize} P(B)\\)`}
               </MathJax>
               : The probability of observing the data
               <ul>
@@ -125,9 +147,7 @@ const BayesTheorem: React.FC<BayesTheoremProps> = () => {
                 dynamic={true}
                 style={{ ...fontStyle, paddingBottom: 0, marginBottom: 0 }}
               >
-                {
-                  "\\[P(B) = \\sum_n P(B \\cap A_n)= \\sum_{n} P(B \\mid A_n) P(A_n)\\]"
-                }
+                {`\\[${mathFontSize} P(B) = \\sum_n P(B \\cap A_n)= \\sum_{n} P(B \\mid A_n) P(A_n)\\]`}
               </MathJax>
             </li>
           </ul>

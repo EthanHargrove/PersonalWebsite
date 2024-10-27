@@ -25,7 +25,7 @@ function Projects() {
           imagen="./images/tic-tac-toe.png"
           page="/tic-tac-toe"
           title="Q-Learning: Xs and Os"
-          longTitle={false}
+          longTitle={true}
           description="First card."
           button1Title="Play Against AI"
           button1Link="/Xs-and-Os"
@@ -83,8 +83,8 @@ function Projects() {
           description="Fifth card."
           button1Title="Coming Soon"
           button1Link=""
-          button2Title="Coming Soon"
-          button2Link=""
+          button2Title="Explanation"
+          button2Link="/TTV-explanation"
         />
       ),
     },

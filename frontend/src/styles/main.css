@@ -156,3 +156,7 @@ body {
 .no-scroll {
     overflow-y: hidden;
   }
+
+.fp-watermark {
+    display: none !important;
+}

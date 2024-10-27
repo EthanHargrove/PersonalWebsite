@@ -51,10 +51,10 @@ const BayesMARL = () => {
           "Axelrod's Results",
           "HBA Intro",
           "Value of Information",
-          "HBA Implementation",
           "Bayes' Theorem",
           "Belief Over Policies",
           "Action Probabilities",
+          "HBA Implementation",
           "Test It Out",
         ]}
         scrollingSpeed={1000}
@@ -93,10 +93,10 @@ const BayesMARL = () => {
               <AxelrodTakeaway />
               <HBAIntro />
               <ValueOfInformation />
-              <HBA />
               <BayesTheorem />
               <BeliefOverPolicies />
               <ActionProbabilities />
+              <HBA />
               <div className="section">
                 <div
                   className="background"

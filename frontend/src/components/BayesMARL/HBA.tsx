@@ -1,8 +1,6 @@
-import React, { useCallback, useState, useEffect } from "react";
-import { Stage, Layer, Rect, Text, Arrow, Line, Image } from "react-konva";
-import { Tooltip } from "@mui/material";
-import useImage from "use-image";
+import React, { useState, useEffect } from "react";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { Stack } from "@mui/material";
 
 interface PlaceholderProps {
   // Define the props for the component here
@@ -29,8 +27,7 @@ const HBA: React.FC<PlaceholderProps> = () => {
   }, []);
 
   const fontStyle: React.CSSProperties = {
-    fontSize: Math.min(dimensions.width * 0.03, dimensions.height * 0.0225),
-    paddingBottom: "10px",
+    marginLeft: "-10px",
     userSelect: "none",
     WebkitUserSelect: "none",
     MozUserSelect: "none",
@@ -55,39 +52,6 @@ const HBA: React.FC<PlaceholderProps> = () => {
     ],
     [["0", "0"]],
   ];
-
-  const rowLabels = [
-    ["P(π)"],
-    ["π_1", "π_2"],
-    ["Q(\\odot, H_O+C)", "Q(\\mathord{\\bullet},H_O+D)"],
-  ];
-
-  const columnLabels = [
-    ["π1", "π2"],
-    ["P(C|H_O)", "P(D|H_O)"],
-    ["Q(H_A+C,)", "Q(H_A+D,)"],
-  ];
-
-  const generateLatexMatrix = (
-    matrix: number[][],
-    rowLabels: string[],
-    columnLabels: string[]
-  ): string => {
-    let latex =
-      "\\left[ \\begin{array}{c|" + "c".repeat(columnLabels.length) + "}\n";
-
-    // Add column labels as LaTeX expressions (without \text{})
-    latex += " & " + columnLabels.join(" & ") + " \\\\\n";
-    latex += "\\hline\n";
-
-    // Add each row with LaTeX row labels and matrix values
-    matrix.forEach((row, rowIndex) => {
-      latex += `${rowLabels[rowIndex]} & ` + row.join(" & ") + " \\\\\n";
-    });
-
-    latex += "\\end{array} \\right]";
-    return latex;
-  };
 
   const generateLatexMatrixNoLabels = (
     matrix: string[][],
@@ -117,19 +81,35 @@ const HBA: React.FC<PlaceholderProps> = () => {
     ${generateLatexMatrixNoLabels(matrices[3], false)}
   `;
 
+  const mathFontSizeMedium = dimensions.width < 444 ? "\\Tiny" : "\\large";
+
+  const mathFontSizeSmall = dimensions.width < 444 ? "\\tiny" : "\\normalsize";
+
   return (
     <div className="section" style={{ background: "#ffffff" }}>
       <div style={{ overflow: "hidden" }}>
-        <h3 className="heading" style={{ textAlign: "center" }}>
-          HBA Implementation for the Prisoner's Dilemma
-        </h3>
-        <MathJaxContext>
-          <MathJax inline dynamic={true} style={fontStyle}>
-            {`\\[\\text{expected value} = \\text{belief over opponent's policy} \\bullet \\text{action probabilities for opponent's potential policies} \\bullet (\\text{immediate reward + discounted expected value of next state})\\]`}
-            {`\\[ ${latexExpression} \\]`}
-            {`\\[ ${latexExpression2} \\]`}
-          </MathJax>
-        </MathJaxContext>
+        <Stack justifyContent="space-evenly" alignItems="center" spacing={0}>
+          <h3 className="heading" style={{ textAlign: "center" }}>
+            HBA Implementation for the Prisoner's Dilemma
+          </h3>
+          <MathJaxContext>
+            <MathJax dynamic={true} style={fontStyle}>
+              {`\\[${mathFontSizeMedium} \\text{VI}_i(a_i|h) = \\sum_{\\pi_{-i} \\in \\Pi_{-i}} P(\\pi_{-i}|h) \\sum_{a_{-i} \\in A_{-i}} Q_i(h, \\langle a_i, a_{-i} \\rangle) \\prod_{j \\neq i} \\pi_{j}(a_{j}|h)\\]`}
+            </MathJax>
+            <MathJax dynamic={true} style={fontStyle}>
+              {`\\[${mathFontSizeMedium} Q_i(h, a) = \\sum_{s^{\\prime} \\in S}\\mathcal{T}(s^{\\prime}|s(h),a)\\biggl[R_i(s(h), a, s^{\\prime}) + \\gamma \\; \\text{max}_{a_i^{\\prime} \\in A_i} \\text{VI}_i(a_i^{\\prime}|\\langle h, a, s^{\\prime}\\rangle)\\biggr]\\]`}
+            </MathJax>
+            <MathJax inline dynamic={true} style={fontStyle}>
+              {`\\[${mathFontSizeSmall} \\text{expected value} = \\text{belief over opponent's policy} \\bullet \\text{action probabilities for opponent's potential policies} \\bullet (\\text{immediate reward + discounted expected value of next state})\\]`}
+            </MathJax>
+            <MathJax inline dynamic={true} style={fontStyle}>
+              {`\\[${mathFontSizeSmall} ${latexExpression} \\]`}
+            </MathJax>
+            <MathJax inline dynamic={true} style={fontStyle}>
+              {`\\[${mathFontSizeMedium} ${latexExpression2} \\]`}
+            </MathJax>
+          </MathJaxContext>
+        </Stack>
       </div>
     </div>
   );

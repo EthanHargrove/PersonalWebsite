@@ -29,10 +29,10 @@ import { styled } from "@mui/material/styles";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { useNavigate } from "react-router-dom";
 
 // Internal imports
 import { apiCall } from "../../api/api";
-import Navbar from "../Navbar";
 
 function PrisonersDilemmaGame() {
   const [dimensions, setDimensions] = useState({
@@ -230,6 +230,7 @@ function PrisonersDilemmaGame() {
 
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const navigate = useNavigate();
 
   const isDisabled = (option: string) => {
     const isSpecialOptionSelected = priorPolicies.some(
@@ -305,7 +306,7 @@ function PrisonersDilemmaGame() {
         alignItems="center"
         height={dimensions.height - 80}
         spacing={Math.min(dimensions.height, dimensions.width) < 444 ? 1 : 2}
-        sx={{ marginTop: "50px", paddingTop: "10px", overflow: "hidden" }}
+        sx={{ marginTop: "20px", paddingTop: "10px", overflow: "hidden" }}
       >
         <Stack
           direction={dimensions.width < dimensions.height ? "column" : "row"}
@@ -320,6 +321,7 @@ function PrisonersDilemmaGame() {
             disableCloseOnSelect
             options={["First Tournament", "Representative Set", ...policies]}
             defaultValue={["First Tournament"]}
+            size={dimensions.height < 444 ? "small" : "medium"}
             sx={{
               width:
                 dimensions.width < dimensions.height
@@ -426,6 +428,7 @@ function PrisonersDilemmaGame() {
             disableClearable
             options={["Manual", ...policies]}
             defaultValue="Manual"
+            size={dimensions.height < 444 ? "small" : "medium"}
             sx={{
               width:
                 dimensions.width < dimensions.height
@@ -585,7 +588,13 @@ function PrisonersDilemmaGame() {
                 >
                   Reset
                 </CustomStyledButton>
-                <CustomStyledButton colour="var(--neon-orange)">
+                <CustomStyledButton
+                  component="button"
+                  colour="var(--neon-orange)"
+                  onClick={() =>
+                    navigate("/bayesian-multi-agent-reinforcement-learning")
+                  }
+                >
                   Explainer
                 </CustomStyledButton>
               </Stack>
@@ -736,7 +745,13 @@ function PrisonersDilemmaGame() {
                 >
                   Reset
                 </CustomStyledButton>
-                <CustomStyledButton colour="var(--neon-orange)">
+                <CustomStyledButton
+                  component="button"
+                  colour="var(--neon-orange)"
+                  onClick={() =>
+                    navigate("/bayesian-multi-agent-reinforcement-learning")
+                  }
+                >
                   Explainer
                 </CustomStyledButton>
               </Stack>
@@ -745,7 +760,7 @@ function PrisonersDilemmaGame() {
         )}
         <div
           style={{
-            height: dimensions.height * 0.25,
+            height: dimensions.height * 0.2,
             width:
               dimensions.width < dimensions.height ? dimensions.width : "auto",
           }}
