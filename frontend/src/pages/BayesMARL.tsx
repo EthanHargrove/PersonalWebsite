@@ -11,6 +11,7 @@ import BeliefOverPolicies from "../components/BayesMARL/BeliefOverPolicies";
 import HBAIntro from "../components/BayesMARL/HBAIntro";
 import HBA from "../components/BayesMARL/HBA";
 import ActionProbabilities from "../components/BayesMARL/ActionProbabilities";
+import FirstResults from "../components/BayesMARL/FirstResults";
 import PrisonersDilemmaGame from "../components/BayesMARL/PrisonersDilemmaGame";
 import "../styles/gnn.css";
 
@@ -55,6 +56,7 @@ const BayesMARL = () => {
           "Belief Over Policies",
           "Action Probabilities",
           "HBA Implementation",
+          "First Results",
           "Test It Out",
         ]}
         scrollingSpeed={1000}
@@ -97,6 +99,7 @@ const BayesMARL = () => {
               <BeliefOverPolicies />
               <ActionProbabilities />
               <HBA />
+              <FirstResults />
               <div className="section">
                 <div
                   className="background"
