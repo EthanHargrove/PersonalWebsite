@@ -85,7 +85,17 @@ const ActionProbabilities: React.FC<PlaceholderProps> = () => {
               If the opponent's policy is deterministic:
             </li>
             <ul>
-              <li style={{ marginBottom: liGap }}></li>
+              <li style={{ marginBottom: liGap }}>
+                Probability is{" "}
+                <MathJax inline dynamic={true}>
+                  {`\\(${mathFontSize} 1-N\\)`}
+                </MathJax>{" "}
+                if action matches prediction,{" "}
+                <MathJax inline dynamic={true}>
+                  {`\\(${mathFontSize} N\\)`}
+                </MathJax>{" "}
+                otherwise
+              </li>
             </ul>
             <li style={{ marginBottom: liGap }}>
               If the opponent's policy is stochastic:

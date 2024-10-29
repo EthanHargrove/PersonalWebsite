@@ -81,17 +81,45 @@ const HBA: React.FC<PlaceholderProps> = () => {
     ${generateLatexMatrixNoLabels(matrices[3], false)}
   `;
 
+  const titleFontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "0.9rem" : "1.8rem";
+
+  const fontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "0.6rem" : "1.2rem";
+
   const mathFontSizeMedium = dimensions.width < 444 ? "\\Tiny" : "\\large";
 
   const mathFontSizeSmall = dimensions.width < 444 ? "\\tiny" : "\\normalsize";
 
   return (
-    <div className="section" style={{ background: "#ffffff" }}>
-      <div style={{ overflow: "hidden" }}>
+    <div className="section">
+      <div
+        className="background"
+        style={{
+          backgroundImage:
+            dimensions.width < 444
+              ? "url(./images/PrisonCellPortrait.png)"
+              : "url(./images/PrisonCellLandscape.png)",
+        }}
+      />
+      <div
+        style={{
+          overflow: "hidden",
+          color: "var(--neon-orange)",
+          background: "rgba(0, 0, 0, 0.66)",
+          padding: "5px",
+        }}
+      >
         <Stack justifyContent="space-evenly" alignItems="center" spacing={0}>
-          <h3 className="heading" style={{ textAlign: "center" }}>
+          <h3
+            className="heading"
+            style={{ textAlign: "center", fontSize: titleFontSize }}
+          >
             HBA Implementation for the Prisoner's Dilemma
           </h3>
+          <p style={{ fontSize: fontSize }}>
+            Recall the original Value of Information (VI) equation:
+          </p>
           <MathJaxContext>
             <MathJax dynamic={true} style={fontStyle}>
               {`\\[${mathFontSizeMedium} \\text{VI}_i(a_i|h) = \\sum_{\\pi_{-i} \\in \\Pi_{-i}} P(\\pi_{-i}|h) \\sum_{a_{-i} \\in A_{-i}} Q_i(h, \\langle a_i, a_{-i} \\rangle) \\prod_{j \\neq i} \\pi_{j}(a_{j}|h)\\]`}
@@ -99,9 +127,23 @@ const HBA: React.FC<PlaceholderProps> = () => {
             <MathJax dynamic={true} style={fontStyle}>
               {`\\[${mathFontSizeMedium} Q_i(h, a) = \\sum_{s^{\\prime} \\in S}\\mathcal{T}(s^{\\prime}|s(h),a)\\biggl[R_i(s(h), a, s^{\\prime}) + \\gamma \\; \\text{max}_{a_i^{\\prime} \\in A_i} \\text{VI}_i(a_i^{\\prime}|\\langle h, a, s^{\\prime}\\rangle)\\biggr]\\]`}
             </MathJax>
-            <MathJax inline dynamic={true} style={fontStyle}>
-              {`\\[${mathFontSizeSmall} \\text{expected value} = \\text{belief over opponent's policy} \\bullet \\text{action probabilities for opponent's potential policies} \\bullet (\\text{immediate reward + discounted expected value of next state})\\]`}
-            </MathJax>
+            <p style={{ fontSize: fontSize }}>
+              expected value = belief over opponent's policy • action
+              probabilities for opponent's potential policies • (immediate
+              reward + discounted expected value of next state)
+            </p>
+            <p style={{ fontSize: fontSize }}>
+              Example implementation where opponent is believed to have 2
+              possible policies (
+              <MathJax inline dynamic={true} style={fontStyle}>
+                {`\\(\\pi_1 \\)`}
+              </MathJax>{" "}
+              &{" "}
+              <MathJax inline dynamic={true} style={fontStyle}>
+                {`\\(\\pi_2 \\)`}
+              </MathJax>
+              ):
+            </p>
             <MathJax inline dynamic={true} style={fontStyle}>
               {`\\[${mathFontSizeSmall} ${latexExpression} \\]`}
             </MathJax>

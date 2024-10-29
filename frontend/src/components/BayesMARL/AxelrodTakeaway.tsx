@@ -31,6 +31,8 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
   const fontSize =
     Math.min(dimensions.width, dimensions.height) < 444 ? "0.9rem" : "1.5rem";
 
+  const gap = dimensions.height * 0.05;
+
   return (
     <div className="section">
       <div
@@ -76,6 +78,8 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
           <li
             style={{
               color: "var(--neon-orange)",
+              paddingTop: gap,
+              paddingBottom: gap,
               //   fontSize: rewardTextFontSize,
             }}
           >
@@ -100,6 +104,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
           <li
             style={{
               color: "var(--neon-orange)",
+              paddingBottom: gap,
               //   fontSize: rewardTextFontSize,
             }}
           >
@@ -113,6 +118,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
           <li
             style={{
               color: "var(--neon-orange)",
+              paddingBottom: gap,
               //   fontSize: rewardTextFontSize,
             }}
           >
