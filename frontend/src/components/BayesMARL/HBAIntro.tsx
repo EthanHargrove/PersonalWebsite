@@ -66,7 +66,7 @@ const HBAIntro: React.FC<PlaceholderProps> = () => {
           style={{
             textAlign: "center",
             fontSize: titleFontSize,
-            color: "var(--neon-orange)",
+            color: "#ffffff",
           }}
         >
           Harsanyi–Bellman Ad Hoc Coordination (HBA)
@@ -74,7 +74,7 @@ const HBAIntro: React.FC<PlaceholderProps> = () => {
         <ul
           style={{
             fontSize: fontSize,
-            color: "var(--neon-orange)",
+            color: "#ffffff",
             marginLeft: "-20px",
           }}
         >
@@ -83,7 +83,7 @@ const HBAIntro: React.FC<PlaceholderProps> = () => {
               href={"http://www.dklevine.com/archive/refs41175.pdf"}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--neon-orange)" }}
+              style={{ color: "#ffffff" }}
             >
               Harsanyi (1967)
             </a>{" "}
@@ -97,7 +97,7 @@ const HBAIntro: React.FC<PlaceholderProps> = () => {
               }
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--neon-orange)" }}
+              style={{ color: "#ffffff" }}
             >
               Bellman (1954)
             </a>{" "}
@@ -116,7 +116,7 @@ const HBAIntro: React.FC<PlaceholderProps> = () => {
               href={"https://arxiv.org/abs/1506.01170"}
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "var(--neon-orange)" }}
+              style={{ color: "#ffffff" }}
             >
               Albrecht & Ramamoorthy (2013)
             </a>{" "}

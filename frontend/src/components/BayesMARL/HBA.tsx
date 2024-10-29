@@ -87,7 +87,7 @@ const HBA: React.FC<PlaceholderProps> = () => {
   const fontSize =
     Math.min(dimensions.width, dimensions.height) < 444 ? "0.6rem" : "1.2rem";
 
-  const mathFontSizeMedium = dimensions.width < 444 ? "\\Tiny" : "\\large";
+  const mathFontSizeMedium = dimensions.width < 444 ? "\\small" : "\\large";
 
   const mathFontSizeSmall = dimensions.width < 444 ? "\\tiny" : "\\normalsize";
 
@@ -105,17 +105,32 @@ const HBA: React.FC<PlaceholderProps> = () => {
       <div
         style={{
           overflow: "hidden",
-          color: "var(--neon-orange)",
+          color: "#ffffff",
           background: "rgba(0, 0, 0, 0.66)",
           padding: "5px",
+          maxWidth: dimensions.width * 0.95,
+          maxHeight: dimensions.height * 0.75,
+          marginTop: "10px",
         }}
       >
-        <Stack justifyContent="space-evenly" alignItems="center" spacing={0}>
+        <Stack
+          justifyContent="space-evenly"
+          alignItems="center"
+          spacing={-0.000009}
+          height={dimensions.height * 0.75}
+          paddingTop="5px"
+          paddingBottom="0px"
+          marginBottom="0px"
+        >
           <h3
             className="heading"
-            style={{ textAlign: "center", fontSize: titleFontSize }}
+            style={{
+              textAlign: "center",
+              fontSize: titleFontSize,
+              paddingBottom: "7px",
+            }}
           >
-            HBA Implementation for the Prisoner's Dilemma
+            HBA Implementation
           </h3>
           <p style={{ fontSize: fontSize }}>
             Recall the original Value of Information (VI) equation:
@@ -132,22 +147,30 @@ const HBA: React.FC<PlaceholderProps> = () => {
               probabilities for opponent's potential policies • (immediate
               reward + discounted expected value of next state)
             </p>
-            <p style={{ fontSize: fontSize }}>
+            <p style={{ fontSize: fontSize, paddingTop: "10px" }}>
               Example implementation where opponent is believed to have 2
-              possible policies (
-              <MathJax inline dynamic={true} style={fontStyle}>
-                {`\\(\\pi_1 \\)`}
+              possible policies{" ("}
+              <MathJax inline dynamic>
+                {`\\(\\pi_1\\)`}
               </MathJax>{" "}
               &{" "}
-              <MathJax inline dynamic={true} style={fontStyle}>
-                {`\\(\\pi_2 \\)`}
+              <MathJax inline dynamic>
+                {`\\(\\pi_2\\)`}
               </MathJax>
-              ):
+              {"):"}
             </p>
             <MathJax inline dynamic={true} style={fontStyle}>
               {`\\[${mathFontSizeSmall} ${latexExpression} \\]`}
             </MathJax>
-            <MathJax inline dynamic={true} style={fontStyle}>
+            <MathJax
+              inline
+              dynamic={true}
+              style={{
+                ...fontStyle,
+                marginBottom: "0px",
+                paddingBottom: "0px",
+              }}
+            >
               {`\\[${mathFontSizeMedium} ${latexExpression2} \\]`}
             </MathJax>
           </MathJaxContext>

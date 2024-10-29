@@ -55,12 +55,11 @@ const FirstResults: React.FC<PlaceholderProps> = () => {
     { name: "Random", value: 1.525, value2: 1.524 },
   ];
 
-  const fontSize = 0.01 * dimensions.height;
-  // Math.min(dimensions.height, dimensions.width) < 444
-  //   ? dimensions.height < dimensions.width
-  //     ? dimensions.height / 30
-  //     : Math.min(dimensions.width / 30, dimensions.height / 33)
-  //   : Math.min(dimensions.width / 40, dimensions.height / 35);
+  const titleFontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "1.2rem" : "2rem";
+
+  const fontSize =
+    Math.min(dimensions.width, dimensions.height) < 444 ? "0.7rem" : "1.5rem";
 
   const labels = ["Median Score (fully informed)", "Median Score (subset)"];
   interface CustomTooltipProps extends TooltipProps<number, string> {
@@ -131,20 +130,54 @@ const FirstResults: React.FC<PlaceholderProps> = () => {
             background: "rgba(0, 0, 0, 0.76)",
             paddingLeft: "20px",
             paddingRight: "20px",
+            fontSize: fontSize,
+            paddingBottom: "0px",
           }}
         >
           <h3
             className="heading"
-            style={{ textAlign: "center", color: "#ffffff" }}
+            style={{
+              textAlign: "center",
+              color: "#ffffff",
+              fontSize: titleFontSize,
+              marginBottom:
+                Math.min(dimensions.height, dimensions.width) < 444
+                  ? "2px"
+                  : "",
+              marginTop:
+                Math.min(dimensions.height, dimensions.width) < 444
+                  ? "20px"
+                  : "",
+            }}
           >
             Results
           </h3>
-          <p style={{ color: "var(--neon-orange)" }}>
+          <p
+            style={{
+              color: "var(--neon-orange)",
+              marginBottom:
+                Math.min(dimensions.height, dimensions.width) < 444
+                  ? "0px"
+                  : "",
+              marginTop:
+                Math.min(dimensions.height, dimensions.width) < 444
+                  ? "0px"
+                  : "",
+            }}
+          >
             Reran the original Axelrod tournament including our HBA agent. All
             of the policies are included in the prior belief over opponent
             policies.
           </p>
-          <p style={{ color: "var(--neon-purple)" }}>
+          <p
+            style={{
+              color: "var(--neon-purple)",
+              marginTop:
+                Math.min(dimensions.height, dimensions.width) < 444
+                  ? "0px"
+                  : "5px",
+            }}
+          >
             Imagine that we don't know the set of all possible policies. We can
             determine some ways to classify policies (nice/nasty, retalitory,
             forgiving) and choose a representative policy for each combination
@@ -206,14 +239,14 @@ const FirstResults: React.FC<PlaceholderProps> = () => {
                   ? dimensions.width * 0.9
                   : dimensions.width * 0.8
               }
-              height={dimensions.height * 0.65}
+              height={dimensions.height * 0.5}
               data={data}
               layout="vertical"
               margin={{
-                top: 5,
+                top: 0,
                 right: 30,
                 left: -30,
-                bottom: 50,
+                bottom: dimensions.height * 0.05,
               }}
               barGap={0}
             >
@@ -222,7 +255,7 @@ const FirstResults: React.FC<PlaceholderProps> = () => {
                 <Label
                   value="Median Score Per Round"
                   position="bottom"
-                  offset={20}
+                  offset={dimensions.height * 0.01}
                   style={{
                     textAnchor: "middle",
                     fill: "#ffffff",

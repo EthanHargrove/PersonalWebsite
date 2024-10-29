@@ -52,7 +52,7 @@ const ActionProbabilities: React.FC<PlaceholderProps> = () => {
       <div
         style={{
           overflow: "hidden",
-          color: "var(--neon-orange)",
+          color: "#ffffff",
           background: "rgba(0, 0, 0, 0.66)",
           padding: "5px",
           fontSize: fontSize,

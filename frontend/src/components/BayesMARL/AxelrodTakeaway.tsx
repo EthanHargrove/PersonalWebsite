@@ -57,7 +57,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
         <h3
           className="heading"
           style={{
-            color: "var(--neon-orange)",
+            color: "#ffffff",
             textAlign: "center",
             marginBottom: dimensions.width < 444 ? 0 : -10,
             paddingBottom: dimensions.width < 444 ? 0 : -10,
@@ -77,7 +77,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
         >
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               paddingTop: gap,
               paddingBottom: gap,
               //   fontSize: rewardTextFontSize,
@@ -103,7 +103,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
           </li>
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               paddingBottom: gap,
               //   fontSize: rewardTextFontSize,
             }}
@@ -117,7 +117,7 @@ const AxelrodTakeaway: React.FC<PlaceholderProps> = () => {
           </li>
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               paddingBottom: gap,
               //   fontSize: rewardTextFontSize,
             }}

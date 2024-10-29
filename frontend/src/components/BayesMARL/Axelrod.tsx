@@ -62,7 +62,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
         <h3
           className="heading"
           style={{
-            color: "var(--neon-orange)",
+            color: "#ffffff",
             textAlign: "center",
             marginBottom: dimensions.width < 444 ? 0 : -10,
             paddingBottom: dimensions.width < 444 ? 0 : -10,
@@ -81,7 +81,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
         >
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               fontSize: fontSize,
             }}
           >
@@ -91,7 +91,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
           </li>
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               fontSize: fontSize,
             }}
           >
@@ -100,7 +100,7 @@ const Axelrod: React.FC<PlaceholderProps> = () => {
           </li>
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               fontSize: fontSize,
             }}
           >

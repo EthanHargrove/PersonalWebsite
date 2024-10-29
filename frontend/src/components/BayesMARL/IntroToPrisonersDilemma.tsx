@@ -223,7 +223,7 @@ function IntroToPrisonersDilemma({
         <h3
           className="heading"
           style={{
-            color: "var(--neon-orange)",
+            color: "#ffffff",
             textAlign: "center",
             marginBottom: dimensions.width < 444 ? 0 : -20,
             paddingBottom: dimensions.width < 444 ? 0 : -20,
@@ -244,7 +244,7 @@ function IntroToPrisonersDilemma({
         >
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               fontSize: rewardTextFontSize,
             }}
           >
@@ -253,7 +253,7 @@ function IntroToPrisonersDilemma({
           </li>
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               fontSize: rewardTextFontSize,
             }}
           >
@@ -263,7 +263,7 @@ function IntroToPrisonersDilemma({
           </li>
           <li
             style={{
-              color: "var(--neon-orange)",
+              color: "#ffffff",
               fontSize: rewardTextFontSize,
             }}
           >
@@ -295,7 +295,7 @@ function IntroToPrisonersDilemma({
             <p
               style={{
                 fontSize: rewardTextFontSize,
-                color: "var(--neon-orange)",
+                color: "#ffffff",
                 textAlign: "center",
                 padding: 0,
                 margin: "3px 0px 0px 0px",
@@ -316,7 +316,7 @@ function IntroToPrisonersDilemma({
             <p
               style={{
                 fontSize: rewardTextFontSize,
-                color: "var(--neon-orange)",
+                color: "#ffffff",
                 textAlign: "center",
                 padding: 0,
                 margin: "3px 0px 0px 0px",
@@ -520,7 +520,7 @@ function IntroToPrisonersDilemma({
           fontSize={callToActionFontSize}
           sx={{
             mt: -1,
-            color: "var(--neon-orange)",
+            color: "#ffffff",
             fontFamily: "SpaceGrotesk",
           }}
         >

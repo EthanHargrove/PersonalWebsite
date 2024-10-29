@@ -137,7 +137,7 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
           style={{
             textAlign: "center",
             fontSize: titleFontSize,
-            color: "var(--neon-orange)",
+            color: "#ffffff",
             marginLeft: "5px",
             marginRight: "5px",
           }}
@@ -148,8 +148,7 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
           <ul
             style={{
               fontSize: fontSize,
-              color: "var(--neon-orange)",
-              marginLeft: -20,
+              color: "#ffffff",
             }}
           >
             <li>
@@ -246,7 +245,7 @@ const ValueOfInformation: React.FC<BayesTheoremLoreProps> = () => {
         <ul
           style={{
             fontSize: fontSize,
-            color: "var(--neon-orange)",
+            color: "#ffffff",
             marginTop: dimensions.height < 444 ? "5px" : "",
             marginLeft: "-10px",
           }}
